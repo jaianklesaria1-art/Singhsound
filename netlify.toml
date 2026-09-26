@@ -1,0 +1,12 @@
+[build]
+  publish = "."
+
+# frames and photos never change once published; let browsers cache them
+[[headers]]
+  for = "/sound-hero/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+[[headers]]
+  for = "/photos/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
