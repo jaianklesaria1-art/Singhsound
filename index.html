@@ -1350,6 +1350,16 @@ html { background: var(--screen); }
 .sc.is-hot .sc-name { color: var(--gold); }
 .sc.is-hot .sc-go { background: var(--gold); }
 .sc .sc-item { transition: transform 0.45s cubic-bezier(0.34, 1.5, 0.5, 1); }
+
+/* ═══ PHONES: less scrolling — shorter hero (740 → 520vh; each word still holds ~1 scroll), tighter section 01 rows ═══ */
+@media (max-width: 899px) {
+  #hero { height: 520vh; }
+}
+@media (max-width: 768px) {
+  .fm-subs { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 4px 14px; font-size: 0.84rem; }
+  .fm-link { padding: 1rem 0.25rem; gap: 8px; }
+  .fm-top { margin-bottom: 10px; }
+}
 </style>
 </head>
 <body>
