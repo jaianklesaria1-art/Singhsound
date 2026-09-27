@@ -1275,6 +1275,60 @@ html { background: var(--screen); }
 .mbar a, .mbar button { color: var(--ink); }
 .mbar .mbar-quote { background: var(--gold); color: #16130F; border-color: var(--gold); }
 .mbar .mbar-quote .nav-count { background: #16130F !important; color: var(--gold) !important; }
+
+/* ═══ PHONES: floating dock (after Magic UI's Dock) — Call · WhatsApp · Quote; icons magnify under your finger ═══ */
+.mbar { display: none !important; }
+.dock { position: fixed; z-index: 900; left: 50%; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%);
+  display: flex; align-items: flex-end; gap: 8px; height: 58px; padding: 8px; border-radius: 16px; width: max-content;
+  background: rgba(14,13,12,0.55); border: 1px solid rgba(244,239,230,0.16); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.45); touch-action: pan-y; }
+.dock-i { position: relative; width: 40px; aspect-ratio: 1; flex-shrink: 0; border-radius: 50%; display: grid; place-items: center; border: 0; cursor: pointer;
+  background: rgba(244,239,230,0.1); color: var(--screen-text); text-decoration: none; -webkit-tap-highlight-color: transparent;
+  transition: width 0.22s cubic-bezier(0.3, 1.6, 0.5, 1), background 0.2s; }
+.dock-i svg { width: 46%; height: 46%; }
+.dock-wa svg { fill: var(--wa); }
+.dock-quote { background: var(--gold); color: #16130F; }
+.dock-n { position: absolute; top: -3px; right: -3px; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 100px; display: grid; place-items: center;
+  background: #16130F; color: var(--gold); font: 700 0.62rem/1 var(--f-body); border: 1.5px solid var(--gold); }
+.dock-sep { width: 1px; align-self: stretch; margin: 4px 2px; background: rgba(244,239,230,0.18); }
+.dock-i::after { content: attr(data-label); position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translate(-50%, 4px); padding: 4px 9px; border-radius: 8px;
+  background: rgba(14,13,12,0.9); color: var(--screen-text); font: 600 0.68rem/1 var(--f-body); white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.18s, transform 0.18s; }
+.dock-i.big::after { opacity: 1; transform: translate(-50%, 0); }
+.dock-i:active { background: rgba(244,239,230,0.2); } .dock-quote:active { background: var(--gold2); }
+@media (min-width: 900px) { .dock { display: none; } }
+@media (max-width: 899px) { :root { --bar-h: 80px; } }
+@media (prefers-reduced-motion: reduce) { .dock-i { transition: none; } }
+
+/* ═══ PHONES: Shop by category as a grid, no swiping — 2 per row (3 rows), 3 per row (2 rows) on wider phones ═══ */
+@media (max-width: 899px) {
+  .sc-swipe { display: none !important; }
+  .sc-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 12px; overflow: visible; scroll-snap-type: none; margin: 0; padding: 18px 0 0; }
+  .sc { flex: none; min-width: 0; }
+  .sc-stage { height: 150px; }
+  .sc-name { font-size: 1.1rem; }
+  .sc-sub { font-size: 0.6rem; letter-spacing: 0.08em; }
+  .sc-text { margin-top: 10px; }
+  .sc-reveal { margin-top: 8px; }
+}
+@media (min-width: 600px) and (max-width: 899px) { .sc-row { grid-template-columns: repeat(3, minmax(0, 1fr)); } .sc-stage { height: 170px; } }
+
+/* ═══ 05 FILMOGRAPHY v2: a compact credits grid instead of one long list (less scrolling) ═══ */
+.work-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 18px; border-top: 1px solid rgba(244,239,230,0.2); }
+.work-list li { display: block; padding: 12px 0 11px; border-bottom: 1px solid rgba(244,239,230,0.12); min-width: 0; }
+.work-list li[hidden] { display: none; }
+.work-title { display: block; font-size: clamp(1.1rem, 0.95rem + 0.7vw, 1.55rem); line-height: 1.1; overflow-wrap: anywhere; }
+.work-year { display: inline; font-size: 0.66rem; letter-spacing: 0.1em; }
+.work-by { display: inline; font-size: 0.74rem; color: rgba(244,239,230,0.6); }
+.work-by::before { content: ' \00B7  '; color: rgba(244,239,230,0.35); }
+.work-all { display: none; margin-top: 16px; padding: 12px 18px; min-height: 44px; border-radius: 100px; border: 1px solid rgba(244,239,230,0.3); background: none; color: var(--screen-text); cursor: pointer; }
+.work-all:hover { border-color: var(--gold); color: var(--gold); }
+@media (max-width: 899px) {
+  .work-list.collapsed li:nth-child(n+9) { display: none; }
+  .work-all { display: inline-flex; align-items: center; }
+  .work-all[hidden] { display: none; }
+}
+@media (min-width: 900px) { .work-list { grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 32px; } .work-list li { padding: 16px 0 14px; } }
+@media (min-width: 1300px) { .work-list { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
 </style>
 </head>
 <body>
@@ -1715,7 +1769,7 @@ html { background: var(--screen); }
       <button class="filt" data-work="ott" type="button">Series &amp; OTT</button>
       <button class="filt" data-work="soon" type="button">Upcoming</button>
     </div>
-    <ul class="work-list reveal" id="workList">
+    <ul class="work-list reveal collapsed" id="workList">
       <li data-k="film"><span class="work-title">Pathaan</span><span class="work-year mono">2023</span><span class="work-by">Yash Raj Films</span></li>
       <li data-k="film"><span class="work-title">Gadar 2</span><span class="work-year mono">2023</span><span class="work-by">Anil Sharma Productions</span></li>
       <li data-k="ott"><span class="work-title">Heeramandi</span><span class="work-year mono">Netflix</span><span class="work-by">SLB Productions</span></li>
@@ -1736,6 +1790,7 @@ html { background: var(--screen); }
       <li data-k="soon"><span class="work-title">Galwan</span><span class="work-year mono">Soon</span><span class="work-by">Salman Khan Films</span></li>
       <li data-k="soon"><span class="work-title">Heeramandi 2</span><span class="work-year mono">Soon</span><span class="work-by">SLB Productions</span></li>
     </ul>
+    <button class="work-all mono" type="button" id="workAll">Show all productions &darr;</button>
     <p class="work-more">+ 80 more films, series and 50+ song recordings since 2004.</p>
   </div>
 </section>
@@ -1830,10 +1885,11 @@ html { background: var(--screen); }
 </footer>
 
 <!-- ═══ FLOATING UI ═══ -->
-<div class="mbar" aria-label="Quick actions">
-  <a href="tel:+919889656352"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg>Call</a>
-  <a href="https://wa.me/919889656352" target="_blank" rel="noopener" class="mbar-wa"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg>WhatsApp</a>
-  <button type="button" class="mbar-quote" data-goquote>Quote <span class="nav-count" data-qcount style="background:var(--gold);color:var(--ink)">0</span></button>
+<div class="dock" id="dock" role="toolbar" aria-label="Quick actions">
+  <a class="dock-i" href="tel:+919889656352" data-label="Call" aria-label="Call Singh Sound"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg></a>
+  <a class="dock-i dock-wa" href="https://wa.me/919889656352" target="_blank" rel="noopener" data-label="WhatsApp" aria-label="Chat on WhatsApp"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg></a>
+  <span class="dock-sep" aria-hidden="true"></span>
+  <button class="dock-i dock-quote" type="button" data-goquote data-label="Quote" aria-label="Your quote"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4.5V3h6v1.5M8.5 10h7M8.5 14h7M8.5 18h4"/></svg><span class="dock-n" data-qcount>0</span></button>
 </div>
 <button class="qpill" id="qpill" type="button" data-goquote>Your quote <span class="nav-count" data-qcount>0</span></button>
 <div class="toast" id="toast" role="status"><span id="toastMsg"></span><button type="button" data-goquote>View quote</button></div>
@@ -2052,6 +2108,7 @@ document.querySelectorAll('[data-work]').forEach(function (b) {
     var k = b.dataset.work;
     document.querySelectorAll('[data-work]').forEach(function (x) { x.classList.toggle('active', x === b); });
     document.querySelectorAll('#workList li').forEach(function (li) { li.hidden = k !== 'all' && li.dataset.k !== k; });
+    if (k !== 'all') { document.getElementById('workList').classList.remove('collapsed'); document.getElementById('workAll').hidden = true; }
   });
 });
 
@@ -2736,6 +2793,34 @@ for (const container of document.querySelectorAll('.sc-prism')) {
     });
   });
   if (dlg) dlg.addEventListener('close', sync);
+})();
+</script>
+<script>
+/* ═══ PHONE DOCK: magnification like Magic UI's Dock — icons within 140px of your finger (or pointer) grow from 40 to 60px ═══ */
+(function () {
+  var dock = document.getElementById('dock'); if (!dock) return;
+  var icons = Array.prototype.slice.call(dock.querySelectorAll('.dock-i')), MIN = 40, MAX = 60, DIST = 140;
+  function at(x) {
+    icons.forEach(function (ic) {
+      var r = ic.getBoundingClientRect(), d = Math.abs(x - (r.left + r.width / 2)), w = d >= DIST ? MIN : MIN + (MAX - MIN) * (1 - d / DIST);
+      ic.style.width = w + 'px'; ic.classList.toggle('big', w > MAX - 6);
+    });
+  }
+  function reset() { icons.forEach(function (ic) { ic.style.width = ''; ic.classList.remove('big'); }); }
+  dock.addEventListener('pointermove', function (e) { at(e.clientX); });
+  dock.addEventListener('pointerdown', function (e) { at(e.clientX); });
+  dock.addEventListener('pointerleave', reset);
+  dock.addEventListener('pointerup', function (e) { if (e.pointerType !== 'mouse') setTimeout(reset, 350); });
+  dock.addEventListener('touchmove', function (e) { if (e.touches[0]) at(e.touches[0].clientX); }, { passive: true });
+  dock.addEventListener('touchend', function () { setTimeout(reset, 350); });
+})();
+</script>
+<script>
+/* ═══ 05 FILMOGRAPHY: phones show the first 8 credits; one tap reveals the rest ═══ */
+(function () {
+  var b = document.getElementById('workAll'), l = document.getElementById('workList'); if (!b || !l) return;
+  var n = l.querySelectorAll('li').length; b.innerHTML = 'Show all ' + n + ' productions &darr;';
+  b.addEventListener('click', function () { l.classList.remove('collapsed'); b.hidden = true; });
 })();
 </script>
 </body>
