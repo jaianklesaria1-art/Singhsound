@@ -772,7 +772,7 @@ body { letter-spacing: -0.005em; }
 
 .hero-tag { color: var(--gold); letter-spacing: 0.3em; }
 .hero-where { color: var(--screen-text2); margin-left: 14px; padding-left: 14px; border-left: 1px solid rgba(244,240,232,0.3); }
-@media (max-width: 600px) { .hero-where { display: none; } }
+.hero-where { margin-left: 0; padding-left: 0; border-left: 0; }
 
 /* ═══ SHOP BY CATEGORY ═══ */
 .cat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -1073,9 +1073,212 @@ body { letter-spacing: -0.005em; }
   .bd-sum [data-rm] { position: relative; } .bd-sum [data-rm]::after { content: ''; position: absolute; inset: -7px; border-radius: 50%; }
   .chip-btn { min-height: 40px; }
 }
+
+/* ═══ 02 v3: Prism background (react-bits Prism, ported to plain WebGL/ogl) + smaller gear in one line ═══ */
+.sc-section { position: relative; isolation: isolate; }
+.sc-prism { position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0; transition: opacity 1.2s; }
+.sc-prism.ready { opacity: 0.35; }
+.sc-prism canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.sc-prism::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 55% at 50% 50%, rgba(14,13,12,0) 0%, rgba(14,13,12,0.35) 70%, rgba(14,13,12,0.8) 100%); }
+.sc-head .sc-lead { text-shadow: 0 1px 12px rgba(0,0,0,0.6); max-width: 60ch; text-wrap: balance; }
+.sc-item img { filter: drop-shadow(0 12px 12px rgba(0,0,0,0.7)); }
+/* phones: one swipeable line, smaller gear */
+.sc { flex: 0 0 40%; }
+.sc-stage { height: 180px; }
+.sc-name { font-size: 1.2rem; }
+.sc-text { margin-top: 14px; }
+@media (min-width: 900px) {
+  .sc-row { grid-template-columns: repeat(6, 1fr); gap: 20px; padding: 30px 0 10px; }
+  .sc-stage { height: 210px; }
+  .sc-item { width: 90%; }
+  .sc-name { font-size: 1.25rem; }
+  .sc-sub { font-size: 0.62rem; }
+}
+@media (min-width: 1300px) {
+  .sc-row { gap: 32px; }
+  .sc-stage { height: 240px; }
+  .sc-name { font-size: 1.4rem; }
+}
+
+/* ═══ 01 v5: big-type accordion (after Ali Imam's Accordion05) — faded uppercase titles, the open one lights up;
+   opens on hover (desktop) / tap (phones); left column shows that production's footage ═══ */
+.rl { align-items: start; }
+.rl-media { position: relative; width: 100%; max-width: 440px; aspect-ratio: 4 / 5; border-radius: var(--radius-lg); overflow: hidden; background: var(--screen); box-shadow: var(--shadow-lg); margin: 0 auto; }
+.rl-m { position: absolute; inset: 0; margin: 0; opacity: 0; transform: scale(1.06); transition: opacity 0.6s ease, transform 1.2s cubic-bezier(0.2,0.8,0.2,1); }
+.rl-m.on { opacity: 1; transform: none; }
+.rl-m img, .rl-m video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.rl-m figcaption { position: absolute; left: 14px; top: 14px; padding: 5px 11px; border-radius: 100px; background: rgba(14,13,12,0.6); backdrop-filter: blur(6px); color: var(--screen-text); }
+.rl-media .rl-now { position: absolute; left: 12px; right: 12px; bottom: 12px; justify-content: center; background: rgba(251,248,242,0.92); backdrop-filter: blur(8px); }
+.rl-acc { border-top: 1px solid var(--rule); }
+.rl-acc .rl-item { border-bottom: 1px solid var(--rule); }
+.rl-acc .rl-row { display: flex; align-items: flex-start; gap: 14px; padding: 18px 0 16px 4px; background: none !important; }
+.rl-acc .rl-row::before, .rl-acc .rl-desc, .rl-acc .rl-go { display: none; }
+.rl-acc .rl-row.active { padding-left: 4px; }
+.rl-acc .rl-no { font-size: 0.72rem; color: var(--ink3); padding-top: 0.5em; min-width: 1.6em; }
+.rl-acc .rl-name { font-family: var(--f-body); font-weight: 600; font-style: normal !important; text-transform: uppercase; letter-spacing: -0.03em; line-height: 0.95;
+  font-size: clamp(1.9rem, 1.2rem + 2.6vw, 3.4rem); color: rgba(22,19,15,0.2); transition: color 0.35s; }
+.rl-acc .rl-row:hover .rl-name { color: rgba(22,19,15,0.45); }
+.rl-acc .rl-row.active .rl-name { color: var(--gold-ink); }
+.rl-acc .rl-row.active .rl-no { color: var(--gold-ink); }
+.rl-acc .rl-panel-in { padding-left: calc(1.6em + 18px); }
+.rl-acc .rl-panel .kit { background: none; border: 0; border-radius: 0; margin: 0 0 20px; box-shadow: none; display: block; }
+.rl-acc .rl-panel .kit-photo, .rl-acc .rl-panel .kit-badge { display: none; }
+.rl-acc .rl-panel .kit-body { padding: 0; }
+.rl-acc .rl-panel .kit-no { display: none; }
+.rl-acc .rl-panel .kit-name { font-size: 1.3rem; }
+.rl-acc .rl-panel .kit-list { margin-bottom: 14px; }
+.rl-acc .rl-panel .kit .btn { width: auto; padding: 0 22px; }
+@media (min-width: 900px) {
+  .rl { grid-template-columns: 0.8fr 1.2fr; gap: 64px; }
+  .rl-deck { position: sticky; top: calc(var(--nav-top) + var(--nav-h) + 20px); }
+  .rl-acc .rl-row { padding: 22px 0 18px 8px; gap: 20px; }
+  .rl-acc .rl-row.active { padding-left: 8px; }
+  .rl-acc .rl-panel-in { padding-left: calc(1.6em + 28px); }
+  .rl-acc .rl-panel .kit-list { display: grid; grid-template-columns: 1fr 1fr; column-gap: 24px; }
+}
+@media (max-width: 899px) { .rl-media { max-width: none; aspect-ratio: 16 / 11; } }
+@media (prefers-reduced-motion: reduce) { .rl-m { transition: none; transform: none; } }
+
+/* the accordion resizes as you hover; stop Chrome's scroll anchoring from nudging the page (it made the list jump under the pointer) */
+html { overflow-anchor: none; }
+/* ═══ 01 v5c: smoother accordion — one shared easing for open + close, content fades (no jumpy slide), title glides ═══ */
+.rl-acc .rl-panel { transition: grid-template-rows 0.55s cubic-bezier(0.65, 0, 0.35, 1); }
+.rl-acc .rl-panel .kit { transform: none; opacity: 0; transition: opacity 0.18s ease; }
+.rl-acc .rl-item.open .rl-panel .kit { opacity: 1; transition: opacity 0.4s ease 0.18s; }
+.rl-acc .rl-row { transition: none; }
+.rl-acc .rl-name { transition: color 0.45s ease, transform 0.55s cubic-bezier(0.65, 0, 0.35, 1); transform-origin: left center; }
+.rl-acc .rl-row.active .rl-name { transform: translateX(6px); }
+.rl-acc .rl-no { transition: color 0.45s ease; }
+.rl-m { transition: opacity 0.7s ease, transform 1.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
+@media (prefers-reduced-motion: reduce) { .rl-acc .rl-panel, .rl-acc .rl-name { transition: none; } }
+/* ═══ 01 v5d: titles at 60% of the previous size (max ~54px → ~33px), tighter rows ═══ */
+.rl-acc .rl-name { font-size: clamp(1.15rem, 0.72rem + 1.56vw, 2.05rem); letter-spacing: -0.02em; }
+.rl-acc .rl-row { padding: 13px 0 11px 4px; gap: 12px; }
+.rl-acc .rl-no { padding-top: 0.25em; }
+@media (min-width: 900px) { .rl-acc .rl-row { padding: 15px 0 13px 8px; gap: 16px; } .rl-acc .rl-panel-in { padding-left: calc(1.6em + 24px); } }
+
+/* ═══ 01 v6: FlowingMenu — "Core Services" from the Omnia project (react-bits FlowingMenu), in Singh Sound colours.
+   Big uppercase rows with the kit's contents as ■ bullets; on hover a gold marquee slides in from the edge the pointer
+   entered, scrolling the production name + real on-set photos. Click adds that production's kit to the quote. ═══ */
+.fm-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+.fm-hint { color: var(--ink3); }
+.fm-cta { flex-shrink: 0; }
+.fm { display: flex; flex-direction: column; border-top: 1px solid var(--rule2); }
+.fm-item { position: relative; overflow: hidden; border-bottom: 1px solid var(--rule2); }
+.fm-link { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; width: 100%; padding: 1.3rem 0.5rem; background: none; border: 0; cursor: pointer; text-align: left; color: var(--ink); font: inherit; }
+.fm-t { font-family: var(--f-body); font-weight: 800; text-transform: uppercase; letter-spacing: -0.045em; line-height: 1; white-space: nowrap; font-size: 1.5rem; }
+.fm-subs { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 22px; font-size: 0.86rem; color: var(--ink2); }
+.fm-subs span { display: inline-flex; align-items: center; }
+.fm-subs i { font-style: normal; color: var(--gold-ink); font-size: 0.62rem; margin-right: 8px; }
+.fm-add { font-weight: 600; color: var(--ink); border-bottom: 1px solid var(--gold); }
+.fm-item.added .fm-add { color: var(--gold-ink); }
+.fm-marquee { position: absolute; inset: 0; overflow: hidden; pointer-events: none; background: var(--gold); transform: translate3d(0, 101%, 0); }
+.fm-wrap { height: 100%; width: 100%; overflow: hidden; }
+.fm-inner { display: flex; align-items: center; height: 100%; width: fit-content; will-change: transform; }
+.fm-part { display: flex; align-items: center; flex-shrink: 0; color: var(--ink); }
+.fm-part span { font-family: var(--f-body); font-weight: 800; text-transform: uppercase; letter-spacing: -0.045em; white-space: nowrap; line-height: 1; font-size: 1.5rem; padding: 0 1vw; }
+.fm-img { width: 200px; height: 60px; margin: 0 2vw; border-radius: 10px; background-size: cover; background-position: 50% 50%; }
+.fm-link:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; }
+@media (min-width: 769px) {
+  .fm-link { flex-direction: row; align-items: center; justify-content: space-between; gap: 32px; padding: 1.6rem 1rem; }
+  .fm-t { font-size: 2.2rem; }
+  .fm-subs { justify-content: flex-end; gap: 8px 24px; font-size: 0.92rem; }
+  .fm-part span { font-size: 2.2rem; }
+  .fm-img { width: 260px; height: 84px; }
+}
+@media (max-width: 600px) { .fm-top { flex-direction: column; align-items: flex-start; } }
+
+/* ═══ 06: second roll under the first, rolling the other way (left → right) ═══ */
+.fs-b { margin-top: 14px; }
+.fs-b .fs-window { padding: 34px 0 40px; }
+
+/* ═══ 06 v3: both rolls tilted at a slight acute angle (parallel), wide enough that no corner shows ═══ */
+#onset { overflow: hidden; }
+#onset .fs { transform: rotate(-2.5deg); margin-left: calc(var(--gutter) * -1 - 4vw); margin-right: calc(var(--gutter) * -1 - 4vw); }
+#onset .fs-edge { left: calc(var(--gutter) + 4vw + 4px); right: calc(var(--gutter) + 4vw + 4px); }
+#onset .fs:first-of-type { margin-top: 18px; }
+#onset .fs-b { margin-top: 18px; }
+#onset .fs-meta { margin-top: 34px; }
+@media (prefers-reduced-motion: reduce) { #onset .fs { transform: none; } }
+
+/* ═══ 03: gear icon tabs centred across the whole section (above the call sheet + quote panel) ═══ */
+.bq > .filters.eqtabs { grid-column: 1 / -1; position: relative; top: auto; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; background: none;
+  width: auto; max-width: 100%; justify-content: safe center; margin: 0 0 4px; padding: 14px 4px 12px; border-bottom: 0; z-index: 1; }
+.bq > .filters.eqtabs::after { content: ''; position: absolute; left: 8px; right: 8px; bottom: 0; height: 1px; background: var(--rule); }
+@media (max-width: 899px) { .bq { grid-template-columns: minmax(0, 1fr); } }   /* phones: never let the icon row widen the grid */
+
+/* ═══ 03: same dark stage + prism background as Shop by category ═══ */
+#quote { position: relative; isolation: isolate; background: var(--screen); color: var(--screen-text); overflow: hidden; }
+#quote .ed-head { border-top-color: rgba(244,239,230,0.15); }
+#quote .ed-index { color: rgba(244,239,230,0.5); } #quote .ed-index b { color: var(--gold); }
+#quote .h2 { color: var(--screen-text); } #quote .h2 em { color: var(--gold); }
+#quote .ed-head .lead { color: rgba(244,239,230,0.65); }
+#quote .eqt { color: rgba(244,239,230,0.55); } #quote .eqt:hover, #quote .eqt.active { color: var(--screen-text); }
+#quote .eqt-ico svg { stroke: var(--screen-text); }
+#quote .eqt-badge { background: var(--screen-text); color: #16130F; } #quote .eqt.active .eqt-badge { background: var(--gold); color: #16130F; }
+#quote .eqt-bar { background: var(--gold); }
+#quote .bq > .filters.eqtabs::after { background: rgba(244,239,230,0.15); }
+#quote .bq-sheet, #quote .quote-box { color: var(--ink); }   /* the paper cards keep dark ink on the dark stage */
+
+/* ═══ WHOLE PAGE ON THE DARK STAGE (matches Shop by category): one fixed Prism behind everything;
+   paper sections flip their colour tokens to light-on-dark; the call sheet + quote panel stay paper ═══ */
+html, body { background: var(--screen); }
+body { background: transparent; }
+html { background: var(--screen); }
+.page-prism { position: fixed; inset: 0; z-index: -1; }
+.trust, #shoot, #quote, #why, #onset, #faq {
+  --paper: #0E0D0C; --paper2: rgba(244,239,230,0.05); --paper3: rgba(244,239,230,0.09); --card: rgba(244,239,230,0.05);
+  --ink: #F4F0E8; --ink2: #CFC6B8; --ink3: #968C7F; --rule: rgba(244,239,230,0.12); --rule2: rgba(244,239,230,0.24);
+  --gold-ink: #E8B339; --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.25);
+  color: var(--ink);
+}
+.trust, #shoot, #categories.sc-section, #quote, #why, #work, #onset, #faq { background: transparent; }
+#quote .bq-sheet, #quote .quote-box, .fs-print-paper {
+  --paper: #F4EFE6; --paper2: #ECE5D8; --paper3: #E2D9C8; --card: #FBF8F2;
+  --ink: #16130F; --ink2: #4A433A; --ink3: #7C7366; --rule: rgba(22,19,15,0.14); --rule2: rgba(22,19,15,0.28);
+  --gold-ink: #8A5E06; --shadow: 0 1px 2px rgba(22,19,15,0.06), 0 8px 24px rgba(22,19,15,0.06);
+  color: var(--ink);
+}
+/* things that sit on gold keep dark text */
+.fm-part { color: #16130F; }
+.rb-gold { color: #16130F; }
+#faq .btn-line, #shoot .btn-line { color: var(--ink); }
+
+/* ═══ HERO: "Rent. Hire. Create." scroll tagline ═══ */
+.hero-rhc { position: absolute; inset: 0; z-index: 5; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.02em;
+  pointer-events: none; visibility: hidden; font-family: var(--f-serif); font-weight: 400; line-height: 0.95; letter-spacing: -0.02em;
+  font-size: clamp(3.6rem, 2rem + 8vw, 9.5rem); color: var(--screen-text); text-shadow: 0 4px 40px rgba(0,0,0,0.75), 0 1px 3px rgba(0,0,0,0.6); }
+.hero-rhc span { display: block; opacity: 0; will-change: transform, opacity, filter; }
+.hero-rhc em { font-style: italic; color: var(--gold); }
+.hero-rhc span { position: absolute; left: 0; right: 0; top: 50%; margin-top: -0.5em; text-align: center; }   /* the three words share one spot */
+
+/* ═══ READABILITY on the dark stage: brighter secondary text, larger labels, calmer line length ═══ */
+.trust, #shoot, #quote, #why, #onset, #faq { --ink2: #E2DACD; --ink3: #B3A999; }
+:root { --t-body: 1.02rem; --t-small: 0.92rem; }
+.mono { font-size: 0.74rem; letter-spacing: 0.12em; }
+.lead, .ed-head .lead { line-height: 1.65; }
+.ed-head .lead { font-size: 1.06rem; }
+.sc-lead, #quote .ed-head .lead { color: rgba(244,239,230,0.85); }
+.sc-sub { color: rgba(244,239,230,0.7); }
+#work .ed-index, #quote .ed-index { color: rgba(244,239,230,0.7); }
+.fm-subs { font-size: 0.95rem; color: var(--ink2); }
+.fs-hint, .fm-hint, .kit-note { color: var(--ink3); }
+.faq-a, .faq details p { color: var(--ink2); line-height: 1.7; }
+.foot p, .foot li { color: rgba(244,239,230,0.8); }
+
+/* hero is longer so Rent / Hire / Create each hold for a couple of scrolls */
+#hero { height: 740vh; }
+@media (min-width: 900px) { #hero { height: 700vh; } }
+
+/* phones: the bottom action bar joins the dark stage */
+.mbar { --paper: #0E0D0C; --ink: #F4F0E8; --rule2: rgba(244,239,230,0.24); background: rgba(14,13,12,0.88); border-top-color: rgba(244,239,230,0.12); color: var(--ink); }
+.mbar a, .mbar button { color: var(--ink); }
+.mbar .mbar-quote { background: var(--gold); color: #16130F; border-color: var(--gold); }
+.mbar .mbar-quote .nav-count { background: #16130F !important; color: var(--gold) !important; }
 </style>
 </head>
 <body>
+<div class="sc-prism page-prism" id="pagePrism" aria-hidden="true"></div>
 
 <!-- ═══ INTRO: clapperboard slate ═══ -->
 <div class="intro" id="intro" aria-hidden="true">
@@ -1122,7 +1325,6 @@ body { letter-spacing: -0.005em; }
   <a href="#hero" class="nav-logo">Singh <em>Sound</em></a>
   <ul class="nav-links">
     <li><a href="#categories">Equipment</a></li>
-    <li><a href="#services">Services</a></li>
     <li><a href="#work">Work</a></li>
     <li><a href="#faq">FAQ</a></li>
   </ul>
@@ -1134,9 +1336,8 @@ body { letter-spacing: -0.005em; }
   <a href="#shoot">Shoot &amp; kits <small>01</small></a>
   <a href="#categories">Categories <small>02</small></a>
   <a href="#quote">Build your quote <small>03</small></a>
-  <a href="#services">Services <small>05</small></a>
-  <a href="#work">Our work <small>06</small></a>
-  <a href="#faq">FAQ <small>08</small></a>
+  <a href="#work">Our work <small>05</small></a>
+  <a href="#faq">FAQ <small>07</small></a>
   <p class="menu-foot">Mumbai &middot; Pan India</p>
 </div>
 
@@ -1149,7 +1350,7 @@ body { letter-spacing: -0.005em; }
   <div class="hero-shade-final" id="heroShadeFinal"></div>
 
   <div class="hero-open" id="heroOpen">
-    <div class="hero-eyebrow mono"><span class="dot"></span><span class="hero-tag">Rent &middot; Hire &middot; Create</span><span class="hero-where">Mumbai &middot; Pan India</span></div>
+    <div class="hero-eyebrow mono"><span class="dot"></span><span class="hero-where">Mumbai &middot; Pan India</span></div>
     <h1 class="serif hero-h1">
       <span class="ln">The sound behind</span>
       <span class="ln">Bollywood&rsquo;s biggest</span>
@@ -1162,6 +1363,7 @@ body { letter-spacing: -0.005em; }
     </div>
   </div>
 
+  <div class="hero-rhc" id="heroRhc" aria-hidden="true"><span>Rent.</span><span>Hire.</span><span><em>Create.</em></span></div>
   <div class="hero-final" id="heroFinal">
     <div class="rolling mono"><span class="dot"></span>Sound rolling</div>
     <h2 class="serif">Your set. <em>Our sound.</em></h2>
@@ -1204,105 +1406,40 @@ body { letter-spacing: -0.005em; }
 <section class="section" id="shoot">
   <header class="ed-head reveal">
     <div class="ed-index mono"><b>No. 01</b><span>Start here</span></div>
-    <div><h2 class="serif h2">What are you <em>shooting?</em></h2><p class="lead">Pick your production &mdash; the right kit appears below, ready to add to your quote.</p></div>
+    <div><h2 class="serif h2">What are you <em>shooting?</em></h2><p class="lead">Pick your production &mdash; one click adds the right kit to your quote.</p></div>
   </header>
   <div class="wrap reveal">
-    <div class="rl">
-      <div class="rl-deck">
-        <div class="rl-globe">
-          <div class="rl-globe-wrap"><canvas id="globe" aria-hidden="true"></canvas></div>
-          <span class="rl-globe-tag mono"><i></i>Mumbai base &middot; all of India</span>
-          <p class="rl-globe-count"><b>28</b> states <span>+</span> <b>8</b> union territories</p>
-          <div class="rl-states" aria-label="States and union territories we deliver to"><div class="rl-states-track"><span>Andhra Pradesh</span><span>Arunachal Pradesh</span><span>Assam</span><span>Bihar</span><span>Chhattisgarh</span><span>Goa</span><span>Gujarat</span><span>Haryana</span><span>Himachal Pradesh</span><span>Jharkhand</span><span>Karnataka</span><span>Kerala</span><span>Madhya Pradesh</span><span>Maharashtra</span><span>Manipur</span><span>Meghalaya</span><span>Mizoram</span><span>Nagaland</span><span>Odisha</span><span>Punjab</span><span>Rajasthan</span><span>Sikkim</span><span>Tamil Nadu</span><span>Telangana</span><span>Tripura</span><span>Uttar Pradesh</span><span>Uttarakhand</span><span>West Bengal</span><span>Delhi</span><span>Jammu &amp; Kashmir</span><span>Ladakh</span><span>Chandigarh</span><span>Puducherry</span><span>Andaman &amp; Nicobar</span><span>Lakshadweep</span><span>Dadra, Nagar Haveli, Daman &amp; Diu</span><span aria-hidden="true" class="dup"></span><span aria-hidden="true">Andhra Pradesh</span><span aria-hidden="true">Arunachal Pradesh</span><span aria-hidden="true">Assam</span><span aria-hidden="true">Bihar</span><span aria-hidden="true">Chhattisgarh</span><span aria-hidden="true">Goa</span><span aria-hidden="true">Gujarat</span><span aria-hidden="true">Haryana</span><span aria-hidden="true">Himachal Pradesh</span><span aria-hidden="true">Jharkhand</span><span aria-hidden="true">Karnataka</span><span aria-hidden="true">Kerala</span><span aria-hidden="true">Madhya Pradesh</span><span aria-hidden="true">Maharashtra</span><span aria-hidden="true">Manipur</span><span aria-hidden="true">Meghalaya</span><span aria-hidden="true">Mizoram</span><span aria-hidden="true">Nagaland</span><span aria-hidden="true">Odisha</span><span aria-hidden="true">Punjab</span><span aria-hidden="true">Rajasthan</span><span aria-hidden="true">Sikkim</span><span aria-hidden="true">Tamil Nadu</span><span aria-hidden="true">Telangana</span><span aria-hidden="true">Tripura</span><span aria-hidden="true">Uttar Pradesh</span><span aria-hidden="true">Uttarakhand</span><span aria-hidden="true">West Bengal</span><span aria-hidden="true">Delhi</span><span aria-hidden="true">Jammu &amp; Kashmir</span><span aria-hidden="true">Ladakh</span><span aria-hidden="true">Chandigarh</span><span aria-hidden="true">Puducherry</span><span aria-hidden="true">Andaman &amp; Nicobar</span><span aria-hidden="true">Lakshadweep</span><span aria-hidden="true">Dadra, Nagar Haveli, Daman &amp; Diu</span></div></div>
-        </div>
-        <div class="rl-now"><span class="rl-rec"></span><span class="mono">Rolling</span><span class="rl-now-name" id="rlNow">Feature film</span></div>
-      </div>
-      <div class="rl-list rl-acc">
-      <div class="rl-item open" data-shoot="film">
-        <button class="rl-row active" type="button" aria-expanded="true" aria-controls="rlp-film" id="rlb-film">
-          <span class="rl-no mono">01</span><span class="rl-name">Feature film</span><span class="rl-desc">Full sync sound unit for a large crew.</span><span class="rl-go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+    <div class="fm-top"><p class="fm-hint mono">Hover a production &middot; click to add its kit</p><a class="btn btn-ink fm-cta" href="#quote">Build your quote &rarr;</a></div>
+    <div class="fm" role="group" aria-label="Production type">
+      <div class="fm-item" data-shoot="film" data-kit="Feature Film Kit" data-items="Complete Film Audio Package" data-imgs="photos/cart-himalayas.jpg|photos/cart-rajasthan-palace.jpg|photos/crew-hill-location.jpg">
+        <button class="fm-link" type="button" aria-label="Feature film: add the Feature Film Kit to your quote">
+          <span class="fm-t">Feature film</span><span class="fm-subs"><span><i aria-hidden="true">&#9632;</i>Complete Film Package</span><span><i aria-hidden="true">&#9632;</i>Sound cart, booms + wireless</span><span><i aria-hidden="true">&#9632;</i>Talkback for 10, JBL pair</span><span><i aria-hidden="true">&#9632;</i>Operator included</span><b class="fm-add">Add kit +</b></span>
         </button>
-        <div class="rl-panel" id="rlp-film" role="region" aria-labelledby="rlb-film"><div class="rl-panel-in">
-          <article class="kit" data-for="film" data-items="Complete Film Audio Package">
-        <div class="kit-photo"><img src="photos/cart-colonial-building.jpg" alt="Full sound setup at a period location" loading="lazy"><span class="kit-badge mono">Best value</span><span class="kit-match-badge mono">For you</span></div>
-        <div class="kit-body">
-          <span class="kit-no mono">Kit No. 01 &mdash; Feature film</span>
-          <h3 class="kit-name">Feature Film Kit</h3>
-          <p class="kit-for">For large-unit feature films.</p>
-          <ul class="kit-list"><li><button type="button" data-qv="Complete Film Audio Package">Complete Film Package</button></li><li>Sound cart, booms + wireless</li><li>Talkback for 10, JBL pair</li><li>Operator included</li></ul>
-          <button class="btn btn-ink" type="button" data-addkit>Add kit to quote</button>
-        </div>
-      </article>
-        </div></div>
+        <div class="fm-marquee" aria-hidden="true"><div class="fm-wrap"><div class="fm-inner"></div></div></div>
       </div>
-      <div class="rl-item" data-shoot="series">
-        <button class="rl-row" type="button" aria-expanded="false" aria-controls="rlp-series" id="rlb-series">
-          <span class="rl-no mono">02</span><span class="rl-name">Web series</span><span class="rl-desc">Long schedules, fast setups, many actors.</span><span class="rl-go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+      <div class="fm-item" data-shoot="series" data-kit="Series Sync Kit" data-items="Full Sync Sound Cart|Boom Microphone Package (Sennheiser)|Wireless Microphone Package (4 channels)" data-imgs="photos/cart-heritage-interior.jpg|photos/cart-period-set.jpg|photos/cart-colonial-building.jpg">
+        <button class="fm-link" type="button" aria-label="Web series: add the Series Sync Kit to your quote">
+          <span class="fm-t">Web series</span><span class="fm-subs"><span><i aria-hidden="true">&#9632;</i>Full Sync Sound Cart</span><span><i aria-hidden="true">&#9632;</i>Boom Mic Package</span><span><i aria-hidden="true">&#9632;</i>Wireless Mics, 4 ch</span><b class="fm-add">Add kit +</b></span>
         </button>
-        <div class="rl-panel" id="rlp-series" role="region" aria-labelledby="rlb-series"><div class="rl-panel-in">
-          <article class="kit" data-for="series" data-items="Full Sync Sound Cart|Boom Microphone Package (Sennheiser)|Wireless Microphone Package (4 channels)">
-        <div class="kit-photo"><img src="photos/cart-himalayas.jpg" alt="Sync sound cart on location" loading="lazy"><span class="kit-badge mono">Sync sound</span><span class="kit-match-badge mono">For you</span></div>
-        <div class="kit-body">
-          <span class="kit-no mono">Kit No. 02 &mdash; Web series</span>
-          <h3 class="kit-name">Series Sync Kit</h3>
-          <p class="kit-for">For web series &amp; TV schedules.</p>
-          <ul class="kit-list"><li><button type="button" data-qv="Full Sync Sound Cart">Full Sync Sound Cart</button></li><li><button type="button" data-qv="Boom Microphone Package (Sennheiser)">Boom Mic Package</button></li><li><button type="button" data-qv="Wireless Microphone Package (4 channels)">Wireless Mics, 4 channels</button></li></ul>
-          <button class="btn btn-ink" type="button" data-addkit>Add kit to quote</button>
-        </div>
-      </article>
-        </div></div>
+        <div class="fm-marquee" aria-hidden="true"><div class="fm-wrap"><div class="fm-inner"></div></div></div>
       </div>
-      <div class="rl-item" data-shoot="ad">
-        <button class="rl-row" type="button" aria-expanded="false" aria-controls="rlp-ad" id="rlb-ad">
-          <span class="rl-no mono">03</span><span class="rl-name">Ad &amp; music video</span><span class="rl-desc">Playback, pilot tracks and quick setups.</span><span class="rl-go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+      <div class="fm-item" data-shoot="ad" data-kit="Ad &amp; Music Kit" data-items="Pilot Recording Setup|JBL Speaker System (Pair)|Talkback Intercom System (10 headsets)" data-imgs="photos/mics-colonial-interior.jpg|photos/talkback-headsets.jpg|photos/cart-school-grounds.jpg">
+        <button class="fm-link" type="button" aria-label="Ad and music video: add the Ad and Music Kit to your quote">
+          <span class="fm-t">Ad &amp; music video</span><span class="fm-subs"><span><i aria-hidden="true">&#9632;</i>Pilot Recording Setup</span><span><i aria-hidden="true">&#9632;</i>JBL for playback</span><span><i aria-hidden="true">&#9632;</i>Talkback, 10 headsets</span><b class="fm-add">Add kit +</b></span>
         </button>
-        <div class="rl-panel" id="rlp-ad" role="region" aria-labelledby="rlb-ad"><div class="rl-panel-in">
-          <article class="kit" data-for="ad" data-items="Pilot Recording Setup|JBL Speaker System (Pair)|Talkback Intercom System (10 headsets)">
-        <div class="kit-photo"><img src="photos/cart-period-set.jpg" alt="Recording setup on a period set" loading="lazy"><span class="kit-badge mono">Playback</span><span class="kit-match-badge mono">For you</span></div>
-        <div class="kit-body">
-          <span class="kit-no mono">Kit No. 03 &mdash; Ads &amp; music</span>
-          <h3 class="kit-name">Ad &amp; Music Kit</h3>
-          <p class="kit-for">For ads, songs &amp; music videos.</p>
-          <ul class="kit-list"><li><button type="button" data-qv="Pilot Recording Setup">Pilot Recording Setup</button></li><li><button type="button" data-qv="JBL Speaker System (Pair)">JBL speakers for playback</button></li><li><button type="button" data-qv="Talkback Intercom System (10 headsets)">Talkback, 10 headsets</button></li></ul>
-          <button class="btn btn-ink" type="button" data-addkit>Add kit to quote</button>
-        </div>
-      </article>
-        </div></div>
+        <div class="fm-marquee" aria-hidden="true"><div class="fm-wrap"><div class="fm-inner"></div></div></div>
       </div>
-      <div class="rl-item" data-shoot="event">
-        <button class="rl-row" type="button" aria-expanded="false" aria-controls="rlp-event" id="rlb-event">
-          <span class="rl-no mono">04</span><span class="rl-name">Live event</span><span class="rl-desc">JBL sound for crowds and stages.</span><span class="rl-go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+      <div class="fm-item" data-shoot="event" data-kit="Event Kit" data-items="JBL Speaker System (Pair)|Pioneer DJ Console Setup" data-imgs="photos/jbl-on-set.jpg|photos/night-shoot.jpg|photos/crew-hill-location.jpg">
+        <button class="fm-link" type="button" aria-label="Live event: add the Event Kit to your quote">
+          <span class="fm-t">Live event</span><span class="fm-subs"><span><i aria-hidden="true">&#9632;</i>JBL Speaker System</span><span><i aria-hidden="true">&#9632;</i>Pioneer DJ Console</span><span><i aria-hidden="true">&#9632;</i>Operator available</span><b class="fm-add">Add kit +</b></span>
         </button>
-        <div class="rl-panel" id="rlp-event" role="region" aria-labelledby="rlb-event"><div class="rl-panel-in">
-          <article class="kit" data-for="event wedding" data-items="JBL Speaker System (Pair)|Pioneer DJ Console Setup">
-        <div class="kit-photo"><img src="photos/night-shoot.jpg" alt="Night event setup" loading="lazy"><span class="kit-badge mono">Events</span><span class="kit-match-badge mono">For you</span></div>
-        <div class="kit-body">
-          <span class="kit-no mono">Kit No. 04 &mdash; Events</span>
-          <h3 class="kit-name">Event &amp; DJ Kit</h3>
-          <p class="kit-for">For live events, weddings &amp; parties.</p>
-          <ul class="kit-list"><li><button type="button" data-qv="JBL Speaker System (Pair)">JBL Speaker System</button></li><li><button type="button" data-qv="Pioneer DJ Console Setup">Pioneer DJ Console</button></li><li>Operator available</li></ul>
-          <button class="btn btn-ink" type="button" data-addkit>Add kit to quote</button>
-        </div>
-      </article>
-        </div></div>
+        <div class="fm-marquee" aria-hidden="true"><div class="fm-wrap"><div class="fm-inner"></div></div></div>
       </div>
-      <div class="rl-item" data-shoot="wedding">
-        <button class="rl-row" type="button" aria-expanded="false" aria-controls="rlp-wedding" id="rlb-wedding">
-          <span class="rl-no mono">05</span><span class="rl-name">Wedding &amp; DJ</span><span class="rl-desc">DJ console and speakers for the night.</span><span class="rl-go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+      <div class="fm-item" data-shoot="wedding" data-kit="Wedding &amp; DJ Kit" data-items="JBL Speaker System (Pair)|Pioneer DJ Console Setup" data-imgs="photos/night-shoot.jpg|photos/jbl-on-set.jpg|photos/cart-rajasthan-palace.jpg">
+        <button class="fm-link" type="button" aria-label="Wedding and DJ: add the Wedding and DJ Kit to your quote">
+          <span class="fm-t">Wedding &amp; DJ</span><span class="fm-subs"><span><i aria-hidden="true">&#9632;</i>Pioneer DJ Console</span><span><i aria-hidden="true">&#9632;</i>JBL Speaker System</span><span><i aria-hidden="true">&#9632;</i>Operator available</span><b class="fm-add">Add kit +</b></span>
         </button>
-        <div class="rl-panel" id="rlp-wedding" role="region" aria-labelledby="rlb-wedding"><div class="rl-panel-in">
-          <article class="kit" data-for="event wedding" data-items="JBL Speaker System (Pair)|Pioneer DJ Console Setup">
-        <div class="kit-photo"><img src="photos/night-shoot.jpg" alt="Night event setup" loading="lazy"><span class="kit-badge mono">Events</span><span class="kit-match-badge mono">For you</span></div>
-        <div class="kit-body">
-          <span class="kit-no mono">Kit No. 04 &mdash; Events</span>
-          <h3 class="kit-name">Event &amp; DJ Kit</h3>
-          <p class="kit-for">For live events, weddings &amp; parties.</p>
-          <ul class="kit-list"><li><button type="button" data-qv="JBL Speaker System (Pair)">JBL Speaker System</button></li><li><button type="button" data-qv="Pioneer DJ Console Setup">Pioneer DJ Console</button></li><li>Operator available</li></ul>
-          <button class="btn btn-ink" type="button" data-addkit>Add kit to quote</button>
-        </div>
-      </article>
-        </div></div>
-      </div>
+        <div class="fm-marquee" aria-hidden="true"><div class="fm-wrap"><div class="fm-inner"></div></div></div>
       </div>
     </div>
     <p class="kit-note">Need something different? Add single items below &mdash; we&rsquo;ll tailor the kit on WhatsApp.</p>
@@ -1396,7 +1533,6 @@ body { letter-spacing: -0.005em; }
     <div><h2 class="serif h2">Build your <em>quote.</em></h2><p class="lead">Tick what you need on the call sheet &mdash; it lands straight in your quote. Add your dates and send it on WhatsApp.</p></div>
   </header>
   <div class="wrap bq">
-    <div class="bq-sheet v-call" id="equipment">
     <div class="filters eqtabs" role="tablist" aria-label="Filter equipment" id="eqTabs">
       <span class="eqt-bar" aria-hidden="true"></span>
       <button class="filt eqt active" data-filter="all" type="button" role="tab" style="--i:0" aria-label="All gear, 9 items"><span class="eqt-pop"><span class="eqt-ico"><svg viewBox="0 0 64 64" aria-hidden="true"><rect class="t t1" x="10" y="10" width="19" height="19" rx="4"/><rect class="t t2 g" x="35" y="10" width="19" height="19" rx="4"/><rect class="t t3" x="10" y="35" width="19" height="19" rx="4"/><rect class="t t4" x="35" y="35" width="19" height="19" rx="4"/></svg></span><span class="eqt-badge">9</span></span><span class="eqt-l">All gear</span></button>
@@ -1407,6 +1543,7 @@ body { letter-spacing: -0.005em; }
       <button class="filt eqt" data-filter="dj" type="button" role="tab" style="--i:5" aria-label="DJ, 1 item"><span class="eqt-pop"><span class="eqt-ico"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="6" y="14" width="52" height="40" rx="5"/><g class="platter"><circle cx="28" cy="34" r="14"/><circle class="g" cx="28" cy="34" r="5"/><path d="M28 22v4"/></g><g class="arm"><path d="M48 20v14l-8 6"/><circle cx="48" cy="20" r="2.5"/></g><path d="M44 48h8"/></svg></span><span class="eqt-badge">1</span></span><span class="eqt-l">DJ</span></button>
       <button class="filt eqt" data-filter="package" type="button" role="tab" style="--i:6" aria-label="Packages, 1 item"><span class="eqt-pop"><span class="eqt-ico"><svg viewBox="0 0 64 64" aria-hidden="true"><g class="lid"><path d="M10 22l22-10 22 10-22 10z"/></g><path d="M10 22v24l22 10 22-10V22M32 32v24"/><path class="g" d="M21 27l22-10" stroke-width="5" stroke-linecap="round"/><path class="spark" d="M32 2v5M24 5l2 4M40 5l-2 4"/></svg></span><span class="eqt-badge">1</span></span><span class="eqt-l">Packages</span></button>
     </div>
+    <div class="bq-sheet v-call" id="equipment">
     <div class="eq-list" id="eqGrid">
       <article class="eq-card" data-cat="sync" data-name="Full Sync Sound Cart" data-category="Sync Sound">
         <div class="eq-photo"><img src="photos/cart-himalayas.jpg" alt="Sync sound cart on location" loading="lazy"></div>
@@ -1564,51 +1701,11 @@ body { letter-spacing: -0.005em; }
   </div>
 </section>
 
-<!-- ═══ SERVICES (after Accord Equips) — scope to confirm with client ═══ -->
-<section class="section" id="services">
-  <header class="ed-head reveal">
-    <div class="ed-index mono"><b>No. 05</b><span>Services</span></div>
-    <div><h2 class="serif h2">Rent. Hire. <em>Create.</em></h2><p class="lead">We rent the gear, we send the people who run it, and we help you get the shoot done &mdash; anywhere in India.</p></div>
-  </header>
-  <div class="wrap sv-grid reveal">
-      <article class="sv">
-        <div class="sv-top"><span class="sv-no mono">01</span><span class="sv-tag mono">Rent</span></div>
-        <h3 class="sv-name">Equipment rental</h3>
-        <p class="sv-desc">Sync sound carts, Nagra recorders, JBL systems, talkback and DJ gear &mdash; by the day or for the whole schedule.</p>
-      </article>
-      <article class="sv">
-        <div class="sv-top"><span class="sv-no mono">02</span><span class="sv-tag mono">Hire</span></div>
-        <h3 class="sv-name">Operators on set</h3>
-        <p class="sv-desc">Need hands, not just gear? Operators are available with our setups, and included in the Complete Film Package.</p>
-      </article>
-      <article class="sv">
-        <div class="sv-top"><span class="sv-no mono">03</span><span class="sv-tag mono">Pan-India</span></div>
-        <h3 class="sv-name">Delivery &amp; setup</h3>
-        <p class="sv-desc">We deliver to your location anywhere in India, set everything up and stay on call through the shoot.</p>
-      </article>
-      <article class="sv">
-        <div class="sv-top"><span class="sv-no mono">04</span><span class="sv-tag mono">Create</span></div>
-        <h3 class="sv-name">Song &amp; pilot recording</h3>
-        <p class="sv-desc">Reference takes, script reads, temp music and pilot tracks &mdash; recorded before the main shoot.</p>
-      </article>
-      <article class="sv">
-        <div class="sv-top"><span class="sv-no mono">05</span><span class="sv-tag mono">Rent</span></div>
-        <h3 class="sv-name">Event sound</h3>
-        <p class="sv-desc">JBL PA and Pioneer DJ consoles for launches, wrap parties, weddings and live events.</p>
-      </article>
-      <article class="sv">
-        <div class="sv-top"><span class="sv-no mono">06</span><span class="sv-tag mono">Free</span></div>
-        <h3 class="sv-name">Kit planning</h3>
-        <p class="sv-desc">Tell us what you&rsquo;re shooting &mdash; we&rsquo;ll put the right kit together and reply with a price within 2 hours.</p>
-      </article>
-  </div>
-  <div class="wrap sv-cta reveal"><a href="#quote" class="btn btn-ink">Plan my shoot <span class="arrow">&rarr;</span></a><a href="https://wa.me/919889656352" target="_blank" rel="noopener" class="btn btn-line btn-wa"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg>Ask about operators</a></div>
-</section>
 
 <!-- ═══ 05 FILMOGRAPHY (ink page) ═══ -->
 <section class="section" id="work">
   <header class="ed-head reveal">
-    <div class="ed-index mono"><b>No. 06</b><span>Filmography</span></div>
+    <div class="ed-index mono"><b>No. 05</b><span>Filmography</span></div>
     <div><h2 class="serif h2">Heard in <em>cinemas</em> across India.</h2></div>
   </header>
   <div class="wrap">
@@ -1646,8 +1743,8 @@ body { letter-spacing: -0.005em; }
 <!-- ═══ 06 ON SET: rolling filmstrip ═══ -->
 <section class="section fs-section" id="onset">
   <header class="ed-head reveal">
-    <div class="ed-index mono"><b>No. 07</b><span>On location</span></div>
-    <div><h2 class="serif h2">Real sets. <em>Real gear.</em></h2><p class="lead">Ten frames on one roll &mdash; tap any frame to see the print.</p></div>
+    <div class="ed-index mono"><b>No. 06</b><span>On location</span></div>
+    <div><h2 class="serif h2">Real sets. <em>Real gear.</em></h2><p class="lead">Two rolls from real sets &mdash; tap any frame to see the print.</p></div>
   </header>
   <div class="fs reveal" id="filmstrip" role="region" aria-label="On-set photos on a rolling filmstrip">
     <div class="fs-edge" aria-hidden="true"><span>SINGH SOUND &#9656; 35MM</span><span>ISO 400 &#9656; 10 EXP</span></div>
@@ -1666,6 +1763,23 @@ body { letter-spacing: -0.005em; }
       </div>
     </div>
   </div>
+  <div class="fs fs-b reveal" id="filmstrip2" role="region" aria-label="More on-set photos on a second roll, moving the other way">
+    <div class="fs-edge" aria-hidden="true"><span>SINGH SOUND &#9656; ROLL 02</span><span>ISO 400 &#9656; 10 EXP</span></div>
+    <div class="fs-window">
+      <div class="fs-track" id="fsTrack2">
+        <figure class="fs-frame" data-place="Heritage interior" data-note="parked by the chairs"><button type="button" aria-label="Heritage interior: parked by the chairs"><img src="photos/cart-heritage-interior.jpg" alt="Sound cart parked beside director chairs in a heritage interior" draggable="false"></button><figcaption class="fs-no"><b>11</b> &#9656; 11A</figcaption></figure>
+        <figure class="fs-frame" data-place="Rajasthan palace" data-note="Sound Devices + Sennheiser"><button type="button" aria-label="Rajasthan palace: Sound Devices + Sennheiser"><img src="photos/cart-rajasthan-palace.jpg" alt="Sound Devices and Sennheiser gear at a Rajasthan palace" draggable="false"></button><figcaption class="fs-no"><b>12</b> &#9656; 12A</figcaption></figure>
+        <figure class="fs-frame" data-place="Period set" data-note="the cart at the window, monitor live"><button type="button" aria-label="Period set: the cart at the window, monitor live"><img src="photos/cart-period-set.jpg" alt="Sound cart by a window on a period set" draggable="false"></button><figcaption class="fs-no"><b>13</b> &#9656; 13A</figcaption></figure>
+        <figure class="fs-frame" data-place="North India" data-note="a colonial facade for a backdrop"><button type="button" aria-label="North India: a colonial facade for a backdrop"><img src="photos/cart-colonial-building.jpg" alt="Sound cart on the lawn of a colonial building" draggable="false"></button><figcaption class="fs-no"><b>14</b> &#9656; 14A</figcaption></figure>
+        <figure class="fs-frame" data-place="Himalayas" data-note="the cart at altitude"><button type="button" aria-label="Himalayas: the cart at altitude"><img src="photos/cart-himalayas.jpg" alt="Sync sound cart at a Himalayan location" draggable="false"></button><figcaption class="fs-no"><b>15</b> &#9656; 15A</figcaption></figure>
+        <figure class="fs-frame" data-place="Night shoot" data-note="under the string lights"><button type="button" aria-label="Night shoot: under the string lights"><img src="photos/night-shoot.jpg" alt="Night shoot under string lights" draggable="false"></button><figcaption class="fs-no"><b>16</b> &#9656; 16A</figcaption></figure>
+        <figure class="fs-frame" data-place="Ornate set" data-note="JBL and mixer for playback"><button type="button" aria-label="Ornate set: JBL and mixer for playback"><img src="photos/jbl-on-set.jpg" alt="JBL speaker and mixer on an ornate film set" draggable="false"></button><figcaption class="fs-no"><b>17</b> &#9656; 17A</figcaption></figure>
+        <figure class="fs-frame" data-place="Hill location" data-note="the crew at the mixer"><button type="button" aria-label="Hill location: the crew at the mixer"><img src="photos/crew-hill-location.jpg" alt="Sound crew at a mixer table at a rocky hill location" draggable="false"></button><figcaption class="fs-no"><b>18</b> &#9656; 18A</figcaption></figure>
+        <figure class="fs-frame" data-place="Colonial interior" data-note="mics up among the ferns"><button type="button" aria-label="Colonial interior: mics up among the ferns"><img src="photos/mics-colonial-interior.jpg" alt="Microphones on stands among plants in a colonial interior" draggable="false"></button><figcaption class="fs-no"><b>19</b> &#9656; 19A</figcaption></figure>
+        <figure class="fs-frame" data-place="School grounds" data-note="boom poles up, cart ready"><button type="button" aria-label="School grounds: boom poles up, cart ready"><img src="photos/cart-school-grounds.jpg" alt="Sound cart and boom poles on school grounds" draggable="false"></button><figcaption class="fs-no"><b>20</b> &#9656; 20A</figcaption></figure>
+      </div>
+    </div>
+  </div>
   <div class="fs-meta"><span class="fs-count mono" id="fsCount">04 / 10</span><p class="fs-cap" id="fsCap" aria-live="polite"></p></div>
   <p class="fs-hint mono" id="fsHint">Hover to pause &middot; click a frame for the print</p>
   <dialog class="fs-print" id="fsPrint" aria-label="Photo print">
@@ -1678,7 +1792,7 @@ body { letter-spacing: -0.005em; }
 <!-- Answers use only what the site already states. Client to add: advance/payment terms, damage policy. -->
 <section class="section" id="faq">
   <header class="ed-head reveal">
-    <div class="ed-index mono"><b>No. 08</b><span>Questions</span></div>
+    <div class="ed-index mono"><b>No. 07</b><span>Questions</span></div>
     <div><h2 class="serif h2">Before you <em>book.</em></h2></div>
   </header>
   <div class="wrap">
@@ -1707,7 +1821,7 @@ body { letter-spacing: -0.005em; }
       <p class="foot-cta">Your set deserves <em>better sound.</em></p>
       <div style="margin-top:22px"><a href="#quote" class="btn btn-gold">Get a quote <span class="arrow">&rarr;</span></a></div>
     </div>
-    <div><div class="foot-t mono">Rent</div><ul><li><a href="#categories">Categories</a></li><li><a href="#shoot">Kits</a></li><li><a href="#services">Services</a></li><li><a href="#quote">Get a quote</a></li></ul></div>
+    <div><div class="foot-t mono">Rent</div><ul><li><a href="#categories">Categories</a></li><li><a href="#shoot">Kits</a></li><li><a href="#quote">Get a quote</a></li></ul></div>
     <div><div class="foot-t mono">Company</div><ul><li><a href="#work">Filmography</a></li><li><a href="#onset">On location</a></li><li><a href="#faq">FAQ</a></li></ul></div>
     <div><div class="foot-t mono">Contact</div><ul><li><a href="tel:+919889656352">+91 98896 56352</a></li><li><a href="mailto:singhvanity@gmail.com">singhvanity@gmail.com</a></li><li>Mumbai, Maharashtra</li></ul></div>
   </div>
@@ -1737,7 +1851,7 @@ var isDesktop = function () { return window.matchMedia('(min-width: 900px)').mat
 /* ── Nav + menu ── */
 var nav = document.getElementById('navbar');
 var heroSec = document.getElementById('hero');
-function navTone() { nav.classList.toggle('on-paper', heroSec.getBoundingClientRect().bottom <= nav.offsetTop + nav.offsetHeight); }
+function navTone() { nav.classList.remove('on-paper'); }   /* the whole page is the dark stage now */
 window.addEventListener('scroll', navTone, { passive: true }); navTone();
 var menu = document.getElementById('menu'), menuBtn = document.getElementById('menuBtn');
 function setMenu(open) { menu.classList.toggle('open', open); menuBtn.setAttribute('aria-expanded', open); document.body.style.overflow = open ? 'hidden' : ''; }
@@ -1800,7 +1914,7 @@ function toast(msg) { document.getElementById('toastMsg').textContent = msg; toa
 function hideToast() { toastEl.classList.remove('show'); }
 
 /* ── Filters ── */
-var filts = document.querySelectorAll('#equipment .filt');
+var filts = document.querySelectorAll('#eqTabs .filt');   /* the icon tabs sit above the call sheet now */
 function setFilter(f) {
   filts.forEach(function (b) { b.classList.toggle('active', b.dataset.filter === f); });
   cards.forEach(function (c) { c.hidden = f !== 'all' && c.dataset.cat !== f; });
@@ -2046,31 +2160,6 @@ syncQuote();
 })();
 </script>
 
-<script>
-/* ═══ 01 ACCORDION + PAN-INDIA GLOBE ═══
-   One production type open at a time; opening it drops down its kit, updates the
-   "Rolling" label, sets the quote type + gear filter and gives the globe a quick spin. */
-(function () {
-  var items = Array.prototype.slice.call(document.querySelectorAll('.rl-item')); if (!items.length) return;
-  var now = document.getElementById('rlNow');
-  function openItem(item, byUser) {
-    items.forEach(function (x) {
-      var on = x === item, b = x.querySelector('.rl-row');
-      x.classList.toggle('open', on); b.classList.toggle('active', on); b.setAttribute('aria-expanded', on ? 'true' : 'false');
-    });
-    if (!item) return;
-    now.innerHTML = item.querySelector('.rl-name').innerHTML;
-    if (byUser) { var shoot = item.dataset.shoot; setFilter(SHOOT[shoot] || 'all'); document.getElementById('qType').value = shoot; if (window.ssGlobeKick) window.ssGlobeKick(); }
-  }
-  items.forEach(function (item) {
-    item.querySelector('.rl-row').addEventListener('click', function () {
-      if (item.classList.contains('open')) { openItem(null, false); return; }   /* clicking the open one closes it */
-      openItem(item, true);
-    });
-  });
-  openItem(items[0], false);
-})();
-</script>
 
 <script>
 /* ═══ 02 EQUIPMENT: call sheet ═══ */
@@ -2115,52 +2204,6 @@ syncQuote();
     });
   });
 })();
-</script>
-<script type="module">
-/* ═══ PAN-INDIA GLOBE (section 01): cobe dotted globe that zooms into India; a marker on every state + UT capital ═══ */
-import createGlobe from 'https://cdn.jsdelivr.net/npm/cobe@0.6.3/+esm';  /* +esm bundles its 'phenomenon' dependency */
-const canvas = document.getElementById('globe');
-if (canvas) {
-  const toAngles = (lat, lng) => [Math.PI - ((lng * Math.PI) / 180 - Math.PI / 2), (lat * Math.PI) / 180];
-  const [phi0, theta0] = toAngles(22, 82);            /* centre of India */
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let width = 0, drag = null, dragDelta = 0, t = 0, spin = 0, zoom = reduced ? 1 : 0, zoomed = reduced, visible = true, globe = null;
-  const measure = () => { width = canvas.offsetWidth; };
-  window.addEventListener('resize', measure); measure();
-  /* 28 state capitals + 8 union territories; Mumbai (base) is the big one */
-  const PLACES = [[19.08, 72.88, 0.1],
-    [16.51, 80.52], [27.08, 93.61], [26.14, 91.79], [25.59, 85.14], [21.25, 81.63], [15.49, 73.83], [23.22, 72.65],
-    [29.39, 76.96], [31.10, 77.17], [23.34, 85.31], [12.97, 77.59], [8.52, 76.94], [23.26, 77.41], [24.82, 93.94],
-    [25.58, 91.89], [23.73, 92.72], [25.67, 94.11], [20.30, 85.82], [31.63, 74.87], [26.91, 75.79], [27.33, 88.61],
-    [13.08, 80.27], [17.39, 78.49], [23.83, 91.29], [26.85, 80.95], [30.32, 78.03], [22.57, 88.36],
-    [28.61, 77.21], [34.08, 74.80], [34.15, 77.58], [30.73, 76.78], [11.94, 79.81], [11.62, 92.73], [10.57, 72.64], [20.40, 72.83]];
-  window.ssGlobeKick = () => { if (!reduced) spin = 1.2; };
-  try {
-    globe = createGlobe(canvas, {
-      devicePixelRatio: 2, width: width * 2, height: width * 2,
-      phi: phi0, theta: theta0, dark: 1, diffuse: 1.4, mapSamples: 20000, mapBrightness: 7,
-      baseColor: [0.2, 0.18, 0.15], markerColor: [0.91, 0.70, 0.22], glowColor: [0.35, 0.28, 0.16],
-      markers: PLACES.map(([lat, lng, size]) => ({ location: [lat, lng], size: size || 0.035 })),
-      onRender: (state) => {
-        if (!visible) return;
-        if (!drag && !reduced) t += 0.004;
-        if (zoomed && zoom < 1) zoom = Math.min(1, zoom + 0.012);
-        const e = 1 - Math.pow(1 - zoom, 3);             /* ease-out zoom from whole globe to India */
-        spin *= 0.94;
-        state.phi = phi0 + Math.sin(t) * 0.18 * (1.4 - e) + dragDelta + spin * Math.PI * 2 * (1 - e * 0.2);
-        state.theta = theta0 - 0.08 + (1 - e) * 0.3;
-        state.scale = 1 + e * 1.15;
-        state.width = width * 2; state.height = width * 2;
-      }
-    });
-    requestAnimationFrame(() => canvas.classList.add('ready'));
-  } catch (e) { canvas.closest('.rl-globe').classList.add('no-webgl'); }
-  /* zoom in the first time it's seen; stop rendering work while off-screen */
-  new IntersectionObserver((es) => { es.forEach((en) => { visible = en.isIntersecting; if (visible) zoomed = true; }); }, { threshold: 0.25 }).observe(canvas);
-  canvas.addEventListener('pointerdown', (e) => { drag = { x: e.clientX, base: dragDelta }; canvas.style.cursor = 'grabbing'; });
-  window.addEventListener('pointerup', () => { drag = null; canvas.style.cursor = 'grab'; });
-  window.addEventListener('pointermove', (e) => { if (drag) dragDelta = drag.base + (e.clientX - drag.x) / 160; });
-}
 </script>
 <script>
 /* ═══ 03 EQUIPMENT TABS: sliding bar, staggered pop-in, per-icon play on select ═══ */
@@ -2275,19 +2318,19 @@ if (canvas) {
   /* camera keyframes: p = scroll progress, cx/cy = centre in the frame (0–1), z = zoom (1 = cover) */
   var CAM = {
     desktop: [
-      { p: 0.00, cx: 0.50, cy: 0.50, z: 1.00 }, { p: 0.34, cx: 0.50, cy: 0.50, z: 1.00 },
-      { p: 0.60, cx: 0.44, cy: 0.52, z: 1.15 },   /* ease in and left: recentres the Nagra */
+      { p: 0.00, cx: 0.50, cy: 0.50, z: 1.00 }, { p: 0.40, cx: 0.50, cy: 0.50, z: 1.00 },
+      { p: 0.64, cx: 0.44, cy: 0.52, z: 1.15 },   /* ease in and left: recentres the Nagra */
       { p: 1.00, cx: 0.44, cy: 0.52, z: 1.15 }
     ],
     /* phones: same story as desktop in a phone frame. The close-up fills the screen, then the camera
        pulls back to the desktop's wide shot (f = 1: cart → JBL fit the width, letterboxed) so all the gear shows at once */
     mobile: [
       { p: 0.00, cx: 0.50, cy: 0.50, z: 1, f: 0 }, { p: 0.25, cx: 0.49, cy: 0.50, z: 1, f: 0 },
-      { p: 0.60, cx: 0.535, cy: 0.50, z: 1, f: 1 }, { p: 1.00, cx: 0.535, cy: 0.50, z: 1, f: 1 }
+      { p: 0.64, cx: 0.535, cy: 0.50, z: 1, f: 1 }, { p: 1.00, cx: 0.535, cy: 0.50, z: 1, f: 1 }
     ]
   };
-  var VEND = { desktop: 0.60, mobile: 0.60 };          /* scroll progress at which the clip reaches its last frame */
-  var OPEN_OUT = [0.02, 0.10];                          /* opening headline fades out */
+  var VEND = { desktop: 0.64, mobile: 0.64 };          /* scroll progress at which the clip reaches its last frame */
+  var OPEN_OUT = [0.01, 0.05];                          /* opening headline fades out */
   var FINAL = { desktop: 0.90, mobile: 0.92 };          /* closing "Sound rolling" panel fades in */
 
   var WIDE = 0.55, LBOX = 0.40;                          /* phones' wide shot: share of the frame's width shown; letterbox centre (share of screen height) */
@@ -2391,6 +2434,7 @@ if (canvas) {
 
   /* ── overlays: opening headline, closing panel, progress, hint ── */
   var openEl = document.getElementById('heroOpen'), shadeOpen = document.getElementById('heroShadeOpen');
+  var rhcEl = document.getElementById('heroRhc'), rhcWords = Array.prototype.slice.call(rhcEl.children);
   var shadeFinal = document.getElementById('heroShadeFinal'), finalEl = document.getElementById('heroFinal'), progEl = document.getElementById('heroProgFill'), hintEl = document.getElementById('heroHint');
   function overlays(p) {
     var o = 1 - clamp((p - OPEN_OUT[0]) / (OPEN_OUT[1] - OPEN_OUT[0]));
@@ -2400,6 +2444,16 @@ if (canvas) {
     var fo = clamp((p - FINAL[mode()]) / 0.06);
     finalEl.style.opacity = fo; shadeFinal.style.opacity = fo; finalEl.style.translate = '0 ' + ((1 - fo) * 24) + 'px';
     finalEl.classList.toggle('is-live', fo > 0.6);
+    /* Rent. → Hire. → Create. : each word rises in turn, then the three leave together before the gear tags */
+    /* Rent. → Hire. → Create. one word at a time on the same spot: each rises in, holds, then lifts away for the next */
+    var RHC = [[0.06, 0.21], [0.25, 0.40], [0.44, 0.59]], any = false;   /* ~110vh each: Rent, Hire, Create each stay for a couple of scrolls */
+    rhcWords.forEach(function (w, k) {
+      var inK = clamp((p - RHC[k][0]) / 0.035), outK = clamp((p - RHC[k][1]) / 0.03), o = inK * (1 - outK);
+      w.style.opacity = o; w.style.transform = 'translate3d(0,' + ((1 - inK) * 50 - outK * 50) + 'px,0) scale(' + (0.94 + inK * 0.06 + outK * 0.04) + ')';
+      w.style.filter = 'blur(' + ((1 - inK) * 10 + outK * 8) + 'px)';
+      if (o > 0.001) any = true;
+    });
+    rhcEl.style.visibility = any ? 'visible' : 'hidden';   /* the stylesheet starts it hidden, so '' would keep it hidden */
     progEl.style.height = (p * 100) + '%';
     hintEl.classList.toggle('is-hidden', p > 0.02);
   }
@@ -2511,6 +2565,177 @@ if (canvas) {
     img.src = 'sound-hero/flow/f-' + String(i + 1).padStart(3, '0') + '.jpg';
   }
   for (var i = 0; i < N; i++) load(i);
+})();
+</script>
+<script type="module">
+/* ═══ 02 PRISM BACKGROUND: react-bits <Prism animationType="rotate" timeScale={0.5} height={3.5} baseWidth={5.5}
+   scale={3.6} hueShift={0} colorFrequency={1} noise={0} glow={1} />, ported from React to plain JS (ogl from the CDN).
+   Pauses off-screen; one still frame for reduced motion; lighter resolution on phones. ═══ */
+import { Renderer, Triangle, Program, Mesh } from 'https://cdn.jsdelivr.net/npm/ogl@1.0.11/+esm';
+for (const container of document.querySelectorAll('.sc-prism')) {
+  const H = 3.5, BW = 5.5, BASE_HALF = BW * 0.5, GLOW = 1, NOISE = 0, SAT = 1.5, SCALE = 3.6, HUE = 0, CFREQ = 1, BLOOM = 1, TS = 0.5;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const dpr = container.classList.contains('page-prism') ? (window.innerWidth < 900 ? 0.5 : 0.75) : Math.min(window.innerWidth < 900 ? 1 : 2, window.devicePixelRatio || 1);   /* soft glow: fine at low res */
+  try {
+    const renderer = new Renderer({ dpr, alpha: true, antialias: false });
+    const gl = renderer.gl;
+    gl.disable(gl.DEPTH_TEST); gl.disable(gl.CULL_FACE); gl.disable(gl.BLEND);
+    container.appendChild(gl.canvas);
+    const vertex = `attribute vec2 position; void main() { gl_Position = vec4(position, 0.0, 1.0); }`;
+    const fragment = `
+      precision highp float;
+      uniform vec2 iResolution; uniform float iTime; uniform float uHeight; uniform float uBaseHalf; uniform mat3 uRot;
+      uniform int uUseBaseWobble; uniform float uGlow; uniform vec2 uOffsetPx; uniform float uNoise; uniform float uSaturation;
+      uniform float uScale; uniform float uHueShift; uniform float uColorFreq; uniform float uBloom; uniform float uCenterShift;
+      uniform float uInvBaseHalf; uniform float uInvHeight; uniform float uMinAxis; uniform float uPxScale; uniform float uTimeScale;
+      vec4 tanh4(vec4 x){ vec4 e2x = exp(2.0*x); return (e2x - 1.0) / (e2x + 1.0); }
+      float rand(vec2 co){ return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453123); }
+      float sdOctaAnisoInv(vec3 p){ vec3 q = vec3(abs(p.x) * uInvBaseHalf, abs(p.y) * uInvHeight, abs(p.z) * uInvBaseHalf); float m = q.x + q.y + q.z - 1.0; return m * uMinAxis * 0.5773502691896258; }
+      float sdPyramidUpInv(vec3 p){ float oct = sdOctaAnisoInv(p); float halfSpace = -p.y; return max(oct, halfSpace); }
+      mat3 hueRotation(float a){ float c = cos(a), s = sin(a);
+        mat3 W = mat3(0.299, 0.587, 0.114, 0.299, 0.587, 0.114, 0.299, 0.587, 0.114);
+        mat3 U = mat3(0.701, -0.587, -0.114, -0.299, 0.413, -0.114, -0.300, -0.588, 0.886);
+        mat3 V = mat3(0.168, -0.331, 0.500, 0.328, 0.035, -0.500, -0.497, 0.296, 0.201);
+        return W + U * c + V * s; }
+      void main(){
+        vec2 f = (gl_FragCoord.xy - 0.5 * iResolution.xy - uOffsetPx) * uPxScale;
+        float z = 5.0; float d = 0.0; vec3 p; vec4 o = vec4(0.0);
+        float centerShift = uCenterShift; float cf = uColorFreq;
+        mat2 wob = mat2(1.0);
+        if (uUseBaseWobble == 1) { float t = iTime * uTimeScale; float c0 = cos(t + 0.0); float c1 = cos(t + 33.0); float c2 = cos(t + 11.0); wob = mat2(c0, c1, c2, c0); }
+        const int STEPS = 100;
+        for (int i = 0; i < STEPS; i++) {
+          p = vec3(f, z); p.xz = p.xz * wob; p = uRot * p; vec3 q = p; q.y += centerShift;
+          d = 0.1 + 0.2 * abs(sdPyramidUpInv(q)); z -= d;
+          o += (sin((p.y + z) * cf + vec4(0.0, 1.0, 2.0, 3.0)) + 1.0) / d;
+        }
+        o = tanh4(o * o * (uGlow * uBloom) / 1e5);
+        vec3 col = o.rgb; float n = rand(gl_FragCoord.xy + vec2(iTime)); col += (n - 0.5) * uNoise; col = clamp(col, 0.0, 1.0);
+        float L = dot(col, vec3(0.2126, 0.7152, 0.0722)); col = clamp(mix(vec3(L), col, uSaturation), 0.0, 1.0);
+        if (abs(uHueShift) > 0.0001) { col = clamp(hueRotation(uHueShift) * col, 0.0, 1.0); }
+        gl_FragColor = vec4(col, o.a);
+      }`;
+    const iResBuf = new Float32Array(2), offsetPxBuf = new Float32Array(2);
+    const program = new Program(gl, { vertex, fragment, uniforms: {
+      iResolution: { value: iResBuf }, iTime: { value: 0 }, uHeight: { value: H }, uBaseHalf: { value: BASE_HALF },
+      uUseBaseWobble: { value: 1 }, uRot: { value: new Float32Array([1, 0, 0, 0, 1, 0, 0, 0, 1]) }, uGlow: { value: GLOW },
+      uOffsetPx: { value: offsetPxBuf }, uNoise: { value: NOISE }, uSaturation: { value: SAT }, uScale: { value: SCALE },
+      uHueShift: { value: HUE }, uColorFreq: { value: CFREQ }, uBloom: { value: BLOOM }, uCenterShift: { value: H * 0.25 },
+      uInvBaseHalf: { value: 1 / BASE_HALF }, uInvHeight: { value: 1 / H }, uMinAxis: { value: Math.min(BASE_HALF, H) },
+      uPxScale: { value: 1 / ((gl.drawingBufferHeight || 1) * 0.1 * SCALE) }, uTimeScale: { value: TS } } });
+    const mesh = new Mesh(gl, { geometry: new Triangle(gl), program });
+    const resize = () => {
+      renderer.setSize(container.clientWidth || 1, container.clientHeight || 1);
+      iResBuf[0] = gl.drawingBufferWidth; iResBuf[1] = gl.drawingBufferHeight;
+      program.uniforms.uPxScale.value = 1 / ((gl.drawingBufferHeight || 1) * 0.1 * SCALE);
+      if (!raf) renderer.render({ scene: mesh });
+    };
+    let raf = 0; const t0 = performance.now();
+    const render = (t) => { program.uniforms.iTime.value = (t - t0) * 0.001; renderer.render({ scene: mesh }); raf = requestAnimationFrame(render); };
+    const start = () => { if (!raf && !reduced) raf = requestAnimationFrame(render); };
+    const stop = () => { if (raf) { cancelAnimationFrame(raf); raf = 0; } };
+    new ResizeObserver(resize).observe(container); resize();
+    renderer.render({ scene: mesh });
+    const hero = document.getElementById('hero');
+    const check = () => { const covered = hero && hero.getBoundingClientRect().bottom > window.innerHeight; (covered || document.hidden) ? stop() : start(); };
+    window.addEventListener('scroll', check, { passive: true }); check();
+    document.addEventListener('visibilitychange', check);
+    requestAnimationFrame(() => container.classList.add('ready'));
+  } catch (e) { container.remove(); }
+}
+</script>
+<script>
+/* ═══ 01 FLOWING MENU (from Omnia "Core Services" / react-bits FlowingMenu, ported to plain JS + the page's GSAP) ═══ */
+(function () {
+  var items = Array.prototype.slice.call(document.querySelectorAll('.fm-item')); if (!items.length || !window.gsap) return;
+  var anim = { duration: 0.6, ease: 'expo' };
+  function edge(e, el) {   /* which edge (top/bottom) the pointer is closest to */
+    var r = el.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+    var dt = Math.pow(x - r.width / 2, 2) + y * y, db = Math.pow(x - r.width / 2, 2) + Math.pow(y - r.height, 2);
+    return dt < db ? 'top' : 'bottom';
+  }
+  items.forEach(function (item) {
+    var mq = item.querySelector('.fm-marquee'), inner = item.querySelector('.fm-inner'), link = item.querySelector('.fm-link');
+    var name = item.querySelector('.fm-t').innerHTML, imgs = item.dataset.imgs.split('|'), loop = null;
+    function build() {
+      if (loop) { loop.kill(); loop = null; }
+      inner.innerHTML = ''; gsap.set(inner, { x: 0 });
+      var part = function (i) { var d = document.createElement('div'); d.className = 'fm-part'; d.innerHTML = '<span>' + name + '</span><div class="fm-img" style="background-image:url(&quot;' + imgs[i % imgs.length] + '&quot;)"></div>'; return d; };
+      inner.appendChild(part(0));
+      var w = inner.firstChild.offsetWidth || 400, n = Math.max(4, Math.ceil(window.innerWidth / w) + 2);
+      for (var i = 1; i < n; i++) inner.appendChild(part(i));
+      if (!reducedMotion) loop = gsap.to(inner, { x: -w, duration: 15, ease: 'none', repeat: -1, paused: true });
+    }
+    build();
+    var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(build, 200); });
+    link.addEventListener('mouseenter', function (e) {
+      var ed = edge(e, item); if (loop) loop.play();
+      gsap.timeline({ defaults: anim })
+        .set(mq, { y: ed === 'top' ? '-101%' : '101%' }, 0).set(inner, { y: ed === 'top' ? '101%' : '-101%' }, 0)
+        .to([mq, inner], { y: '0%' }, 0);
+    });
+    link.addEventListener('mouseleave', function (e) {
+      var ed = edge(e, item);
+      gsap.timeline({ defaults: anim, onComplete: function () { if (loop) loop.pause(); } })
+        .to(mq, { y: ed === 'top' ? '-101%' : '101%' }, 0).to(inner, { y: ed === 'top' ? '101%' : '-101%' }, 0);
+    });
+    /* click: add this production's kit, pre-fill the quote's production type and gear filter */
+    link.addEventListener('click', function () {
+      var list = item.dataset.items.split('|'), added = 0, shoot = item.dataset.shoot;
+      list.forEach(function (n) { if (addItem(n, true)) added++; });
+      document.getElementById('qType').value = shoot; setFilter(SHOOT[shoot] || 'all');
+      toast(added ? item.dataset.kit.replace('&amp;', '&') + ' added — ' + list.length + (list.length > 1 ? ' items' : ' item') : 'Kit already in your quote');
+    });
+  });
+  /* keep each row's "added" state in step with the quote (items can be removed elsewhere) */
+  function mark() { items.forEach(function (item) { var on = item.dataset.items.split('|').every(inQuote); item.classList.toggle('added', on); item.querySelector('.fm-add').textContent = on ? 'Kit in your quote ✓' : 'Add kit +'; }); }
+  var baseSync = syncQuote; syncQuote = function () { baseSync(); mark(); };
+  mark();
+})();
+</script>
+<script>
+/* ═══ 06 SECOND ROLL: same film look, rolls left → right; hover pauses, click opens the same print ═══ */
+(function () {
+  var strip = document.getElementById('filmstrip2'), track = document.getElementById('fsTrack2'), dlg = document.getElementById('fsPrint');
+  if (!strip || !track) return;
+  var originals = Array.prototype.slice.call(track.querySelectorAll('.fs-frame')), N = originals.length;
+  originals.forEach(function (f) { var c = f.cloneNode(true); c.setAttribute('aria-hidden', 'true'); c.querySelector('button').setAttribute('tabindex', '-1'); track.appendChild(c); });
+  var frames = Array.prototype.slice.call(track.querySelectorAll('.fs-frame'));
+  var pitch = 0, setW = 0, W = 0, offset = 0, last = 0, running = false, hover = false, visible = false;
+  function measure() { W = strip.clientWidth; pitch = frames[1].offsetLeft - frames[0].offsetLeft; setW = pitch * N; }
+  function place() {
+    offset = ((offset % setW) + setW) % setW;
+    track.style.transform = 'translate3d(' + (-offset) + 'px,0,0)';
+    strip.style.backgroundPositionX = (-(offset % 22)) + 'px, ' + (-(offset % 22)) + 'px';
+  }
+  function tick(t) {
+    if (!running) return;
+    var dt = last ? Math.min(0.05, (t - last) / 1000) : 0; last = t;
+    offset -= (W < 700 ? 55 : 90) * dt; place();          /* negative: the film travels left → right */
+    requestAnimationFrame(tick);
+  }
+  function sync() {
+    var should = visible && !hover && !document.hidden && !(dlg && dlg.open) && !reducedMotion;
+    if (should && !running) { running = true; last = 0; requestAnimationFrame(tick); }
+    if (!should) running = false;
+  }
+  measure(); offset = pitch * 2.5; place();
+  strip.addEventListener('mouseenter', function () { hover = true; sync(); });
+  strip.addEventListener('mouseleave', function () { hover = false; sync(); });
+  document.addEventListener('visibilitychange', sync);
+  function checkVisible() { var r = strip.getBoundingClientRect(); var v = r.bottom > 0 && r.top < window.innerHeight; if (v !== visible) { visible = v; sync(); } }
+  window.addEventListener('scroll', checkVisible, { passive: true }); window.addEventListener('load', checkVisible); checkVisible();
+  window.addEventListener('resize', function () { var frac = offset / (setW || 1); measure(); offset = frac * setW; place(); }, { passive: true });
+  frames.forEach(function (f, i) {
+    f.querySelector('button').addEventListener('click', function () {
+      var o = originals[i % N], img = o.querySelector('img');
+      document.getElementById('fsPrintImg').src = img.src; document.getElementById('fsPrintImg').alt = img.alt;
+      document.getElementById('fsPrintNo').textContent = 'Frame ' + (i % N + 11);
+      document.getElementById('fsPrintCap').textContent = o.dataset.place + ' \u2014 ' + o.dataset.note;
+      if (dlg.showModal) { dlg.showModal(); sync(); }
+    });
+  });
+  if (dlg) dlg.addEventListener('close', sync);
 })();
 </script>
 </body>
