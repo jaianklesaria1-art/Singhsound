@@ -8,7 +8,7 @@
 <meta name="description" content="Rent sync sound carts, Nagra recorders, JBL systems, talkback and DJ setups. Trusted on Pathaan, Gadar 2, Heeramandi. Mumbai-based, pan-India.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="sound-hero/flow/f-001.jpg">
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
@@ -39,9 +39,9 @@
 
   /* Type: Instrument Serif = statements, DM Mono = editorial labels & numerals, DM Sans = reading.
      Anton/Bebas survive only on the clapperboard, where they're a prop. */
-  --f-serif: 'Instrument Serif', 'Times New Roman', serif;
-  --f-mono: 'DM Mono', ui-monospace, monospace;
-  --f-body: 'DM Sans', system-ui, sans-serif;
+  --f-serif: 'Newsreader', Georgia, serif;
+  --f-mono: 'Inter', system-ui, sans-serif;  /* labels: small caps-style Inter (was DM Mono) */
+  --f-body: 'Inter', system-ui, sans-serif;
   --t-hero: clamp(3rem, 1.6rem + 6.4vw, 7rem);
   --t-h2: clamp(1.9rem, 1.5rem + 1.8vw, 3rem);
   --t-h3: clamp(1.6rem, 1.3rem + 1.1vw, 2.2rem);
@@ -51,13 +51,17 @@
   --t-mono: 0.72rem;
   --track-mono: 0.12em;
 
+  /* layout grid: the page tops out at 1920px; content sits in a centred 1620px column */
+  --page-w: 1920px; --content-w: 1620px;
   --gutter: 20px; --section-y: 56px; --nav-top: 12px; --nav-h: 58px; --bar-h: 64px;
 }
 @media (min-width: 900px) { :root { --gutter: 56px; --section-y: 88px; --nav-top: 18px; --bar-h: 0px; } }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+html { background: var(--paper); }
 body {
+  max-width: var(--page-w); margin: 0 auto; position: relative;
   font-family: var(--f-body); font-size: var(--t-body); line-height: 1.6;
   background: var(--paper); color: var(--ink); overflow-x: hidden;
   -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
@@ -81,12 +85,12 @@ body::after { /* paper grain */
 .mono { font-family: var(--f-mono); font-size: var(--t-mono); letter-spacing: var(--track-mono); text-transform: uppercase; }
 .lead { font-size: var(--t-lead); color: var(--ink2); max-width: 52ch; line-height: 1.6; }
 .section { padding: var(--section-y) var(--gutter); }
-.wrap { max-width: 1240px; margin: 0 auto; }
+.wrap { max-width: var(--content-w); margin: 0 auto; }
 .hide-d { } @media (min-width: 900px) { .hide-d { display: none !important; } }
 
 /* Editorial section head (after 21st.dev "Editorial Hero"): hairline rule, a mono
    index on the left, the statement right-aligned into the wider column. */
-.ed-head { max-width: 1240px; margin: 0 auto 26px; border-top: 1px solid var(--rule2); padding-top: 18px; display: grid; gap: 18px; }
+.ed-head { max-width: var(--content-w); margin: 0 auto 26px; border-top: 1px solid var(--rule2); padding-top: 18px; display: grid; gap: 18px; }
 .ed-index { display: flex; justify-content: space-between; color: var(--ink3); }
 .ed-index b { font-weight: 500; color: var(--ink); }
 .h2 { font-size: var(--t-h2); }
@@ -120,7 +124,7 @@ body::after { /* paper grain */
    Dark glass over the hero; turns to paper once the page is on paper. */
 nav {
   position: fixed; z-index: 1000; top: var(--nav-top); left: var(--gutter); right: var(--gutter);
-  max-width: 1080px; margin: 0 auto; height: var(--nav-h);
+  max-width: var(--content-w); margin: 0 auto; height: var(--nav-h);
   display: flex; align-items: center; gap: 14px; padding: 0 8px 0 22px; border-radius: 100px;
   background: rgba(14,13,12,0.55); color: var(--screen-text);
   border: 1px solid rgba(244,240,232,0.14);
@@ -163,7 +167,7 @@ nav.on-paper .nav-logo em { color: var(--gold-ink); }
 .toast { position: fixed; left: 50%; bottom: calc(var(--bar-h) + 18px + env(safe-area-inset-bottom, 0px)); z-index: 1200; transform: translate(-50%, 20px); opacity: 0; pointer-events: none; display: flex; align-items: center; gap: 14px; max-width: calc(100vw - 32px); background: var(--ink); color: var(--paper); border-radius: 100px; padding: 10px 10px 10px 20px; font-size: var(--t-small); box-shadow: var(--shadow-lg); transition: transform 0.3s, opacity 0.3s; white-space: nowrap; }
 .toast.show { transform: translate(-50%, 0); opacity: 1; pointer-events: auto; }
 .toast button { background: var(--gold); color: var(--ink); border: none; border-radius: 100px; padding: 8px 14px; font-weight: 600; cursor: pointer; }
-.qpill { position: fixed; right: 28px; bottom: 28px; z-index: 900; display: none; align-items: center; gap: 10px; height: 54px; padding: 0 8px 0 22px; border-radius: 100px; background: var(--ink); color: var(--paper); border: none; font-weight: 600; cursor: pointer; box-shadow: var(--shadow-lg); }
+.qpill { position: fixed; right: max(28px, calc((100vw - var(--page-w)) / 2 + 28px)); bottom: 28px; z-index: 900; display: none; align-items: center; gap: 10px; height: 54px; padding: 0 8px 0 22px; border-radius: 100px; background: var(--ink); color: var(--paper); border: none; font-weight: 600; cursor: pointer; box-shadow: var(--shadow-lg); }
 .qpill .nav-count { background: var(--gold); color: var(--ink); }
 @media (min-width: 900px) { .qpill.has-items { display: inline-flex; } }
 
@@ -213,7 +217,7 @@ nav.on-paper .nav-logo em { color: var(--gold-ink); }
 .hero-shade-open { position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(to top, rgba(14,13,12,0.95) 0%, rgba(14,13,12,0.6) 45%, rgba(14,13,12,0.1) 100%); }
 @media (min-width: 900px) { .hero-shade-open { background: linear-gradient(90deg, rgba(14,13,12,0.94) 0%, rgba(14,13,12,0.7) 42%, rgba(14,13,12,0) 72%); } }
 .hero-shade-final { position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0; background: radial-gradient(ellipse 80% 60% at 50% 88%, rgba(14,13,12,0.92) 0%, rgba(14,13,12,0.55) 55%, rgba(14,13,12,0) 100%); }
-.hero-open { position: absolute; z-index: 5; left: var(--gutter); right: var(--gutter); bottom: calc(var(--bar-h) + 28px + env(safe-area-inset-bottom, 0px)); }
+.hero-open { position: absolute; z-index: 5; left: max(var(--gutter), calc((100% - var(--content-w)) / 2)); right: var(--gutter); bottom: calc(var(--bar-h) + 28px + env(safe-area-inset-bottom, 0px)); }
 @media (min-width: 900px) { .hero-open { right: auto; bottom: auto; top: 50%; transform: translateY(-50%); max-width: 860px; padding-top: 40px; } }
 .hero-eyebrow { display: flex; align-items: center; gap: 10px; color: var(--gold); }
 .hero-eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--rec); animation: blink 1s steps(2, jump-none) infinite; }
@@ -612,7 +616,7 @@ nav.on-paper .nav-logo em { color: var(--gold-ink); }
 }
 
 /* ═══ FAQ — numbered ghost accordion (after 21st.dev "Ghost Accordion") ═══ */
-.faq { max-width: 1240px; margin: 0 auto; border-top: 1px solid var(--rule2); }
+.faq { max-width: var(--content-w); margin: 0 auto; border-top: 1px solid var(--rule2); }
 .faq details { border-bottom: 1px solid var(--rule); }
 .faq summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 3em 1fr 28px; align-items: center; gap: 10px; padding: 14px 0; }
 .faq summary::-webkit-details-marker { display: none; }
@@ -627,16 +631,16 @@ nav.on-paper .nav-logo em { color: var(--gold-ink); }
 
 /* ═══ FOOTER — the masthead ═══ */
 footer { background: var(--ink); color: var(--paper); padding: 48px var(--gutter) 24px; overflow: hidden; }
-.foot { max-width: 1240px; margin: 0 auto; display: grid; gap: 30px; }
+.foot { max-width: var(--content-w); margin: 0 auto; display: grid; gap: 30px; }
 .foot .foot-cta { color: var(--paper); font-family: var(--f-serif); font-size: clamp(1.8rem, 1.4rem + 1.6vw, 2.8rem); line-height: 1.05; max-width: 16ch; }
 .foot-cta em { font-style: italic; color: var(--gold); }
 .foot p, .foot li { font-size: var(--t-small); color: rgba(244,239,230,0.65); }
 .foot ul { list-style: none; display: grid; gap: 8px; }
 .foot a { text-decoration: none; } .foot a:hover { color: var(--gold); }
 .foot-t { color: rgba(244,239,230,0.45); margin-bottom: 12px; }
-.foot-mark { max-width: 1240px; margin: 32px auto 0; font-family: var(--f-serif); font-size: clamp(3rem, 11vw, 9rem); line-height: 0.9; letter-spacing: -0.03em; white-space: nowrap; color: var(--paper); padding-bottom: 0.14em; }
+.foot-mark { max-width: var(--content-w); margin: 32px auto 0; font-family: var(--f-serif); font-size: clamp(3rem, 11vw, 9rem); line-height: 0.9; letter-spacing: -0.03em; white-space: nowrap; color: var(--paper); padding-bottom: 0.14em; }
 .foot-mark em { font-style: italic; color: var(--gold); }
-.foot-bottom { max-width: 1240px; margin: 26px auto 0; padding-top: 18px; border-top: 1px solid rgba(244,239,230,0.16); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; color: rgba(244,239,230,0.5); }
+.foot-bottom { max-width: var(--content-w); margin: 26px auto 0; padding-top: 18px; border-top: 1px solid rgba(244,239,230,0.16); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; color: rgba(244,239,230,0.5); }
 .foot-bottom a { color: var(--gold); text-decoration: none; }
 @media (min-width: 900px) { .foot { grid-template-columns: 1.6fr 1fr 1fr 1fr; } }
 
@@ -755,6 +759,297 @@ footer { background: var(--ink); color: var(--paper); padding: 48px var(--gutter
   padding: 7px 14px; border-radius: 100px; background: rgba(14,13,12,0.62); border: 1px solid rgba(232,179,57,0.35); color: var(--screen-text); opacity: 0; pointer-events: none; transition: opacity 0.4s; white-space: nowrap; }
 .gear-hint i { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 8px rgba(232,179,57,0.8); }
 .gear-hint.on { opacity: 1; }
+
+/* ═══ v9 TYPE: Newsreader + Inter (after korprotocol.io's Reckless + Helvetica Neue) ═══
+   Newsreader is wider than Instrument Serif, so display sizes come down a step and
+   weight drops to a refined 400; labels become Inter caps instead of mono. */
+:root { --t-hero: clamp(2.6rem, 1.3rem + 4.8vw, 6rem); --t-h2: clamp(1.8rem, 1.4rem + 1.6vw, 2.8rem); }
+.serif, .h2, .hero-h1, .hero-final h2, .kit-name, .eq-name, .qv-name, .work-title, .foot-cta, .foot-mark, .nav-logo, .fs-cap, .step-h, .q-top h3 { font-weight: 400; letter-spacing: -0.015em; font-optical-sizing: auto; }
+.hero-h1 { letter-spacing: -0.025em; line-height: 1.0; }
+.mono { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em; }
+body { letter-spacing: -0.005em; }
+.lead { letter-spacing: -0.01em; }
+
+.hero-tag { color: var(--gold); letter-spacing: 0.3em; }
+.hero-where { color: var(--screen-text2); margin-left: 14px; padding-left: 14px; border-left: 1px solid rgba(244,240,232,0.3); }
+@media (max-width: 600px) { .hero-where { display: none; } }
+
+/* ═══ SHOP BY CATEGORY ═══ */
+.cat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.cat { position: relative; display: flex; text-decoration: none; color: inherit; flex-direction: column; text-align: left; cursor: pointer; padding: 0; border: 1px solid var(--rule); border-radius: var(--radius); background: var(--card); overflow: hidden; transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s; }
+.cat:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--rule2); }
+.cat-ph { display: block; aspect-ratio: 4 / 3; overflow: hidden; background: var(--paper3); }
+.cat-ph img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s; }
+.cat-ph img.contain { object-fit: contain; padding: 14px; background: #fff; }
+.cat:hover .cat-ph img { transform: scale(1.05); }
+.cat-body { display: block; padding: 12px 12px 4px; }
+.cat-name { display: block; font-family: var(--f-serif); font-size: 1.25rem; line-height: 1.1; }
+.cat-desc { display: block; font-size: 0.78rem; color: var(--ink2); margin-top: 3px; }
+.cat-n { display: block; padding: 6px 12px 12px; color: var(--ink3); }
+.cat-go { position: absolute; top: 10px; right: 10px; width: 34px; height: 34px; border-radius: 50%; background: rgba(251,248,242,0.92); display: grid; place-items: center; transition: all 0.25s; }
+.cat-go svg { width: 15px; height: 15px; stroke: var(--ink); fill: none; stroke-width: 1.7; }
+.cat:hover .cat-go { background: var(--gold); transform: rotate(-45deg); }
+@media (min-width: 900px) {
+  .cat-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .cat { border-radius: var(--radius-lg); }
+  .cat-ph { aspect-ratio: 16 / 10; }
+  .cat-body { padding: 18px 20px 4px; }
+  .cat-name { font-size: 1.7rem; }
+  .cat-desc { font-size: 0.88rem; }
+  .cat-n { padding: 8px 20px 18px; }
+  .cat-go { top: 14px; right: 14px; width: 40px; height: 40px; }
+}
+
+/* ═══ SERVICES ═══ */
+#services { background: var(--paper2); }
+.sv-grid { display: grid; gap: 10px; }
+.sv { background: var(--card); border: 1px solid var(--rule); border-radius: var(--radius); padding: 18px 18px 20px; transition: transform 0.3s, box-shadow 0.3s; }
+.sv:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.sv-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 26px; }
+.sv-no { color: var(--ink3); }
+.sv-tag { padding: 4px 10px; border-radius: 100px; background: var(--gold-wash); color: var(--gold-ink); }
+.sv-name { font-family: var(--f-serif); font-weight: 400; font-size: 1.55rem; line-height: 1.1; margin-bottom: 8px; }
+.sv-desc { font-size: 0.9rem; color: var(--ink2); max-width: 42ch; }
+.sv-cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+@media (min-width: 900px) {
+  .sv-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .sv { padding: 26px 26px 30px; border-radius: var(--radius-lg); }
+  .sv-top { margin-bottom: 44px; }
+  .sv-name { font-size: 1.9rem; }
+}
+
+/* ═══ PAN-INDIA GLOBE (cobe, WebGL dotted globe) ═══ */
+.globe-card { display: grid; grid-template-columns: 1fr; align-items: center; gap: 4px; margin: 22px 0 6px; padding: 16px; border-radius: var(--radius-lg); background: var(--screen); color: var(--screen-text); overflow: hidden; }
+.globe-wrap { position: relative; width: 100%; max-width: 360px; aspect-ratio: 1; margin: 0 auto; }
+.globe-wrap canvas { width: 100%; height: 100%; cursor: grab; contain: layout paint size; opacity: 0; transition: opacity 1s; }
+.globe-wrap canvas.ready { opacity: 1; }
+.globe-info { padding: 4px 6px 6px; }
+.globe-k { color: var(--gold); }
+.globe-h { font-size: 1.7rem; line-height: 1.1; margin: 8px 0 8px; }
+.globe-h em { font-style: italic; color: var(--gold); }
+.globe-cities { font-size: 0.84rem; color: var(--screen-text2); line-height: 1.7; }
+@media (min-width: 1200px) { .globe-card { grid-template-columns: 1fr 1fr; padding: 10px 26px 10px 10px; } .globe-h { font-size: 2rem; } }
+
+/* ═══ v10: 03 BUILD YOUR QUOTE — call sheet (left) + sticky live quote (right) ═══ */
+.bq { display: grid; gap: 22px; }
+.bq > * { min-width: 0; }   /* grid children may shrink below their content (stops the quote panel overflowing on phones) */
+.bq .q-picks, .bq .q-picks-t { display: none; }   /* the call sheet is the picker now */
+.bq-side .quote-box { box-shadow: var(--shadow-lg); }
+@media (min-width: 1100px) {
+  .bq { grid-template-columns: minmax(0, 1fr) 420px; gap: 36px; align-items: start; }
+  .bq-side { position: sticky; top: calc(var(--nav-top) + var(--nav-h) + 16px); }
+  .bq-side .quote-box { max-height: calc(100vh - var(--nav-top) - var(--nav-h) - 36px); overflow-y: auto; overscroll-behavior: contain; }
+}
+#equipment.v-call .eq-card.ticked .eq-avail { color: var(--gold-ink); }
+.globe-row { margin-top: 44px; }
+.globe-row .globe-card { margin: 0; }
+@media (min-width: 900px) { .globe-row .globe-card { grid-template-columns: 1fr 1.2fr; padding: 10px 40px 10px 10px; } .globe-row .globe-h { font-size: 2.4rem; } }
+
+/* ═══ 03 BUILD YOUR QUOTE — animated equipment tabs (after the 21st.dev animated icon tabs) ═══
+   Vanilla port: icons spring in with a stagger when the section appears, grow on hover,
+   squash on tap, and play their own little animation when chosen; an ink bar slides
+   under the active tab; a speech-bubble badge (the component's "NEW" shape) shows the count. */
+#equipment .filters.eqtabs { position: relative; display: flex; gap: 6px; justify-content: flex-start; overflow-x: auto; scrollbar-width: none;
+  position: relative; top: auto; background: none; margin: 0 0 18px; padding: 14px 4px 12px; border-bottom: 1px solid var(--rule); }
+.eqtabs::-webkit-scrollbar { display: none; }
+.eqt { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 4px 12px 12px; border: 0 !important; background: none;
+  color: var(--ink3); cursor: pointer; -webkit-tap-highlight-color: transparent; transition: color 0.25s; }
+.eqt:hover, .eqt.active { color: var(--ink); }
+.eqt-pop { position: relative; display: block; transform: scale(0); }
+.eqtabs.in .eqt-pop { animation: eqtIn 0.6s cubic-bezier(0.34, 1.7, 0.5, 1) forwards; animation-delay: calc(var(--i) * 0.08s); }
+@keyframes eqtIn { from { transform: scale(0); } to { transform: scale(1); } }
+.eqt-ico { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 18px; background: transparent; border: 1px solid transparent;
+  transition: transform 0.35s cubic-bezier(0.34, 1.6, 0.5, 1), background 0.3s, border-color 0.3s, box-shadow 0.3s; }
+.eqt:not(.active):hover .eqt-ico { transform: scale(1.1); }
+.eqt:not(.active):active .eqt-ico { transform: scale(0.8); transition-duration: 0.12s; }
+.eqt.active .eqt-ico { background: transparent; border-color: transparent; box-shadow: none; }
+.eqt-ico svg { width: 46px; height: 46px; fill: none; stroke: var(--ink); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; overflow: visible; }
+.eqt-ico svg .g { fill: transparent; transition: fill 0.3s; }
+.eqt.active .eqt-ico svg .g { fill: var(--gold); }
+.eqt-l { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.01em; white-space: nowrap; }
+.eqt.active .eqt-l { letter-spacing: 0; }
+.eqt-badge { position: absolute; top: 0; right: 2px; width: 16px; height: 16px; border-radius: 50%; display: grid; place-items: center; background: var(--ink); color: var(--paper); font-size: 0.58rem; font-weight: 700; line-height: 1; }
+.eqt.active .eqt-badge { background: var(--gold); color: var(--ink); }
+.eqt-bar { position: absolute; left: 0; bottom: 0; height: 3px; width: 0; border-radius: 3px; background: var(--ink); z-index: 1;
+  transition: transform 0.45s cubic-bezier(0.34, 1.35, 0.5, 1), width 0.45s cubic-bezier(0.34, 1.35, 0.5, 1); }
+
+/* each icon's "play" animation (runs once when its tab is chosen) */
+.eqt svg * { transform-box: fill-box; transform-origin: center; }
+.eqt.play .t { animation: tPop 0.5s cubic-bezier(0.34,1.7,0.5,1) both; } .eqt.play .t2 { animation-delay: .08s } .eqt.play .t3 { animation-delay: .16s } .eqt.play .t4 { animation-delay: .24s }
+@keyframes tPop { 0% { transform: scale(0.4); } 100% { transform: scale(1); } }
+.eqt.play .cart { animation: cartRoll 0.9s cubic-bezier(0.3,1.4,0.5,1); } .eqt.play .wheel { animation: spin 0.9s ease-out; }
+@keyframes cartRoll { 0% { transform: translateX(-8px); } 60% { transform: translateX(3px); } 100% { transform: none; } }
+.eqt.play .boom { animation: boomSwing 0.9s ease-out; transform-origin: 0% 100%; }
+@keyframes boomSwing { 0% { transform: rotate(-14deg); } 55% { transform: rotate(6deg); } 100% { transform: none; } }
+.eqt.play .reel { animation: spin 1.2s cubic-bezier(0.2,0.7,0.3,1); } .eqt.play .r2 { animation-duration: 1.4s; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.eqt.play .cone { animation: conePulse 0.25s ease-in-out 4 alternate; }
+@keyframes conePulse { to { transform: scale(1.18); } }
+.eqt.play .wave { animation: waveOut 0.9s ease-out; } .eqt.play .w2 { animation-delay: 0.15s; }
+@keyframes waveOut { 0% { opacity: 0; transform: translateX(-6px); } 40% { opacity: 1; } 100% { opacity: 1; transform: none; } }
+.eqt.play .head { animation: headBob 0.8s cubic-bezier(0.34,1.7,0.5,1); }
+@keyframes headBob { 0% { transform: translateY(6px) rotate(-6deg); } 100% { transform: none; } }
+.eqt.play .sig { animation: waveOut 0.7s ease-out 2; } .eqt.play .s2 { animation-delay: 0.12s; }
+.eqt.play .platter { animation: spin 1.1s cubic-bezier(0.2,0.7,0.3,1); }
+.eqt.play .arm { animation: armDrop 0.9s ease-out; transform-origin: 85% 15%; }
+@keyframes armDrop { 0% { transform: rotate(-22deg); } 70% { transform: rotate(3deg); } 100% { transform: none; } }
+.eqt.play .lid { animation: lidPop 0.8s cubic-bezier(0.34,1.7,0.5,1); }
+@keyframes lidPop { 0% { transform: none; } 35% { transform: translateY(-9px) rotate(-6deg); } 100% { transform: none; } }
+.eqt.play .spark { animation: waveOut 0.6s ease-out 0.2s both; }
+.eqt .spark { opacity: 0; } .eqt.active .spark { opacity: 1; }
+@media (max-width: 700px) { .eqt-ico { width: 54px; height: 54px; border-radius: 15px; } .eqt-ico svg { width: 38px; height: 38px; } .eqt { padding: 4px 8px 12px; } }
+@media (prefers-reduced-motion: reduce) { .eqt-pop { transform: none; } .eqtabs.in .eqt-pop { animation: none; } }
+
+/* ═══ 02 SHOP BY CATEGORY — product showcase (after Liquid Light's "Our Beers") ═══
+   Dark stage; each category stands like a can over a soft floor shadow. Hover: the item
+   enlarges and lifts, the shadow spreads, the name turns gold and the count + arrow
+   slide up. Phones: a swipeable row. The heading floats in letter by letter on scroll. */
+.sc-section { background: var(--screen); color: var(--screen-text); overflow: hidden; }
+.sc-head { text-align: center; margin-bottom: 34px; }
+.sc-k { color: rgba(244,239,230,0.55); } .sc-k b { color: var(--gold); font-weight: 600; }
+.sc-title { font-family: var(--f-serif); font-weight: 400; font-size: clamp(2.6rem, 1.6rem + 4.2vw, 5.4rem); line-height: 1.05; letter-spacing: -0.02em; margin: 10px 0 12px; overflow: hidden; padding-bottom: 0.08em; }
+.sc-title .ch { display: inline-block; will-change: transform; }
+.sc-lead { color: rgba(244,239,230,0.65); max-width: 46ch; margin: 0 auto; }
+.sc-swipe { display: none; text-align: right; color: var(--gold); padding: 0 var(--gutter); margin-bottom: 10px; animation: blink 1.6s ease-in-out infinite; }
+.sc-row { display: flex; gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin: 0 calc(var(--gutter) * -1); padding: 26px var(--gutter) 10px; }
+.sc-row::-webkit-scrollbar { display: none; }
+.sc { flex: 0 0 62%; scroll-snap-align: center; display: flex; flex-direction: column; align-items: center; text-decoration: none; color: inherit; }
+.sc-stage { position: relative; width: 100%; height: 300px; display: flex; align-items: flex-end; justify-content: center; }
+.sc-shadow { position: absolute; bottom: -6px; left: 50%; width: 70%; height: 16px; transform: translateX(-50%); border-radius: 50%; background: rgba(0,0,0,0.85); filter: blur(12px); opacity: 0.55; transition: opacity 0.5s, transform 0.5s cubic-bezier(0.2,0.8,0.2,1); }
+.sc-item { position: relative; display: block; width: 78%; height: 100%; border-radius: 26px 26px 18px 18px; overflow: hidden; background: #221e19;
+  box-shadow: 0 18px 30px rgba(0,0,0,0.55); transform-origin: 50% 100%; transition: transform 0.5s cubic-bezier(0.2,0.8,0.2,1), box-shadow 0.5s; }
+.sc-item::after { content: ''; position: absolute; inset: 0; background: linear-gradient(100deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0) 32%), linear-gradient(to top, rgba(14,13,12,0.35), transparent 40%); pointer-events: none; }
+.sc-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.2,0.8,0.2,1); }
+.sc-item img.contain { object-fit: contain; background: #fff; padding: 14px; }
+.sc-text { display: flex; flex-direction: column; align-items: center; text-align: center; margin-top: 22px; width: 100%; }
+.sc-name { font-family: var(--f-serif); font-size: 1.55rem; line-height: 1.1; transition: color 0.3s; }
+.sc-sub { color: rgba(244,239,230,0.5); margin-top: 4px; }
+.sc-reveal { display: flex; align-items: center; gap: 10px; margin-top: 12px; opacity: 1; transform: none; transition: opacity 0.35s, transform 0.35s; }
+.sc-n { font-weight: 600; font-size: 0.86rem; }
+.sc-go { width: 34px; height: 34px; border-radius: 50%; background: var(--screen-text); display: grid; place-items: center; box-shadow: 0 0 16px rgba(255,255,255,0.25); transition: background 0.3s; }
+.sc-go svg { width: 15px; height: 15px; stroke: var(--ink); fill: none; stroke-width: 1.8; }
+/* hover: enlarge + lift (hover-capable devices only; touch keeps the info visible) */
+@media (hover: hover) {
+  .sc-reveal { opacity: 0; transform: translateY(10px); }
+  .sc:hover .sc-item, .sc:focus-visible .sc-item { transform: translateY(-14px) scale(1.12); box-shadow: 0 34px 50px rgba(0,0,0,0.6); }
+  .sc:hover .sc-item img { transform: scale(1.06); }
+  .sc:hover .sc-shadow { opacity: 0.8; transform: translateX(-50%) scale(1.25); }
+  .sc:hover .sc-name, .sc:focus-visible .sc-name { color: var(--gold); }
+  .sc:hover .sc-reveal, .sc:focus-visible .sc-reveal { opacity: 1; transform: none; }
+  .sc:hover .sc-go { background: var(--gold); }
+}
+.sc:focus-visible { outline: none; } .sc:focus-visible .sc-item { outline: 2px solid var(--gold); outline-offset: 4px; }
+@media (max-width: 899px) { .sc-swipe { display: block; } }
+@media (min-width: 900px) {
+  .sc-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 70px 40px; overflow: visible; margin: 0; padding: 40px 0 10px; }
+  .sc-stage { height: 380px; }
+}
+@media (min-width: 1300px) {
+  .sc-row { grid-template-columns: repeat(6, 1fr); gap: 28px; }
+  .sc-stage { height: 360px; }
+  .sc-item { width: 88%; }
+  .sc-name { font-size: 1.45rem; }
+}
+@media (prefers-reduced-motion: reduce) { .sc-swipe { animation: none; } }
+
+/* ═══ showcase v2: transparent cut-outs float on the stage (no frames), like the beer cans ═══ */
+.sc-item { background: none; border-radius: 0; overflow: visible; box-shadow: none; width: 100%; display: flex; align-items: flex-end; justify-content: center; }
+.sc-item::after { display: none; }
+.sc-item img { width: auto; height: auto; max-width: 100%; max-height: var(--h, 100%); object-fit: contain; filter: drop-shadow(0 16px 14px rgba(0,0,0,0.6)); }
+.sc-item img.contain { background: none; padding: 0; }
+.sc-sync { --h: 100%; } .sc-recording { --h: 58%; } .sc-speaker { --h: 88%; }
+.sc-comms { --h: 62%; } .sc-dj { --h: 40%; } .sc-package { --h: 100%; }
+@media (hover: hover) {
+  .sc:hover .sc-item, .sc:focus-visible .sc-item { box-shadow: none; }
+  .sc:hover .sc-item img { transform: none; filter: drop-shadow(0 30px 24px rgba(0,0,0,0.65)) drop-shadow(0 0 30px rgba(232,179,57,0.18)); }
+}
+
+/* ═══ 01 WHAT ARE YOU SHOOTING — Nagra reel selector ═══
+   A 7-inch tape reel turns slowly; choosing a production type "fast-forwards" it,
+   changes the tape pack and shows that type as Rolling; the kit card appears below. */
+.rl { display: grid; gap: 26px; align-items: center; margin-bottom: 24px; }
+.rl-deck { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.rl-reel { width: min(78vw, 360px); aspect-ratio: 1; filter: drop-shadow(0 22px 30px rgba(22,19,15,0.28)); }
+.rl-svg { width: 100%; height: 100%; display: block; }
+#rlSpin { transform-origin: 200px 200px; }
+#rlPack { transition: r 0.9s cubic-bezier(0.34, 1.3, 0.5, 1); }
+.rl-now { display: flex; align-items: center; gap: 10px; padding: 8px 16px; border-radius: 100px; background: var(--card); border: 1px solid var(--rule); }
+.rl-rec { width: 9px; height: 9px; border-radius: 50%; background: var(--rec); box-shadow: 0 0 8px rgba(210,59,63,0.7); animation: blink 1s steps(2, jump-none) infinite; }
+.rl-now .mono { color: var(--ink3); }
+.rl-now-name { font-family: var(--f-serif); font-style: italic; font-size: 1.15rem; color: var(--gold-ink); }
+.rl-list { display: grid; border-top: 1px solid var(--rule2); }
+.rl-row { display: grid; grid-template-columns: 2.4em 1fr auto; align-items: center; gap: 2px 12px; padding: 13px 4px; text-align: left; border: 0; border-bottom: 1px solid var(--rule); background: none; cursor: pointer; position: relative; transition: padding 0.3s, background 0.3s; }
+.rl-no { color: var(--ink3); align-self: start; padding-top: 0.45em; }
+.rl-name { font-family: var(--f-serif); font-size: clamp(1.45rem, 1.2rem + 1vw, 2.1rem); line-height: 1.1; transition: color 0.25s; }
+.rl-desc { grid-column: 2; font-size: var(--t-small); color: var(--ink2); }
+.rl-go { grid-row: 1 / 3; grid-column: 3; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--rule2); display: grid; place-items: center; transition: all 0.25s; }
+.rl-go svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.6; }
+.rl-row::before { content: ''; position: absolute; left: 0; top: 10px; bottom: 10px; width: 3px; border-radius: 3px; background: var(--gold); transform: scaleY(0); transition: transform 0.35s cubic-bezier(0.34,1.5,0.5,1); }
+.rl-row:hover .rl-name { font-style: italic; }
+.rl-row.active { padding-left: 16px; }
+.rl-row.active::before { transform: scaleY(1); }
+.rl-row.active .rl-name { font-style: italic; color: var(--gold-ink); }
+.rl-row.active .rl-go { background: var(--gold); border-color: var(--gold); transform: rotate(90deg); }
+@media (min-width: 900px) {
+  .rl { grid-template-columns: 0.9fr 1.1fr; gap: 60px; }
+  .rl-reel { width: min(34vw, 440px); }
+  .rl-row { grid-template-columns: 3.4em 1.2fr 1fr auto; padding: 16px 6px; }
+  .rl-desc { grid-column: 3; }
+  .rl-go { grid-row: 1; grid-column: 4; }
+  .rl-row.active { padding-left: 20px; background: var(--paper2); }
+}
+@media (prefers-reduced-motion: reduce) { .rl-rec { animation: none; } }
+
+/* ═══ 01 v3: on-set video + accordion (each production type drops down its kit) ═══ */
+.rl-video { position: relative; width: min(78vw, 400px); aspect-ratio: 4 / 5; border-radius: var(--radius-lg); overflow: hidden; background: var(--screen); box-shadow: var(--shadow-lg); }
+.rl-video video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.rl-video-tag { position: absolute; left: 12px; top: 12px; display: flex; align-items: center; gap: 7px; padding: 5px 10px; border-radius: 100px; background: rgba(14,13,12,0.6); color: var(--screen-text); backdrop-filter: blur(6px); }
+.rl-video-tag i { width: 7px; height: 7px; border-radius: 50%; background: var(--rec); animation: blink 1s steps(2, jump-none) infinite; }
+.rl { align-items: start; }
+@media (min-width: 900px) { .rl-deck { position: sticky; top: calc(var(--nav-top) + var(--nav-h) + 20px); } .rl-video { width: min(30vw, 420px); } }
+.rl-item { border-bottom: 1px solid var(--rule); }
+.rl-acc .rl-row { border-bottom: 0; width: 100%; }
+.rl-go svg { transition: transform 0.35s cubic-bezier(0.34,1.5,0.5,1); }
+.rl-row.active .rl-go { transform: none; }
+.rl-item.open .rl-go svg { transform: rotate(180deg); }
+.rl-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.45s cubic-bezier(0.2,0.8,0.2,1); }
+.rl-item.open .rl-panel { grid-template-rows: 1fr; }
+.rl-panel-in { overflow: hidden; min-height: 0; }
+.rl-panel .kit { display: grid; grid-template-columns: 1fr; margin: 2px 0 18px; box-shadow: none; transform: none; flex: none; width: 100%; opacity: 0; transform: translateY(-6px); transition: opacity 0.35s 0.1s, transform 0.35s 0.1s; }
+.rl-item.open .rl-panel .kit { opacity: 1; transform: none; }
+.rl-panel .kit:hover { transform: none; box-shadow: none; }
+.rl-panel .kit-match-badge { display: none !important; }
+.rl-panel .kit-photo { aspect-ratio: 16 / 9; }
+.rl-panel .kit-name { font-size: 1.6rem; }
+.rl-panel .kit .btn { width: 100%; }
+@media (min-width: 900px) {
+  .rl-panel .kit { grid-template-columns: 220px 1fr; }
+  .rl-panel .kit-photo { aspect-ratio: auto; margin: 10px; position: relative; min-height: 200px; }
+  .rl-panel .kit-photo img { position: absolute; inset: 0; }
+  .rl-panel .kit-body { padding: 16px 20px 18px 8px; }
+  .rl-panel .kit .btn { width: auto; align-self: flex-start; padding: 0 26px; }
+}
+@media (prefers-reduced-motion: reduce) { .rl-video-tag i { animation: none; } }
+
+/* ═══ 01 v4: pan-India globe (moved up from 07), zooms into India, every state + UT marked ═══ */
+.rl-globe { position: relative; width: min(86vw, 400px); aspect-ratio: 4 / 5; border-radius: var(--radius-lg); overflow: hidden; background: radial-gradient(120% 80% at 50% 40%, #221d17 0%, var(--screen) 70%); color: var(--screen-text); box-shadow: var(--shadow-lg); display: flex; flex-direction: column; }
+.rl-globe-wrap { position: relative; flex: 1; min-height: 0; display: grid; place-items: center; }
+.rl-globe-wrap canvas { width: 100%; aspect-ratio: 1; max-height: 100%; cursor: grab; contain: layout paint size; opacity: 0; transition: opacity 1s; }
+.rl-globe-wrap canvas.ready { opacity: 1; }
+.rl-globe-tag { position: absolute; left: 12px; top: 12px; display: flex; align-items: center; gap: 7px; padding: 5px 10px; border-radius: 100px; background: rgba(14,13,12,0.6); backdrop-filter: blur(6px); color: var(--screen-text); }
+.rl-globe-tag i { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 8px rgba(232,179,57,0.8); }
+.rl-globe-count { text-align: center; font-size: 0.86rem; color: var(--screen-text2); margin: 0 0 8px; }
+.rl-globe-count b { font-family: var(--f-serif); font-size: 1.5rem; font-weight: 400; color: var(--gold); margin-right: 2px; }
+.rl-globe-count span { color: var(--gold); margin: 0 4px; }
+.rl-states { overflow: hidden; border-top: 1px solid rgba(255,255,255,0.08); padding: 10px 0 12px; -webkit-mask: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+.rl-states-track { display: flex; width: max-content; animation: rlStates 70s linear infinite; }
+.rl-states-track span { font-size: 0.78rem; letter-spacing: 0.02em; color: var(--screen-text2); white-space: nowrap; padding: 0 12px; position: relative; }
+.rl-states-track span::after { content: ''; position: absolute; right: -2px; top: 50%; width: 4px; height: 4px; margin-top: -2px; border-radius: 50%; background: var(--gold); opacity: 0.7; }
+.rl-states-track .dup { display: none; }
+.rl-states:hover .rl-states-track { animation-play-state: paused; }
+@keyframes rlStates { to { transform: translateX(-50%); } }
+@media (min-width: 900px) { .rl-globe { width: min(32vw, 440px); } }
+@media (prefers-reduced-motion: reduce) { .rl-states-track { animation: none; flex-wrap: wrap; width: auto; } .rl-states-track span[aria-hidden] { display: none; } }
 </style>
 </head>
 <body>
@@ -803,8 +1098,8 @@ footer { background: var(--ink); color: var(--paper); padding: 48px var(--gutter
 <nav id="navbar">
   <a href="#hero" class="nav-logo">Singh <em>Sound</em></a>
   <ul class="nav-links">
-    <li><a href="#shoot">Kits</a></li>
-    <li><a href="#equipment">Equipment</a></li>
+    <li><a href="#categories">Equipment</a></li>
+    <li><a href="#services">Services</a></li>
     <li><a href="#work">Work</a></li>
     <li><a href="#faq">FAQ</a></li>
   </ul>
@@ -814,10 +1109,11 @@ footer { background: var(--ink); color: var(--paper); padding: 48px var(--gutter
 <div class="menu" id="menu" role="dialog" aria-label="Menu">
   <button class="menu-close" id="menuClose" type="button" aria-label="Close menu">&times;</button>
   <a href="#shoot">Shoot &amp; kits <small>01</small></a>
-  <a href="#equipment">Equipment <small>02</small></a>
-  <a href="#work">Our work <small>04</small></a>
-  <a href="#quote">Get a quote <small>06</small></a>
-  <a href="#faq">FAQ <small>07</small></a>
+  <a href="#categories">Categories <small>02</small></a>
+  <a href="#quote">Build your quote <small>03</small></a>
+  <a href="#services">Services <small>05</small></a>
+  <a href="#work">Our work <small>06</small></a>
+  <a href="#faq">FAQ <small>08</small></a>
   <p class="menu-foot">Mumbai &middot; Pan India</p>
 </div>
 
@@ -830,7 +1126,7 @@ footer { background: var(--ink); color: var(--paper); padding: 48px var(--gutter
   <div class="hero-shade-final" id="heroShadeFinal"></div>
 
   <div class="hero-open" id="heroOpen">
-    <div class="hero-eyebrow mono"><span class="dot"></span>Mumbai &middot; Film &amp; Events &middot; Pan India</div>
+    <div class="hero-eyebrow mono"><span class="dot"></span><span class="hero-tag">Rent &middot; Hire &middot; Create</span><span class="hero-where">Mumbai &middot; Pan India</span></div>
     <h1 class="serif hero-h1">
       <span class="ln">The sound behind</span>
       <span class="ln">Bollywood&rsquo;s biggest</span>
@@ -838,7 +1134,7 @@ footer { background: var(--ink); color: var(--paper); padding: 48px var(--gutter
     </h1>
     <p class="hero-sub">Sync sound carts, Nagra recorders and JBL systems from the sets of Pathaan, Gadar&nbsp;2 and Heeramandi.</p>
     <div class="hero-actions">
-      <a href="#shoot" class="btn btn-gold">Get a quote</a>
+      <a href="#quote" class="btn btn-gold">Get a quote</a>
       <a href="https://wa.me/919889656352" target="_blank" rel="noopener" class="btn btn-glass btn-wa"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg>WhatsApp</a>
     </div>
   </div>
@@ -848,7 +1144,7 @@ footer { background: var(--ink); color: var(--paper); padding: 48px var(--gutter
     <h2 class="serif">Your set. <em>Our sound.</em></h2>
     <p>Everything on this set is available to rent &mdash; delivered to your location, anywhere in India.</p>
     <div class="hero-actions">
-      <a href="#shoot" class="btn btn-gold">Build a quote</a>
+      <a href="#quote" class="btn btn-gold">Build a quote</a>
       <a href="https://wa.me/919889656352" target="_blank" rel="noopener" class="btn btn-glass btn-wa"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg>WhatsApp</a>
     </div>
   </div>
@@ -888,36 +1184,23 @@ footer { background: var(--ink); color: var(--paper); padding: 48px var(--gutter
     <div><h2 class="serif h2">What are you <em>shooting?</em></h2><p class="lead">Pick your production &mdash; the right kit appears below, ready to add to your quote.</p></div>
   </header>
   <div class="wrap reveal">
-    <div class="xp" role="tablist" aria-label="Production type">
-      <button class="xp-panel active" role="tab" type="button" data-shoot="film" aria-selected="true">
-        <img src="photos/cart-rajasthan-palace.jpg" alt="Sound cart at a Rajasthan palace" loading="lazy">
-        <span class="xp-in"><span class="xp-no mono">01</span><span class="xp-name">Feature film</span><span class="xp-desc">Full sync sound unit for a large crew.</span></span>
-        <span class="xp-go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></svg></span>
-      </button>
-      <button class="xp-panel" role="tab" type="button" data-shoot="series" aria-selected="false">
-        <img src="photos/cart-school-grounds.jpg" alt="Sound cart and boom poles on location" loading="lazy">
-        <span class="xp-in"><span class="xp-no mono">02</span><span class="xp-name">Web series</span><span class="xp-desc">Long schedules, fast setups, many actors.</span></span>
-        <span class="xp-go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></svg></span>
-      </button>
-      <button class="xp-panel" role="tab" type="button" data-shoot="ad" aria-selected="false">
-        <img src="photos/cart-period-set.jpg" alt="Recording setup on a period set" loading="lazy">
-        <span class="xp-in"><span class="xp-no mono">03</span><span class="xp-name">Ad &amp; music video</span><span class="xp-desc">Playback, pilot tracks and quick setups.</span></span>
-        <span class="xp-go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></svg></span>
-      </button>
-      <button class="xp-panel" role="tab" type="button" data-shoot="event" aria-selected="false">
-        <img src="photos/jbl-on-set.jpg" alt="JBL speaker system on set" loading="lazy">
-        <span class="xp-in"><span class="xp-no mono">04</span><span class="xp-name">Live event</span><span class="xp-desc">JBL sound for crowds and stages.</span></span>
-        <span class="xp-go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></svg></span>
-      </button>
-      <button class="xp-panel" role="tab" type="button" data-shoot="wedding" aria-selected="false">
-        <img src="photos/night-shoot.jpg" alt="Night shoot under string lights" loading="lazy">
-        <span class="xp-in"><span class="xp-no mono">05</span><span class="xp-name">Wedding &amp; DJ</span><span class="xp-desc">DJ console and speakers for the night.</span></span>
-        <span class="xp-go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></svg></span>
-      </button>
-    </div>
-    <p class="xp-hint mono">Your kit &darr;</p>
-    <div class="st-panel" id="kitGrid" role="tabpanel" aria-live="polite">
-      <article class="kit" data-for="film" data-items="Complete Film Audio Package">
+    <div class="rl">
+      <div class="rl-deck">
+        <div class="rl-globe">
+          <div class="rl-globe-wrap"><canvas id="globe" aria-hidden="true"></canvas></div>
+          <span class="rl-globe-tag mono"><i></i>Mumbai base &middot; all of India</span>
+          <p class="rl-globe-count"><b>28</b> states <span>+</span> <b>8</b> union territories</p>
+          <div class="rl-states" aria-label="States and union territories we deliver to"><div class="rl-states-track"><span>Andhra Pradesh</span><span>Arunachal Pradesh</span><span>Assam</span><span>Bihar</span><span>Chhattisgarh</span><span>Goa</span><span>Gujarat</span><span>Haryana</span><span>Himachal Pradesh</span><span>Jharkhand</span><span>Karnataka</span><span>Kerala</span><span>Madhya Pradesh</span><span>Maharashtra</span><span>Manipur</span><span>Meghalaya</span><span>Mizoram</span><span>Nagaland</span><span>Odisha</span><span>Punjab</span><span>Rajasthan</span><span>Sikkim</span><span>Tamil Nadu</span><span>Telangana</span><span>Tripura</span><span>Uttar Pradesh</span><span>Uttarakhand</span><span>West Bengal</span><span>Delhi</span><span>Jammu &amp; Kashmir</span><span>Ladakh</span><span>Chandigarh</span><span>Puducherry</span><span>Andaman &amp; Nicobar</span><span>Lakshadweep</span><span>Dadra, Nagar Haveli, Daman &amp; Diu</span><span aria-hidden="true" class="dup"></span><span aria-hidden="true">Andhra Pradesh</span><span aria-hidden="true">Arunachal Pradesh</span><span aria-hidden="true">Assam</span><span aria-hidden="true">Bihar</span><span aria-hidden="true">Chhattisgarh</span><span aria-hidden="true">Goa</span><span aria-hidden="true">Gujarat</span><span aria-hidden="true">Haryana</span><span aria-hidden="true">Himachal Pradesh</span><span aria-hidden="true">Jharkhand</span><span aria-hidden="true">Karnataka</span><span aria-hidden="true">Kerala</span><span aria-hidden="true">Madhya Pradesh</span><span aria-hidden="true">Maharashtra</span><span aria-hidden="true">Manipur</span><span aria-hidden="true">Meghalaya</span><span aria-hidden="true">Mizoram</span><span aria-hidden="true">Nagaland</span><span aria-hidden="true">Odisha</span><span aria-hidden="true">Punjab</span><span aria-hidden="true">Rajasthan</span><span aria-hidden="true">Sikkim</span><span aria-hidden="true">Tamil Nadu</span><span aria-hidden="true">Telangana</span><span aria-hidden="true">Tripura</span><span aria-hidden="true">Uttar Pradesh</span><span aria-hidden="true">Uttarakhand</span><span aria-hidden="true">West Bengal</span><span aria-hidden="true">Delhi</span><span aria-hidden="true">Jammu &amp; Kashmir</span><span aria-hidden="true">Ladakh</span><span aria-hidden="true">Chandigarh</span><span aria-hidden="true">Puducherry</span><span aria-hidden="true">Andaman &amp; Nicobar</span><span aria-hidden="true">Lakshadweep</span><span aria-hidden="true">Dadra, Nagar Haveli, Daman &amp; Diu</span></div></div>
+        </div>
+        <div class="rl-now"><span class="rl-rec"></span><span class="mono">Rolling</span><span class="rl-now-name" id="rlNow">Feature film</span></div>
+      </div>
+      <div class="rl-list rl-acc">
+      <div class="rl-item open" data-shoot="film">
+        <button class="rl-row active" type="button" aria-expanded="true" aria-controls="rlp-film" id="rlb-film">
+          <span class="rl-no mono">01</span><span class="rl-name">Feature film</span><span class="rl-desc">Full sync sound unit for a large crew.</span><span class="rl-go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="rl-panel" id="rlp-film" role="region" aria-labelledby="rlb-film"><div class="rl-panel-in">
+          <article class="kit" data-for="film" data-items="Complete Film Audio Package">
         <div class="kit-photo"><img src="photos/cart-colonial-building.jpg" alt="Full sound setup at a period location" loading="lazy"><span class="kit-badge mono">Best value</span><span class="kit-match-badge mono">For you</span></div>
         <div class="kit-body">
           <span class="kit-no mono">Kit No. 01 &mdash; Feature film</span>
@@ -927,7 +1210,14 @@ footer { background: var(--ink); color: var(--paper); padding: 48px var(--gutter
           <button class="btn btn-ink" type="button" data-addkit>Add kit to quote</button>
         </div>
       </article>
-      <article class="kit" data-for="series" data-items="Full Sync Sound Cart|Boom Microphone Package (Sennheiser)|Wireless Microphone Package (4 channels)">
+        </div></div>
+      </div>
+      <div class="rl-item" data-shoot="series">
+        <button class="rl-row" type="button" aria-expanded="false" aria-controls="rlp-series" id="rlb-series">
+          <span class="rl-no mono">02</span><span class="rl-name">Web series</span><span class="rl-desc">Long schedules, fast setups, many actors.</span><span class="rl-go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="rl-panel" id="rlp-series" role="region" aria-labelledby="rlb-series"><div class="rl-panel-in">
+          <article class="kit" data-for="series" data-items="Full Sync Sound Cart|Boom Microphone Package (Sennheiser)|Wireless Microphone Package (4 channels)">
         <div class="kit-photo"><img src="photos/cart-himalayas.jpg" alt="Sync sound cart on location" loading="lazy"><span class="kit-badge mono">Sync sound</span><span class="kit-match-badge mono">For you</span></div>
         <div class="kit-body">
           <span class="kit-no mono">Kit No. 02 &mdash; Web series</span>
@@ -937,7 +1227,14 @@ footer { background: var(--ink); color: var(--paper); padding: 48px var(--gutter
           <button class="btn btn-ink" type="button" data-addkit>Add kit to quote</button>
         </div>
       </article>
-      <article class="kit" data-for="ad" data-items="Pilot Recording Setup|JBL Speaker System (Pair)|Talkback Intercom System (10 headsets)">
+        </div></div>
+      </div>
+      <div class="rl-item" data-shoot="ad">
+        <button class="rl-row" type="button" aria-expanded="false" aria-controls="rlp-ad" id="rlb-ad">
+          <span class="rl-no mono">03</span><span class="rl-name">Ad &amp; music video</span><span class="rl-desc">Playback, pilot tracks and quick setups.</span><span class="rl-go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="rl-panel" id="rlp-ad" role="region" aria-labelledby="rlb-ad"><div class="rl-panel-in">
+          <article class="kit" data-for="ad" data-items="Pilot Recording Setup|JBL Speaker System (Pair)|Talkback Intercom System (10 headsets)">
         <div class="kit-photo"><img src="photos/cart-period-set.jpg" alt="Recording setup on a period set" loading="lazy"><span class="kit-badge mono">Playback</span><span class="kit-match-badge mono">For you</span></div>
         <div class="kit-body">
           <span class="kit-no mono">Kit No. 03 &mdash; Ads &amp; music</span>
@@ -947,7 +1244,14 @@ footer { background: var(--ink); color: var(--paper); padding: 48px var(--gutter
           <button class="btn btn-ink" type="button" data-addkit>Add kit to quote</button>
         </div>
       </article>
-      <article class="kit" data-for="event wedding" data-items="JBL Speaker System (Pair)|Pioneer DJ Console Setup">
+        </div></div>
+      </div>
+      <div class="rl-item" data-shoot="event">
+        <button class="rl-row" type="button" aria-expanded="false" aria-controls="rlp-event" id="rlb-event">
+          <span class="rl-no mono">04</span><span class="rl-name">Live event</span><span class="rl-desc">JBL sound for crowds and stages.</span><span class="rl-go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="rl-panel" id="rlp-event" role="region" aria-labelledby="rlb-event"><div class="rl-panel-in">
+          <article class="kit" data-for="event wedding" data-items="JBL Speaker System (Pair)|Pioneer DJ Console Setup">
         <div class="kit-photo"><img src="photos/night-shoot.jpg" alt="Night event setup" loading="lazy"><span class="kit-badge mono">Events</span><span class="kit-match-badge mono">For you</span></div>
         <div class="kit-body">
           <span class="kit-no mono">Kit No. 04 &mdash; Events</span>
@@ -957,26 +1261,128 @@ footer { background: var(--ink); color: var(--paper); padding: 48px var(--gutter
           <button class="btn btn-ink" type="button" data-addkit>Add kit to quote</button>
         </div>
       </article>
+        </div></div>
+      </div>
+      <div class="rl-item" data-shoot="wedding">
+        <button class="rl-row" type="button" aria-expanded="false" aria-controls="rlp-wedding" id="rlb-wedding">
+          <span class="rl-no mono">05</span><span class="rl-name">Wedding &amp; DJ</span><span class="rl-desc">DJ console and speakers for the night.</span><span class="rl-go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="rl-panel" id="rlp-wedding" role="region" aria-labelledby="rlb-wedding"><div class="rl-panel-in">
+          <article class="kit" data-for="event wedding" data-items="JBL Speaker System (Pair)|Pioneer DJ Console Setup">
+        <div class="kit-photo"><img src="photos/night-shoot.jpg" alt="Night event setup" loading="lazy"><span class="kit-badge mono">Events</span><span class="kit-match-badge mono">For you</span></div>
+        <div class="kit-body">
+          <span class="kit-no mono">Kit No. 04 &mdash; Events</span>
+          <h3 class="kit-name">Event &amp; DJ Kit</h3>
+          <p class="kit-for">For live events, weddings &amp; parties.</p>
+          <ul class="kit-list"><li><button type="button" data-qv="JBL Speaker System (Pair)">JBL Speaker System</button></li><li><button type="button" data-qv="Pioneer DJ Console Setup">Pioneer DJ Console</button></li><li>Operator available</li></ul>
+          <button class="btn btn-ink" type="button" data-addkit>Add kit to quote</button>
+        </div>
+      </article>
+        </div></div>
+      </div>
+      </div>
     </div>
     <p class="kit-note">Need something different? Add single items below &mdash; we&rsquo;ll tailor the kit on WhatsApp.</p>
   </div>
 </section>
 
-<!-- ═══ 03 EQUIPMENT: editorial index ═══ -->
-<section class="section v-call" id="equipment">
-  <header class="ed-head reveal">
-    <div class="ed-index mono"><b>No. 02</b><span>Equipment index</span></div>
-    <div><h2 class="serif h2">Today&rsquo;s <em>call sheet.</em></h2><p class="lead">Tick everything your shoot needs, then add it all to your quote in one go.</p></div>
-  </header>
+<!-- ═══ 02 SHOP BY CATEGORY — showcase (after Liquid Light "Our Beers") ═══ -->
+<section class="section sc-section" id="categories">
+  <div class="wrap sc-head">
+    <span class="mono sc-k"><b>No. 02</b> &middot; What we provide</span>
+    <h2 class="sc-title" id="scTitle">Shop by category</h2>
+    <p class="sc-lead">Six kinds of gear, all set-tested. Open one to see everything in it.</p>
+  </div>
+  <p class="sc-swipe mono">Swipe for more &rarr;</p>
   <div class="wrap">
-    <div class="filters mono" role="tablist" aria-label="Filter equipment">
-      <button class="filt active" data-filter="all" type="button">All &middot; 09</button>
-      <button class="filt" data-filter="sync" type="button">Sync sound</button>
-      <button class="filt" data-filter="recording" type="button">Recording</button>
-      <button class="filt" data-filter="speaker" type="button">Speakers</button>
-      <button class="filt" data-filter="comms" type="button">Talkback</button>
-      <button class="filt" data-filter="dj" type="button">DJ</button>
-      <button class="filt" data-filter="package" type="button">Packages</button>
+    <div class="sc-row">
+      <a class="sc sc-sync" href="category-sync.html">
+        <span class="sc-stage">
+          <span class="sc-shadow" aria-hidden="true"></span>
+          <span class="sc-item"><img src="sound-gear/sync.webp" alt="" loading="lazy"></span>
+        </span>
+        <span class="sc-text">
+          <span class="sc-name">Sync sound</span>
+          <span class="sc-sub mono">Carts &middot; booms &middot; wireless</span>
+          <span class="sc-reveal"><span class="sc-n">03 items</span><span class="sc-go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
+        </span>
+      </a>
+      <a class="sc sc-recording" href="category-recording.html">
+        <span class="sc-stage">
+          <span class="sc-shadow" aria-hidden="true"></span>
+          <span class="sc-item"><img src="sound-gear/recording.webp" alt="" loading="lazy"></span>
+        </span>
+        <span class="sc-text">
+          <span class="sc-name">Recorders</span>
+          <span class="sc-sub mono">Nagra &middot; pilot</span>
+          <span class="sc-reveal"><span class="sc-n">02 items</span><span class="sc-go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
+        </span>
+      </a>
+      <a class="sc sc-speaker" href="category-speaker.html">
+        <span class="sc-stage">
+          <span class="sc-shadow" aria-hidden="true"></span>
+          <span class="sc-item"><img src="sound-gear/speaker.webp" alt="" loading="lazy"></span>
+        </span>
+        <span class="sc-text">
+          <span class="sc-name">Speakers &amp; PA</span>
+          <span class="sc-sub mono">JBL systems</span>
+          <span class="sc-reveal"><span class="sc-n">01 item</span><span class="sc-go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
+        </span>
+      </a>
+      <a class="sc sc-comms" href="category-comms.html">
+        <span class="sc-stage">
+          <span class="sc-shadow" aria-hidden="true"></span>
+          <span class="sc-item"><img src="sound-gear/comms.webp" alt="" loading="lazy"></span>
+        </span>
+        <span class="sc-text">
+          <span class="sc-name">Talkback</span>
+          <span class="sc-sub mono">Wireless headsets</span>
+          <span class="sc-reveal"><span class="sc-n">01 item</span><span class="sc-go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
+        </span>
+      </a>
+      <a class="sc sc-dj" href="category-dj.html">
+        <span class="sc-stage">
+          <span class="sc-shadow" aria-hidden="true"></span>
+          <span class="sc-item"><img src="sound-gear/dj.webp" alt="" loading="lazy"></span>
+        </span>
+        <span class="sc-text">
+          <span class="sc-name">DJ &amp; playback</span>
+          <span class="sc-sub mono">Pioneer consoles</span>
+          <span class="sc-reveal"><span class="sc-n">01 item</span><span class="sc-go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
+        </span>
+      </a>
+      <a class="sc sc-package" href="category-package.html">
+        <span class="sc-stage">
+          <span class="sc-shadow" aria-hidden="true"></span>
+          <span class="sc-item"><img src="sound-gear/package.webp" alt="" loading="lazy"></span>
+        </span>
+        <span class="sc-text">
+          <span class="sc-name">Full packages</span>
+          <span class="sc-sub mono">Everything, one order</span>
+          <span class="sc-reveal"><span class="sc-n">01 item</span><span class="sc-go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 03 BUILD YOUR QUOTE — call sheet + live quote (merged from Equipment + Get a quote) ═══ -->
+<section class="section" id="quote">
+  <header class="ed-head reveal">
+    <div class="ed-index mono"><b>No. 03</b><span>Build your quote</span></div>
+    <div><h2 class="serif h2">Build your <em>quote.</em></h2><p class="lead">Tick what you need on the call sheet &mdash; it lands straight in your quote. Add your dates and send it on WhatsApp.</p></div>
+  </header>
+  <div class="wrap bq">
+    <div class="bq-sheet v-call" id="equipment">
+    <div class="filters eqtabs" role="tablist" aria-label="Filter equipment" id="eqTabs">
+      <span class="eqt-bar" aria-hidden="true"></span>
+      <button class="filt eqt active" data-filter="all" type="button" role="tab" style="--i:0" aria-label="All gear, 9 items"><span class="eqt-pop"><span class="eqt-ico"><svg viewBox="0 0 64 64" aria-hidden="true"><rect class="t t1" x="10" y="10" width="19" height="19" rx="4"/><rect class="t t2 g" x="35" y="10" width="19" height="19" rx="4"/><rect class="t t3" x="10" y="35" width="19" height="19" rx="4"/><rect class="t t4" x="35" y="35" width="19" height="19" rx="4"/></svg></span><span class="eqt-badge">9</span></span><span class="eqt-l">All gear</span></button>
+      <button class="filt eqt" data-filter="sync" type="button" role="tab" style="--i:1" aria-label="Sync sound, 3 items"><span class="eqt-pop"><span class="eqt-ico"><svg viewBox="0 0 64 64" aria-hidden="true"><g class="cart"><path d="M14 22h30M14 34h30M14 46h30M16 22v24M42 22v24"/><rect class="g" x="19" y="26" width="12" height="5" rx="1"/><rect x="19" y="38" width="18" height="5" rx="1"/><circle class="wheel" cx="20" cy="52" r="4"/><circle class="wheel" cx="38" cy="52" r="4"/></g><g class="boom"><path d="M47 46V12M47 12l9-5"/><rect class="g" x="53" y="3" width="7" height="5" rx="2.5" transform="rotate(-28 56 5)"/></g></svg></span><span class="eqt-badge">3</span></span><span class="eqt-l">Sync sound</span></button>
+      <button class="filt eqt" data-filter="recording" type="button" role="tab" style="--i:2" aria-label="Recording, 2 items"><span class="eqt-pop"><span class="eqt-ico"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="8" y="28" width="48" height="26" rx="4"/><g class="reel r1"><circle cx="22" cy="20" r="10"/><circle cx="22" cy="20" r="2.2"/><path d="M22 12v4M15 24l3.5-2M29 24l-3.5-2"/></g><g class="reel r2"><circle cx="42" cy="20" r="10"/><circle cx="42" cy="20" r="2.2"/><path d="M42 12v4M35 24l3.5-2M49 24l-3.5-2"/></g><path d="M22 30h20"/><circle class="g" cx="32" cy="42" r="5"/><path d="M14 40h6M44 40h6M14 46h6M44 46h6"/></svg></span><span class="eqt-badge">2</span></span><span class="eqt-l">Recording</span></button>
+      <button class="filt eqt" data-filter="speaker" type="button" role="tab" style="--i:3" aria-label="Speakers, 1 item"><span class="eqt-pop"><span class="eqt-ico"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="12" y="6" width="28" height="52" rx="4"/><circle class="cone g" cx="26" cy="40" r="9"/><circle cx="26" cy="40" r="3"/><circle cx="26" cy="18" r="4"/><path class="wave w1" d="M46 30a12 12 0 0 1 0 20"/><path class="wave w2" d="M51 25a19 19 0 0 1 0 30"/></svg></span><span class="eqt-badge">1</span></span><span class="eqt-l">Speakers</span></button>
+      <button class="filt eqt" data-filter="comms" type="button" role="tab" style="--i:4" aria-label="Talkback, 1 item"><span class="eqt-pop"><span class="eqt-ico"><svg viewBox="0 0 64 64" aria-hidden="true"><g class="head"><path d="M16 36v-6a16 16 0 0 1 32 0v6"/><rect class="g" x="11" y="34" width="9" height="15" rx="4"/><rect x="44" y="34" width="9" height="15" rx="4"/><path d="M15 49c0 6 6 9 13 9"/><circle class="g" cx="30" cy="58" r="2.5"/></g><path class="sig s1" d="M50 12a8 8 0 0 1 6 6"/><path class="sig s2" d="M50 6a14 14 0 0 1 12 12"/></svg></span><span class="eqt-badge">1</span></span><span class="eqt-l">Talkback</span></button>
+      <button class="filt eqt" data-filter="dj" type="button" role="tab" style="--i:5" aria-label="DJ, 1 item"><span class="eqt-pop"><span class="eqt-ico"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="6" y="14" width="52" height="40" rx="5"/><g class="platter"><circle cx="28" cy="34" r="14"/><circle class="g" cx="28" cy="34" r="5"/><path d="M28 22v4"/></g><g class="arm"><path d="M48 20v14l-8 6"/><circle cx="48" cy="20" r="2.5"/></g><path d="M44 48h8"/></svg></span><span class="eqt-badge">1</span></span><span class="eqt-l">DJ</span></button>
+      <button class="filt eqt" data-filter="package" type="button" role="tab" style="--i:6" aria-label="Packages, 1 item"><span class="eqt-pop"><span class="eqt-ico"><svg viewBox="0 0 64 64" aria-hidden="true"><g class="lid"><path d="M10 22l22-10 22 10-22 10z"/></g><path d="M10 22v24l22 10 22-10V22M32 32v24"/><path class="g" d="M21 27l22-10" stroke-width="5" stroke-linecap="round"/><path class="spark" d="M32 2v5M24 5l2 4M40 5l-2 4"/></svg></span><span class="eqt-badge">1</span></span><span class="eqt-l">Packages</span></button>
     </div>
     <div class="eq-list" id="eqGrid">
       <article class="eq-card" data-cat="sync" data-name="Full Sync Sound Cart" data-category="Sync Sound">
@@ -1061,9 +1467,48 @@ footer { background: var(--ink); color: var(--paper); padding: 48px var(--gutter
         <span class="eq-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </article>
     </div>
+    </div>
+    <aside class="bq-side">
+    <div class="quote-box reveal" id="quoteBox">
+      <div class="q-top"><h3 id="stepTitle">Your gear</h3><span class="mono" id="stepCount">Step 1 of 3</span></div>
+      <div class="q-track" aria-hidden="true"><div class="q-fill" id="qFill"></div><div class="q-pill" id="qPillBar"></div></div>
+      <div class="steps mono" role="tablist">
+        <button class="step-tab active" type="button" data-go="1">Gear</button>
+        <button class="step-tab" type="button" data-go="2">Shoot</button>
+        <button class="step-tab" type="button" data-go="3">You</button>
+      </div>
+      <div class="step active" data-step="1" data-title="Your gear">
+        <p class="step-p">Everything you tick on the call sheet lands here.</p>
+        <div class="q-items" id="qItems"></div>
+        <div class="q-picks-t mono">Quick add</div>
+        <div class="q-picks" id="qPicks"></div>
+        <label class="q-check"><input type="checkbox" id="qSuggest"> Not sure &mdash; suggest a kit for me</label>
+        <div class="step-nav"><button class="btn btn-ink" type="button" data-next="2">Continue <span class="arrow">&rarr;</span></button></div>
+      </div>
+      <div class="step" data-step="2" data-title="Your shoot">
+        <p class="step-p">Dates and city let us confirm availability straight away.</p>
+        <div class="fg"><label class="mono" for="qType">Production type</label>
+          <select id="qType"><option value="">Select</option><option value="film">Feature film</option><option value="series">Web series / TV</option><option value="ad">Ad / music video</option><option value="event">Live event</option><option value="wedding">Wedding / DJ</option><option value="other">Other</option></select></div>
+        <div class="fg-row">
+          <div class="fg"><label class="mono" for="qFrom">From</label><input type="date" id="qFrom"></div>
+          <div class="fg"><label class="mono" for="qTo">To</label><input type="date" id="qTo"></div>
+        </div>
+        <div class="fg"><label class="mono" for="qCity">City / location</label><input type="text" id="qCity" placeholder="e.g. Mumbai, Film City" autocomplete="address-level2"></div>
+        <div class="step-nav"><button class="btn btn-line" type="button" data-next="1">&larr; Back</button><button class="btn btn-ink" type="button" data-next="3">Continue <span class="arrow">&rarr;</span></button></div>
+      </div>
+      <div class="step" data-step="3" data-title="Where do we reply?">
+        <p class="step-p">We&rsquo;ll send availability and pricing on WhatsApp.</p>
+        <div class="fg"><label class="mono" for="qName">Your name</label><input type="text" id="qName" autocomplete="name"></div>
+        <div class="fg"><label class="mono" for="qPhone">Phone</label><input type="tel" id="qPhone" placeholder="+91" autocomplete="tel" inputmode="tel"></div>
+        <div class="fg"><label class="mono" for="qProd">Production / company (optional)</label><input type="text" id="qProd" autocomplete="organization"></div>
+        <div class="q-summary" id="qSummary"></div>
+        <div class="step-nav"><button class="btn btn-line" type="button" data-next="2">&larr; Back</button><button class="btn btn-gold btn-send" type="button" id="qSend"><svg viewBox="0 0 24 24" style="fill:var(--ink)"><use href="#i-wa"/></svg>Send on WhatsApp</button></div>
+        <p class="q-reply mono">Opens WhatsApp with your message ready</p>
+      </div>
+    </div>
+    </aside>
   </div>
 </section>
-<div class="eq-preview" id="eqPreview" aria-hidden="true"></div>
 
 <!-- quick view -->
 <div class="qv-scrim" id="qvScrim"></div>
@@ -1087,7 +1532,7 @@ footer { background: var(--ink); color: var(--paper); padding: 48px var(--gutter
 <!-- ═══ 03 WHY: crossed infinite ribbons (after 21st.dev "Infinite Ribbon") ═══ -->
 <section class="section rb-section" id="why">
   <header class="ed-head reveal">
-    <div class="ed-index mono"><b>No. 03</b><span>Why Singh Sound</span></div>
+    <div class="ed-index mono"><b>No. 04</b><span>Why Singh Sound</span></div>
     <div><h2 class="serif h2">Gear that knows <em>how Bollywood works.</em></h2></div>
   </header>
   <div class="rb-stage reveal">
@@ -1096,10 +1541,51 @@ footer { background: var(--ink); color: var(--paper); padding: 48px var(--gutter
   </div>
 </section>
 
+<!-- ═══ SERVICES (after Accord Equips) — scope to confirm with client ═══ -->
+<section class="section" id="services">
+  <header class="ed-head reveal">
+    <div class="ed-index mono"><b>No. 05</b><span>Services</span></div>
+    <div><h2 class="serif h2">Rent. Hire. <em>Create.</em></h2><p class="lead">We rent the gear, we send the people who run it, and we help you get the shoot done &mdash; anywhere in India.</p></div>
+  </header>
+  <div class="wrap sv-grid reveal">
+      <article class="sv">
+        <div class="sv-top"><span class="sv-no mono">01</span><span class="sv-tag mono">Rent</span></div>
+        <h3 class="sv-name">Equipment rental</h3>
+        <p class="sv-desc">Sync sound carts, Nagra recorders, JBL systems, talkback and DJ gear &mdash; by the day or for the whole schedule.</p>
+      </article>
+      <article class="sv">
+        <div class="sv-top"><span class="sv-no mono">02</span><span class="sv-tag mono">Hire</span></div>
+        <h3 class="sv-name">Operators on set</h3>
+        <p class="sv-desc">Need hands, not just gear? Operators are available with our setups, and included in the Complete Film Package.</p>
+      </article>
+      <article class="sv">
+        <div class="sv-top"><span class="sv-no mono">03</span><span class="sv-tag mono">Pan-India</span></div>
+        <h3 class="sv-name">Delivery &amp; setup</h3>
+        <p class="sv-desc">We deliver to your location anywhere in India, set everything up and stay on call through the shoot.</p>
+      </article>
+      <article class="sv">
+        <div class="sv-top"><span class="sv-no mono">04</span><span class="sv-tag mono">Create</span></div>
+        <h3 class="sv-name">Song &amp; pilot recording</h3>
+        <p class="sv-desc">Reference takes, script reads, temp music and pilot tracks &mdash; recorded before the main shoot.</p>
+      </article>
+      <article class="sv">
+        <div class="sv-top"><span class="sv-no mono">05</span><span class="sv-tag mono">Rent</span></div>
+        <h3 class="sv-name">Event sound</h3>
+        <p class="sv-desc">JBL PA and Pioneer DJ consoles for launches, wrap parties, weddings and live events.</p>
+      </article>
+      <article class="sv">
+        <div class="sv-top"><span class="sv-no mono">06</span><span class="sv-tag mono">Free</span></div>
+        <h3 class="sv-name">Kit planning</h3>
+        <p class="sv-desc">Tell us what you&rsquo;re shooting &mdash; we&rsquo;ll put the right kit together and reply with a price within 2 hours.</p>
+      </article>
+  </div>
+  <div class="wrap sv-cta reveal"><a href="#quote" class="btn btn-ink">Plan my shoot <span class="arrow">&rarr;</span></a><a href="https://wa.me/919889656352" target="_blank" rel="noopener" class="btn btn-line btn-wa"><svg viewBox="0 0 24 24"><use href="#i-wa"/></svg>Ask about operators</a></div>
+</section>
+
 <!-- ═══ 05 FILMOGRAPHY (ink page) ═══ -->
 <section class="section" id="work">
   <header class="ed-head reveal">
-    <div class="ed-index mono"><b>No. 04</b><span>Filmography</span></div>
+    <div class="ed-index mono"><b>No. 06</b><span>Filmography</span></div>
     <div><h2 class="serif h2">Heard in <em>cinemas</em> across India.</h2></div>
   </header>
   <div class="wrap">
@@ -1137,7 +1623,7 @@ footer { background: var(--ink); color: var(--paper); padding: 48px var(--gutter
 <!-- ═══ 06 ON SET: rolling filmstrip ═══ -->
 <section class="section fs-section" id="onset">
   <header class="ed-head reveal">
-    <div class="ed-index mono"><b>No. 05</b><span>On location</span></div>
+    <div class="ed-index mono"><b>No. 07</b><span>On location</span></div>
     <div><h2 class="serif h2">Real sets. <em>Real gear.</em></h2><p class="lead">Ten frames on one roll &mdash; tap any frame to see the print.</p></div>
   </header>
   <div class="fs reveal" id="filmstrip" role="region" aria-label="On-set photos on a rolling filmstrip">
@@ -1165,66 +1651,11 @@ footer { background: var(--ink); color: var(--paper); padding: 48px var(--gutter
   </dialog>
 </section>
 
-<!-- ═══ 07 QUOTE ═══ -->
-<section class="section" id="quote">
-  <header class="ed-head reveal">
-    <div class="ed-index mono"><b>No. 06</b><span>Get a quote</span></div>
-    <div><h2 class="serif h2">Three steps. <em>One message.</em></h2></div>
-  </header>
-  <div class="wrap quote-wrap">
-    <div class="reveal">
-      <p class="lead">Your gear, dates and location go to us in one WhatsApp message &mdash; so the first reply is a real price, not a list of questions.</p>
-      <div class="how-row">
-        <div class="how"><span class="mono">01</span><p><strong>Pick your gear</strong>A kit, single items, or ask us to suggest.</p></div>
-        <div class="how"><span class="mono">02</span><p><strong>Add shoot details</strong>Dates, city and type of production.</p></div>
-        <div class="how"><span class="mono">03</span><p><strong>Send on WhatsApp</strong>We reply with availability and pricing within 2 hours.</p></div>
-      </div>
-    </div>
-    <div class="quote-box reveal" id="quoteBox">
-      <div class="q-top"><h3 id="stepTitle">Your gear</h3><span class="mono" id="stepCount">Step 1 of 3</span></div>
-      <div class="q-track" aria-hidden="true"><div class="q-fill" id="qFill"></div><div class="q-pill" id="qPillBar"></div></div>
-      <div class="steps mono" role="tablist">
-        <button class="step-tab active" type="button" data-go="1">Gear</button>
-        <button class="step-tab" type="button" data-go="2">Shoot</button>
-        <button class="step-tab" type="button" data-go="3">You</button>
-      </div>
-      <div class="step active" data-step="1" data-title="Your gear">
-        <p class="step-p">Everything you added on the page is here.</p>
-        <div class="q-items" id="qItems"></div>
-        <div class="q-picks-t mono">Quick add</div>
-        <div class="q-picks" id="qPicks"></div>
-        <label class="q-check"><input type="checkbox" id="qSuggest"> Not sure &mdash; suggest a kit for me</label>
-        <div class="step-nav"><button class="btn btn-ink" type="button" data-next="2">Continue <span class="arrow">&rarr;</span></button></div>
-      </div>
-      <div class="step" data-step="2" data-title="Your shoot">
-        <p class="step-p">Dates and city let us confirm availability straight away.</p>
-        <div class="fg"><label class="mono" for="qType">Production type</label>
-          <select id="qType"><option value="">Select</option><option value="film">Feature film</option><option value="series">Web series / TV</option><option value="ad">Ad / music video</option><option value="event">Live event</option><option value="wedding">Wedding / DJ</option><option value="other">Other</option></select></div>
-        <div class="fg-row">
-          <div class="fg"><label class="mono" for="qFrom">From</label><input type="date" id="qFrom"></div>
-          <div class="fg"><label class="mono" for="qTo">To</label><input type="date" id="qTo"></div>
-        </div>
-        <div class="fg"><label class="mono" for="qCity">City / location</label><input type="text" id="qCity" placeholder="e.g. Mumbai, Film City" autocomplete="address-level2"></div>
-        <div class="step-nav"><button class="btn btn-line" type="button" data-next="1">&larr; Back</button><button class="btn btn-ink" type="button" data-next="3">Continue <span class="arrow">&rarr;</span></button></div>
-      </div>
-      <div class="step" data-step="3" data-title="Where do we reply?">
-        <p class="step-p">We&rsquo;ll send availability and pricing on WhatsApp.</p>
-        <div class="fg"><label class="mono" for="qName">Your name</label><input type="text" id="qName" autocomplete="name"></div>
-        <div class="fg"><label class="mono" for="qPhone">Phone</label><input type="tel" id="qPhone" placeholder="+91" autocomplete="tel" inputmode="tel"></div>
-        <div class="fg"><label class="mono" for="qProd">Production / company (optional)</label><input type="text" id="qProd" autocomplete="organization"></div>
-        <div class="q-summary" id="qSummary"></div>
-        <div class="step-nav"><button class="btn btn-line" type="button" data-next="2">&larr; Back</button><button class="btn btn-gold btn-send" type="button" id="qSend"><svg viewBox="0 0 24 24" style="fill:var(--ink)"><use href="#i-wa"/></svg>Send on WhatsApp</button></div>
-        <p class="q-reply mono">Opens WhatsApp with your message ready</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ═══ 08 FAQ ═══ -->
 <!-- Answers use only what the site already states. Client to add: advance/payment terms, damage policy. -->
 <section class="section" id="faq">
   <header class="ed-head reveal">
-    <div class="ed-index mono"><b>No. 07</b><span>Questions</span></div>
+    <div class="ed-index mono"><b>No. 08</b><span>Questions</span></div>
     <div><h2 class="serif h2">Before you <em>book.</em></h2></div>
   </header>
   <div class="wrap">
@@ -1249,10 +1680,11 @@ footer { background: var(--ink); color: var(--paper); padding: 48px var(--gutter
 <footer>
   <div class="foot">
     <div>
+      <p class="mono" style="color:var(--gold);margin-bottom:10px">Rent &middot; Hire &middot; Create</p>
       <p class="foot-cta">Your set deserves <em>better sound.</em></p>
       <div style="margin-top:22px"><a href="#quote" class="btn btn-gold">Get a quote <span class="arrow">&rarr;</span></a></div>
     </div>
-    <div><div class="foot-t mono">Rent</div><ul><li><a href="#shoot">Kits</a></li><li><a href="#equipment">Equipment</a></li><li><a href="#quote">Get a quote</a></li></ul></div>
+    <div><div class="foot-t mono">Rent</div><ul><li><a href="#categories">Categories</a></li><li><a href="#shoot">Kits</a></li><li><a href="#services">Services</a></li><li><a href="#quote">Get a quote</a></li></ul></div>
     <div><div class="foot-t mono">Company</div><ul><li><a href="#work">Filmography</a></li><li><a href="#onset">On location</a></li><li><a href="#faq">FAQ</a></li></ul></div>
     <div><div class="foot-t mono">Contact</div><ul><li><a href="tel:+919889656352">+91 98896 56352</a></li><li><a href="mailto:singhvanity@gmail.com">singhvanity@gmail.com</a></li><li>Mumbai, Maharashtra</li></ul></div>
   </div>
@@ -1297,6 +1729,8 @@ function shortName(name) { var c = cardFor(name); return c ? c.querySelector('.e
 
 /* ── Quote store ── */
 var quote = [];
+/* shared with the category pages; per-browser convenience only, so failures are ignored */
+try { var savedQ = JSON.parse(localStorage.getItem('ss-quote') || '[]'); if (Array.isArray(savedQ)) quote = savedQ.filter(function (n) { return !!cardFor(n); }); } catch (e) {}
 function inQuote(name) { return quote.indexOf(name) !== -1; }
 function addItem(name, silent) {
   if (!cardFor(name) || inQuote(name)) return false;
@@ -1307,6 +1741,7 @@ function addItem(name, silent) {
 function removeItem(name) { quote = quote.filter(function (n) { return n !== name; }); syncQuote(); }
 function toggleItem(name) { inQuote(name) ? removeItem(name) : addItem(name); }
 function syncQuote() {
+  try { localStorage.setItem('ss-quote', JSON.stringify(quote)); } catch (e) {}
   document.querySelectorAll('[data-qcount]').forEach(function (el) { el.textContent = quote.length; });
   document.getElementById('qpill').classList.toggle('has-items', quote.length > 0);
   document.querySelectorAll('[data-add]').forEach(function (b) {
@@ -1589,32 +2024,28 @@ syncQuote();
 </script>
 
 <script>
-/* ═══ 01 PHOTO PANELS → LIVE KIT ═══ */
+/* ═══ 01 ACCORDION + PAN-INDIA GLOBE ═══
+   One production type open at a time; opening it drops down its kit, updates the
+   "Rolling" label, sets the quote type + gear filter and gives the globe a quick spin. */
 (function () {
-  var panels = Array.prototype.slice.call(document.querySelectorAll('.xp-panel')); if (!panels.length) return;
-  var kits = Array.prototype.slice.call(document.querySelectorAll('#kitGrid .kit'));
-  function select(p, byUser) {
-    var shoot = p.dataset.shoot;
-    panels.forEach(function (x) { x.classList.toggle('active', x === p); x.setAttribute('aria-selected', x === p ? 'true' : 'false'); });
-    var kit = kits.filter(function (k) { return k.dataset.for.split(' ').indexOf(shoot) !== -1; })[0];
-    kits.forEach(function (k) { k.classList.toggle('on', k === kit); });
-    if (byUser) { setFilter(SHOOT[shoot] || 'all'); document.getElementById('qType').value = shoot; }
+  var items = Array.prototype.slice.call(document.querySelectorAll('.rl-item')); if (!items.length) return;
+  var now = document.getElementById('rlNow');
+  function openItem(item, byUser) {
+    items.forEach(function (x) {
+      var on = x === item, b = x.querySelector('.rl-row');
+      x.classList.toggle('open', on); b.classList.toggle('active', on); b.setAttribute('aria-expanded', on ? 'true' : 'false');
+    });
+    if (!item) return;
+    now.innerHTML = item.querySelector('.rl-name').innerHTML;
+    if (byUser) { var shoot = item.dataset.shoot; setFilter(SHOOT[shoot] || 'all'); document.getElementById('qType').value = shoot; if (window.ssGlobeKick) window.ssGlobeKick(); }
   }
-  panels.forEach(function (p, i) {
-    p.addEventListener('click', function () { select(p, true); });
-    /* hover shows the kit straight away (mouse users); a short hover-intent delay
-       stops the kit flickering when the pointer just sweeps across the panels */
-    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-      var t;
-      p.addEventListener('mouseenter', function () { clearTimeout(t); t = setTimeout(function () { select(p, true); }, 120); });
-      p.addEventListener('mouseleave', function () { clearTimeout(t); });
-    }
-    p.addEventListener('keydown', function (e) {
-      var d = (e.key === 'ArrowRight' || e.key === 'ArrowDown') ? 1 : (e.key === 'ArrowLeft' || e.key === 'ArrowUp') ? -1 : 0;
-      if (!d) return; e.preventDefault(); var n = panels[(i + d + panels.length) % panels.length]; n.focus(); select(n, true);
+  items.forEach(function (item) {
+    item.querySelector('.rl-row').addEventListener('click', function () {
+      if (item.classList.contains('open')) { openItem(null, false); return; }   /* clicking the open one closes it */
+      openItem(item, true);
     });
   });
-  select(panels[0], false);
+  openItem(items[0], false);
 })();
 </script>
 
@@ -1626,7 +2057,7 @@ syncQuote();
   var d = new Date(), date = d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
   var head = document.createElement('div'); head.className = 'cs-headblk';
   head.innerHTML = '<h3>Singh Sound &mdash; Equipment call sheet</h3><span class="meta">Sheet 01 / 01</span>' +
-    '<div class="fields"><span>Dept: <b>Sound</b></span><span>Date: <b>' + date + '</b></span><span>Items: <b>' + cards.length + '</b></span><span>Tick what you need &darr;</span></div>';
+    '<div class="fields"><span>Dept: <b>Sound</b></span><span>Date: <b>' + date + '</b></span><span>Items: <b>' + cards.length + '</b></span><span>Tick to add to your quote &rarr;</span></div>';
   var cols = document.createElement('div'); cols.className = 'cs-cols';
   cols.innerHTML = '<span>&#10003;</span><span>No.</span><span>Item</span><span>Key specs</span><span>Status</span><span></span>';
   list.insertBefore(cols, list.firstChild); list.insertBefore(head, cols);
@@ -1639,27 +2070,105 @@ syncQuote();
     info.addEventListener('click', function (e) { e.stopPropagation(); openQV(c.dataset.name); });
     c.querySelector('.eq-foot').appendChild(info);
   });
-  var bar = document.createElement('div'); bar.className = 'cs-bar';
-  bar.innerHTML = '<span class="n"></span><span class="acts"><button type="button" class="clear">Clear</button><button type="button" class="btn btn-gold add">Add to quote &rarr;</button></span>';
-  list.parentNode.insertBefore(bar, list.nextSibling);
-  function ticked() { return cards.filter(function (c) { return c.classList.contains('ticked'); }); }
-  function refresh() { var n = ticked().length; bar.classList.toggle('on', n > 0); bar.querySelector('.n').textContent = n + (n === 1 ? ' line ticked' : ' lines ticked'); }
-  function toggle(c) { var on = !c.classList.contains('ticked'); c.classList.toggle('ticked', on); c.setAttribute('aria-checked', on ? 'true' : 'false'); refresh(); }
-  /* on the call sheet a click ticks the line; details live behind the (i) button */
+  function toggle(c) { toggleItem(c.dataset.name); }
+  /* a click ticks the line and puts it straight into the quote; details live behind the (i) button */
   list.addEventListener('click', function (e) {
     var c = e.target.closest('.eq-card'); if (!c || e.target.closest('.cs-info')) return;
     e.stopPropagation(); toggle(c);
   }, true);
   list.addEventListener('keydown', function (e) { var c = e.target.closest('.eq-card'); if (c && (e.key === ' ' || e.key === 'Enter')) { e.preventDefault(); e.stopPropagation(); toggle(c); } }, true);
-  bar.querySelector('.clear').addEventListener('click', function () { ticked().forEach(toggle); });
-  bar.querySelector('.add').addEventListener('click', function () {
-    var t = ticked(), added = 0;
-    t.forEach(function (c) { if (addItem(c.dataset.name, true)) added++; toggle(c); });
-    toast(added ? added + (added === 1 ? ' item' : ' items') + ' added to your quote' : 'Already in your quote');
-  });
   var baseSync = syncQuote;
-  syncQuote = function () { baseSync(); cards.forEach(function (c) { var q = inQuote(c.dataset.name); c.classList.toggle('inq', q); c.querySelector('.eq-avail').textContent = q ? 'In quote' : 'Available'; }); };
+  syncQuote = function () { baseSync(); cards.forEach(function (c) { var q = inQuote(c.dataset.name); c.classList.toggle('inq', q); c.classList.toggle('ticked', q); c.setAttribute('aria-checked', q ? 'true' : 'false'); c.querySelector('.eq-avail').textContent = q ? 'In quote' : 'Available'; }); };
   syncQuote();
+})();
+</script>
+<script>
+/* ═══ SHOP BY CATEGORY → filter the call sheet and jump to it ═══ */
+(function () {
+  document.querySelectorAll('[data-cat-go]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      setFilter(b.getAttribute('data-cat-go'));
+      document.getElementById('equipment').scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth' });
+    });
+  });
+})();
+</script>
+<script type="module">
+/* ═══ PAN-INDIA GLOBE (section 01): cobe dotted globe that zooms into India; a marker on every state + UT capital ═══ */
+import createGlobe from 'https://cdn.jsdelivr.net/npm/cobe@0.6.3/+esm';  /* +esm bundles its 'phenomenon' dependency */
+const canvas = document.getElementById('globe');
+if (canvas) {
+  const toAngles = (lat, lng) => [Math.PI - ((lng * Math.PI) / 180 - Math.PI / 2), (lat * Math.PI) / 180];
+  const [phi0, theta0] = toAngles(22, 82);            /* centre of India */
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let width = 0, drag = null, dragDelta = 0, t = 0, spin = 0, zoom = reduced ? 1 : 0, zoomed = reduced, visible = true, globe = null;
+  const measure = () => { width = canvas.offsetWidth; };
+  window.addEventListener('resize', measure); measure();
+  /* 28 state capitals + 8 union territories; Mumbai (base) is the big one */
+  const PLACES = [[19.08, 72.88, 0.1],
+    [16.51, 80.52], [27.08, 93.61], [26.14, 91.79], [25.59, 85.14], [21.25, 81.63], [15.49, 73.83], [23.22, 72.65],
+    [29.39, 76.96], [31.10, 77.17], [23.34, 85.31], [12.97, 77.59], [8.52, 76.94], [23.26, 77.41], [24.82, 93.94],
+    [25.58, 91.89], [23.73, 92.72], [25.67, 94.11], [20.30, 85.82], [31.63, 74.87], [26.91, 75.79], [27.33, 88.61],
+    [13.08, 80.27], [17.39, 78.49], [23.83, 91.29], [26.85, 80.95], [30.32, 78.03], [22.57, 88.36],
+    [28.61, 77.21], [34.08, 74.80], [34.15, 77.58], [30.73, 76.78], [11.94, 79.81], [11.62, 92.73], [10.57, 72.64], [20.40, 72.83]];
+  window.ssGlobeKick = () => { if (!reduced) spin = 1.2; };
+  try {
+    globe = createGlobe(canvas, {
+      devicePixelRatio: 2, width: width * 2, height: width * 2,
+      phi: phi0, theta: theta0, dark: 1, diffuse: 1.4, mapSamples: 20000, mapBrightness: 7,
+      baseColor: [0.2, 0.18, 0.15], markerColor: [0.91, 0.70, 0.22], glowColor: [0.35, 0.28, 0.16],
+      markers: PLACES.map(([lat, lng, size]) => ({ location: [lat, lng], size: size || 0.035 })),
+      onRender: (state) => {
+        if (!visible) return;
+        if (!drag && !reduced) t += 0.004;
+        if (zoomed && zoom < 1) zoom = Math.min(1, zoom + 0.012);
+        const e = 1 - Math.pow(1 - zoom, 3);             /* ease-out zoom from whole globe to India */
+        spin *= 0.94;
+        state.phi = phi0 + Math.sin(t) * 0.18 * (1.4 - e) + dragDelta + spin * Math.PI * 2 * (1 - e * 0.2);
+        state.theta = theta0 - 0.08 + (1 - e) * 0.3;
+        state.scale = 1 + e * 1.15;
+        state.width = width * 2; state.height = width * 2;
+      }
+    });
+    requestAnimationFrame(() => canvas.classList.add('ready'));
+  } catch (e) { canvas.closest('.rl-globe').classList.add('no-webgl'); }
+  /* zoom in the first time it's seen; stop rendering work while off-screen */
+  new IntersectionObserver((es) => { es.forEach((en) => { visible = en.isIntersecting; if (visible) zoomed = true; }); }, { threshold: 0.25 }).observe(canvas);
+  canvas.addEventListener('pointerdown', (e) => { drag = { x: e.clientX, base: dragDelta }; canvas.style.cursor = 'grabbing'; });
+  window.addEventListener('pointerup', () => { drag = null; canvas.style.cursor = 'grab'; });
+  window.addEventListener('pointermove', (e) => { if (drag) dragDelta = drag.base + (e.clientX - drag.x) / 160; });
+}
+</script>
+<script>
+/* ═══ 03 EQUIPMENT TABS: sliding bar, staggered pop-in, per-icon play on select ═══ */
+(function () {
+  var bar = document.querySelector('.eqt-bar'), wrap = document.getElementById('eqTabs'); if (!bar || !wrap) return;
+  function active() { return wrap.querySelector('.eqt.active'); }
+  function place() { var a = active(); if (!a) return; bar.style.width = (a.offsetWidth - 16) + 'px'; bar.style.transform = 'translateX(' + (a.offsetLeft + 8) + 'px)'; }
+  function play(a) { if (!a || reducedMotion) return; a.classList.remove('play'); void a.offsetWidth; a.classList.add('play'); clearTimeout(a._pt); a._pt = setTimeout(function () { a.classList.remove('play'); }, 1600); }
+  var baseFilter = setFilter;
+  setFilter = function (f) {
+    baseFilter(f); place(); var a = active(); play(a);
+    wrap.querySelectorAll('.eqt').forEach(function (b) { b.setAttribute('aria-selected', b === a ? 'true' : 'false'); });
+    if (a && (a.offsetLeft < wrap.scrollLeft || a.offsetLeft + a.offsetWidth > wrap.scrollLeft + wrap.clientWidth)) wrap.scrollTo({ left: a.offsetLeft - 24, behavior: reducedMotion ? 'auto' : 'smooth' });
+  };
+  window.addEventListener('resize', place, { passive: true });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(place);
+  place();
+  /* spring the icons in the first time the tab row comes into view */
+  function check() { var r = wrap.getBoundingClientRect(); if (r.top < window.innerHeight * 0.9 && r.bottom > 0) { wrap.classList.add('in'); window.removeEventListener('scroll', check); setTimeout(place, 50); } }
+  if (reducedMotion) wrap.classList.add('in'); else { window.addEventListener('scroll', check, { passive: true }); check(); }
+})();
+</script>
+<script>
+/* ═══ 02 SHOWCASE HEADING: letters float up into place as the section scrolls in (like ScrollFloat) ═══ */
+(function () {
+  var t = document.getElementById('scTitle'); if (!t || !window.gsap || !window.ScrollTrigger || reducedMotion) return;
+  var text = t.textContent; t.setAttribute('aria-label', text); t.textContent = '';
+  text.split('').forEach(function (ch) { var sp = document.createElement('span'); sp.className = 'ch'; sp.setAttribute('aria-hidden', 'true'); sp.textContent = ch === ' ' ? '\u00a0' : ch; t.appendChild(sp); });
+  gsap.fromTo(t.querySelectorAll('.ch'), { opacity: 0, yPercent: 120, scaleY: 2.3, scaleX: 0.7, transformOrigin: '50% 0%' },
+    { opacity: 1, yPercent: 0, scaleY: 1, scaleX: 1, ease: 'back.inOut(2)', stagger: 0.03,
+      scrollTrigger: { trigger: t, start: 'top 90%', end: 'bottom 50%', scrub: true } });
 })();
 </script>
 <script>
@@ -1838,7 +2347,7 @@ syncQuote();
   }
   function size() {
     DPR = Math.min(window.devicePixelRatio || 1, 2);
-    W = window.innerWidth; H = sticky.clientHeight || window.innerHeight;
+    W = sticky.clientWidth || window.innerWidth; H = sticky.clientHeight || window.innerHeight;
     canvas.width = Math.round(W * DPR); canvas.height = Math.round(H * DPR);
     ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
     render(P);
