@@ -1329,6 +1329,27 @@ html { background: var(--screen); }
 }
 @media (min-width: 900px) { .work-list { grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 32px; } .work-list li { padding: 16px 0 14px; } }
 @media (min-width: 1300px) { .work-list { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+
+/* ═══ 01: "Add kit" sits in the bullet list as its own bullet line (same size, same alignment) ═══ */
+.fm-add { display: inline-flex; align-items: center; font-weight: 600; font-size: inherit; color: var(--ink); border-bottom: 0; }
+.fm-add::before { content: '+'; display: inline-grid; place-items: center; width: 0.95em; height: 0.95em; margin-right: 8px; border-radius: 2px; background: var(--gold); color: #16130F; font-size: 0.72em; font-weight: 800; line-height: 1; }
+.fm-add { text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 3px; }
+.fm-item.added .fm-add::before { content: '\2713'; }
+@media (max-width: 768px) { .fm-subs { flex-direction: column; align-items: flex-start; gap: 6px; } }
+
+/* ═══ 06 fix: the roll labels (SINGH SOUND ▸ 35MM / ROLL 02 · ISO 400) get their own band between the sprockets and the frames,
+   and the frame numbers stay clear of the bottom sprockets — nothing overlaps on either roll ═══ */
+#onset .fs .fs-window, #onset .fs-b .fs-window { padding: 50px 0 48px; }
+#onset .fs-edge { top: 28px; font-size: 0.62rem; line-height: 1; letter-spacing: 0.14em; }
+@media (max-width: 700px) { #onset .fs .fs-window, #onset .fs-b .fs-window { padding: 44px 0 50px; } #onset .fs-edge { top: 26px; font-size: 0.54rem; letter-spacing: 0.1em; } }
+
+/* ═══ 02: on phones a tap gives the same lift + enlarge + gold name as the desktop hover, then opens the category ═══ */
+.sc.is-hot .sc-item { transform: translateY(-14px) scale(1.12); }
+.sc.is-hot .sc-item img { filter: drop-shadow(0 30px 24px rgba(0,0,0,0.65)) drop-shadow(0 0 30px rgba(232,179,57,0.18)); }
+.sc.is-hot .sc-shadow { opacity: 0.8; transform: translateX(-50%) scale(1.25); }
+.sc.is-hot .sc-name { color: var(--gold); }
+.sc.is-hot .sc-go { background: var(--gold); }
+.sc .sc-item { transition: transform 0.45s cubic-bezier(0.34, 1.5, 0.5, 1); }
 </style>
 </head>
 <body>
@@ -1467,31 +1488,31 @@ html { background: var(--screen); }
     <div class="fm" role="group" aria-label="Production type">
       <div class="fm-item" data-shoot="film" data-kit="Feature Film Kit" data-items="Complete Film Audio Package" data-imgs="photos/cart-himalayas.jpg|photos/cart-rajasthan-palace.jpg|photos/crew-hill-location.jpg">
         <button class="fm-link" type="button" aria-label="Feature film: add the Feature Film Kit to your quote">
-          <span class="fm-t">Feature film</span><span class="fm-subs"><span><i aria-hidden="true">&#9632;</i>Complete Film Package</span><span><i aria-hidden="true">&#9632;</i>Sound cart, booms + wireless</span><span><i aria-hidden="true">&#9632;</i>Talkback for 10, JBL pair</span><span><i aria-hidden="true">&#9632;</i>Operator included</span><b class="fm-add">Add kit +</b></span>
+          <span class="fm-t">Feature film</span><span class="fm-subs"><span><i aria-hidden="true">&#9632;</i>Complete Film Package</span><span><i aria-hidden="true">&#9632;</i>Sound cart, booms + wireless</span><span><i aria-hidden="true">&#9632;</i>Talkback for 10, JBL pair</span><span><i aria-hidden="true">&#9632;</i>Operator included</span><b class="fm-add">Add kit</b></span>
         </button>
         <div class="fm-marquee" aria-hidden="true"><div class="fm-wrap"><div class="fm-inner"></div></div></div>
       </div>
       <div class="fm-item" data-shoot="series" data-kit="Series Sync Kit" data-items="Full Sync Sound Cart|Boom Microphone Package (Sennheiser)|Wireless Microphone Package (4 channels)" data-imgs="photos/cart-heritage-interior.jpg|photos/cart-period-set.jpg|photos/cart-colonial-building.jpg">
         <button class="fm-link" type="button" aria-label="Web series: add the Series Sync Kit to your quote">
-          <span class="fm-t">Web series</span><span class="fm-subs"><span><i aria-hidden="true">&#9632;</i>Full Sync Sound Cart</span><span><i aria-hidden="true">&#9632;</i>Boom Mic Package</span><span><i aria-hidden="true">&#9632;</i>Wireless Mics, 4 ch</span><b class="fm-add">Add kit +</b></span>
+          <span class="fm-t">Web series</span><span class="fm-subs"><span><i aria-hidden="true">&#9632;</i>Full Sync Sound Cart</span><span><i aria-hidden="true">&#9632;</i>Boom Mic Package</span><span><i aria-hidden="true">&#9632;</i>Wireless Mics, 4 ch</span><b class="fm-add">Add kit</b></span>
         </button>
         <div class="fm-marquee" aria-hidden="true"><div class="fm-wrap"><div class="fm-inner"></div></div></div>
       </div>
       <div class="fm-item" data-shoot="ad" data-kit="Ad &amp; Music Kit" data-items="Pilot Recording Setup|JBL Speaker System (Pair)|Talkback Intercom System (10 headsets)" data-imgs="photos/mics-colonial-interior.jpg|photos/talkback-headsets.jpg|photos/cart-school-grounds.jpg">
         <button class="fm-link" type="button" aria-label="Ad and music video: add the Ad and Music Kit to your quote">
-          <span class="fm-t">Ad &amp; music video</span><span class="fm-subs"><span><i aria-hidden="true">&#9632;</i>Pilot Recording Setup</span><span><i aria-hidden="true">&#9632;</i>JBL for playback</span><span><i aria-hidden="true">&#9632;</i>Talkback, 10 headsets</span><b class="fm-add">Add kit +</b></span>
+          <span class="fm-t">Ad &amp; music video</span><span class="fm-subs"><span><i aria-hidden="true">&#9632;</i>Pilot Recording Setup</span><span><i aria-hidden="true">&#9632;</i>JBL for playback</span><span><i aria-hidden="true">&#9632;</i>Talkback, 10 headsets</span><b class="fm-add">Add kit</b></span>
         </button>
         <div class="fm-marquee" aria-hidden="true"><div class="fm-wrap"><div class="fm-inner"></div></div></div>
       </div>
       <div class="fm-item" data-shoot="event" data-kit="Event Kit" data-items="JBL Speaker System (Pair)|Pioneer DJ Console Setup" data-imgs="photos/jbl-on-set.jpg|photos/night-shoot.jpg|photos/crew-hill-location.jpg">
         <button class="fm-link" type="button" aria-label="Live event: add the Event Kit to your quote">
-          <span class="fm-t">Live event</span><span class="fm-subs"><span><i aria-hidden="true">&#9632;</i>JBL Speaker System</span><span><i aria-hidden="true">&#9632;</i>Pioneer DJ Console</span><span><i aria-hidden="true">&#9632;</i>Operator available</span><b class="fm-add">Add kit +</b></span>
+          <span class="fm-t">Live event</span><span class="fm-subs"><span><i aria-hidden="true">&#9632;</i>JBL Speaker System</span><span><i aria-hidden="true">&#9632;</i>Pioneer DJ Console</span><span><i aria-hidden="true">&#9632;</i>Operator available</span><b class="fm-add">Add kit</b></span>
         </button>
         <div class="fm-marquee" aria-hidden="true"><div class="fm-wrap"><div class="fm-inner"></div></div></div>
       </div>
       <div class="fm-item" data-shoot="wedding" data-kit="Wedding &amp; DJ Kit" data-items="JBL Speaker System (Pair)|Pioneer DJ Console Setup" data-imgs="photos/night-shoot.jpg|photos/jbl-on-set.jpg|photos/cart-rajasthan-palace.jpg">
         <button class="fm-link" type="button" aria-label="Wedding and DJ: add the Wedding and DJ Kit to your quote">
-          <span class="fm-t">Wedding &amp; DJ</span><span class="fm-subs"><span><i aria-hidden="true">&#9632;</i>Pioneer DJ Console</span><span><i aria-hidden="true">&#9632;</i>JBL Speaker System</span><span><i aria-hidden="true">&#9632;</i>Operator available</span><b class="fm-add">Add kit +</b></span>
+          <span class="fm-t">Wedding &amp; DJ</span><span class="fm-subs"><span><i aria-hidden="true">&#9632;</i>Pioneer DJ Console</span><span><i aria-hidden="true">&#9632;</i>JBL Speaker System</span><span><i aria-hidden="true">&#9632;</i>Operator available</span><b class="fm-add">Add kit</b></span>
         </button>
         <div class="fm-marquee" aria-hidden="true"><div class="fm-wrap"><div class="fm-inner"></div></div></div>
       </div>
@@ -2745,7 +2766,7 @@ for (const container of document.querySelectorAll('.sc-prism')) {
     });
   });
   /* keep each row's "added" state in step with the quote (items can be removed elsewhere) */
-  function mark() { items.forEach(function (item) { var on = item.dataset.items.split('|').every(inQuote); item.classList.toggle('added', on); item.querySelector('.fm-add').textContent = on ? 'Kit in your quote ✓' : 'Add kit +'; }); }
+  function mark() { items.forEach(function (item) { var on = item.dataset.items.split('|').every(inQuote); item.classList.toggle('added', on); item.querySelector('.fm-add').textContent = on ? 'Kit in your quote' : 'Add kit'; }); }
   var baseSync = syncQuote; syncQuote = function () { baseSync(); mark(); };
   mark();
 })();
@@ -2821,6 +2842,22 @@ for (const container of document.querySelectorAll('.sc-prism')) {
   var b = document.getElementById('workAll'), l = document.getElementById('workList'); if (!b || !l) return;
   var n = l.querySelectorAll('li').length; b.innerHTML = 'Show all ' + n + ' productions &darr;';
   b.addEventListener('click', function () { l.classList.remove('collapsed'); b.hidden = true; });
+})();
+</script>
+<script>
+/* ═══ 02 SHOP BY CATEGORY on touch screens: tap → the item lifts and grows like the desktop hover → the category opens ═══ */
+(function () {
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  document.querySelectorAll('.sc').forEach(function (a) {
+    a.addEventListener('touchstart', function () { document.querySelectorAll('.sc.is-hot').forEach(function (x) { if (x !== a) x.classList.remove('is-hot'); }); a.classList.add('is-hot'); }, { passive: true });
+    a.addEventListener('click', function (e) {
+      if (reducedMotion || a.dataset.go) return;
+      e.preventDefault(); a.classList.add('is-hot'); a.dataset.go = '1';
+      setTimeout(function () { window.location.href = a.href; }, 320);
+    });
+  });
+  window.addEventListener('pageshow', function () { document.querySelectorAll('.sc').forEach(function (a) { a.classList.remove('is-hot'); delete a.dataset.go; }); });
+  window.addEventListener('scroll', function () { document.querySelectorAll('.sc.is-hot').forEach(function (a) { if (!a.dataset.go) a.classList.remove('is-hot'); }); }, { passive: true });
 })();
 </script>
 </body>
