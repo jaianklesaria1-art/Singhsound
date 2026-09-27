@@ -1365,6 +1365,10 @@ html { background: var(--screen); }
 .fm-subs { justify-content: flex-start !important; }
 .fm-add { flex-basis: 100%; margin-top: 4px; }
 @media (min-width: 769px) { .fm-subs { flex: 0 0 56%; max-width: 56%; } }   /* every row's bullets start on the same line */
+
+/* ═══ HERO type ~25% smaller: opening headline and the closing "Your set. Our sound." (desktop + phones) ═══ */
+.hero-h1 { font-size: clamp(2.3rem, 1.3rem + 4.6vw, 5.2rem); }
+.hero-final h2 { font-size: clamp(2.5rem, 1.5rem + 5vw, 6.2rem); }
 </style>
 </head>
 <body>
