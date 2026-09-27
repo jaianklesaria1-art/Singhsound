@@ -2402,9 +2402,8 @@ syncQuote();
     ],
     /* phones: same story as desktop in a phone frame. The close-up fills the screen, then the camera
        pulls back to the desktop's wide shot (f = 1: cart → JBL fit the width, letterboxed) so all the gear shows at once */
-    mobile: [
-      { p: 0.00, cx: 0.50, cy: 0.50, z: 1, f: 0 }, { p: 0.25, cx: 0.49, cy: 0.50, z: 1, f: 0 },
-      { p: 0.64, cx: 0.535, cy: 0.50, z: 1, f: 1 }, { p: 1.00, cx: 0.535, cy: 0.50, z: 1, f: 1 }
+    mobile: [   /* phones play the vertical (9:16) Flow clip, full screen: no letterbox, no pan */
+      { p: 0.00, cx: 0.50, cy: 0.50, z: 1 }, { p: 1.00, cx: 0.50, cy: 0.50, z: 1 }
     ]
   };
   var VEND = { desktop: 0.64, mobile: 0.64 };          /* scroll progress at which the clip reaches its last frame */
@@ -2455,7 +2454,7 @@ syncQuote();
     var iw = lastImg.naturalWidth, ih = lastImg.naturalHeight;
     TAGS_REF.forEach(function (t) {
       var k = t.k || 0; if (k < 0.01 || !t.pop) return;
-      var b = t.pop, e = (now - (t.openAt || now)) / 1000;
+      var b = (src === 'flow-m' && t.popM) ? t.popM : t.pop, e = (now - (t.openAt || now)) / 1000;
       var hop = reducedMotion ? 0 : 34 * Math.exp(-4.5 * e) * Math.abs(Math.sin(8.5 * e));   /* jump + two little landing bounces */
       var lift = (12 + hop) * k, sc = 1 + 0.07 * k;
       var dx = view.x + b[0] * view.w, dy = view.y + b[1] * view.h, dw = (b[2] - b[0]) * view.w, dh = (b[3] - b[1]) * view.h;
@@ -2539,13 +2538,13 @@ syncQuote();
   /* ── equipment tags pinned to items in the wide still (0–1 coords) ── */
   var TAGS = [
     { kicker: 'Hero of the set', name: 'Nagra Recorder', sub: 'Reel-to-reel legend for sync and pilot recording.',
-      card: 'Nagra Professional Recorder', pop: [0.366, 0.583, 0.495, 0.819], at: [0.406, 0.653], win: { desktop: [0.61, 0.69], mobile: [0.52, 0.58] } },
+      card: 'Nagra Professional Recorder', pop: [0.366, 0.583, 0.495, 0.819], at: [0.406, 0.653], popM: [0.505, 0.556, 0.618, 0.625], atM: [0.555, 0.592], win: { desktop: [0.61, 0.69], mobile: [0.52, 0.58] } },
     { kicker: 'On the cart', name: 'Full Sync Sound Cart', sub: 'Mixer, wireless, monitoring &mdash; racked and rolling.',
-      card: 'Full Sync Sound Cart', pop: [0.266, 0.549, 0.369, 0.8125], at: [0.31, 0.60], win: { desktop: [0.69, 0.76], mobile: [0.58, 0.64] } },
+      card: 'Full Sync Sound Cart', pop: [0.266, 0.549, 0.369, 0.8125], at: [0.31, 0.60], popM: [0.44, 0.615, 0.655, 0.75], atM: [0.54, 0.69], win: { desktop: [0.69, 0.76], mobile: [0.58, 0.64] } },
     { kicker: 'Dialogue', name: 'Boom Mic Package', sub: 'Shotgun mic on a boom pole, right over the take.',
-      card: 'Boom Microphone Package (Sennheiser)', pop: [0.3375, 0.333, 0.398, 0.428], at: [0.363, 0.382], win: { desktop: [0.76, 0.83], mobile: [0.64, 0.70] } },
+      card: 'Boom Microphone Package (Sennheiser)', pop: [0.3375, 0.333, 0.398, 0.428], at: [0.363, 0.382], popM: [0.437, 0.425, 0.51, 0.474], atM: [0.472, 0.452], win: { desktop: [0.76, 0.83], mobile: [0.64, 0.70] } },
     { kicker: 'Playback & events', name: 'JBL Speaker System', sub: 'Speaker stacks for playback on set and for crowds.',
-      card: 'JBL Speaker System (Pair)', pop: [0.668, 0.285, 0.809, 0.708], at: [0.738, 0.47], win: { desktop: [0.83, 0.90], mobile: [0.77, 0.86] } }
+      card: 'JBL Speaker System (Pair)', pop: [0.668, 0.285, 0.809, 0.708], at: [0.738, 0.47], popM: [0.662, 0.42, 0.785, 0.74], atM: [0.722, 0.56], win: { desktop: [0.83, 0.90], mobile: [0.77, 0.86] } }
   ];
   var navEl = document.getElementById('navbar');
   window.TAGS_REF = TAGS;
@@ -2581,7 +2580,7 @@ syncQuote();
     if (!view) return;
     var m = mode(), live = p >= VEND[m] + 0.01 && p < FINAL[m] - 0.01, anyShown = false;
     TAGS.forEach(function (t) {
-      var ax = view.x + t.at[0] * view.w, ay = view.y + t.at[1] * view.h;
+      var at = (src === 'flow-m' && t.atM) ? t.atM : t.at, ax = view.x + at[0] * view.w, ay = view.y + at[1] * view.h;
       var inside = ax > 16 && ax < W - 16 && ay > 90 && ay < H - 60;
       var show = live && inside, open = show && (t.hover || t.pinned);
       if (open && !t.isOpen) { t.openAt = performance.now(); t.isOpen = true; kickPops(); }
@@ -2640,9 +2639,14 @@ syncQuote();
       if (!ready && loadedCount >= readyAt) start();
       else if (ready && Math.abs(frameFor(P) - i) < 2) render(P);
     };
-    img.src = 'sound-hero/flow/f-' + String(i + 1).padStart(3, '0') + '.jpg';
+    img.src = 'sound-hero/' + src + '/f-' + String(i + 1).padStart(3, '0') + '.jpg';
   }
+  var src = window.innerWidth / window.innerHeight >= 1 ? 'flow' : 'flow-m';   /* phones (portrait) get the vertical clip */
   for (var i = 0; i < N; i++) load(i);
+  window.addEventListener('resize', function () {
+    var want = window.innerWidth / window.innerHeight >= 1 ? 'flow' : 'flow-m'; if (want === src) return;
+    src = want; frames = new Array(N).fill(null); for (var j = 0; j < N; j++) load(j);
+  }, { passive: true });
 })();
 </script>
 <script type="module">
