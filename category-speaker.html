@@ -930,6 +930,21 @@ body { letter-spacing: -0.005em; }
   .cp-help .wrap { grid-template-columns: 1.3fr 1fr; }
   .cp-help .acts { justify-content: flex-end; }
 }
+
+/* ═══ MOBILE PASS: tap targets ≥ ~40px on phones (hit areas grow; the look stays the same) ═══ */
+@media (max-width: 899px) {
+  .foot ul { gap: 0; }
+  .foot li a, .foot li button { display: inline-block; padding: 10px 0; }
+  .menu-foot a, .cp-crumb a, .cp-more a { display: inline-block; padding: 11px 0; margin: -11px 0; }
+  li > button[data-qv], .cs-info { position: relative; }
+  li > button[data-qv]::after { content: ''; position: absolute; inset: -9px -4px; }
+  .cs-info::after { content: ''; position: absolute; inset: -9px; border-radius: 50%; }
+  .step-tab { min-height: 42px; align-items: center; }
+  .q-check { min-height: 44px; margin-bottom: 10px; }
+  .work-tabs .filt { min-height: 42px; }
+  .bd-sum [data-rm] { position: relative; } .bd-sum [data-rm]::after { content: ''; position: absolute; inset: -7px; border-radius: 50%; }
+  .chip-btn { min-height: 40px; }
+}
 </style>
 </head>
 <body>
