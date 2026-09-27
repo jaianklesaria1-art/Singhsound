@@ -1360,6 +1360,11 @@ html { background: var(--screen); }
   .fm-link { padding: 1rem 0.25rem; gap: 8px; }
   .fm-top { margin-bottom: 10px; }
 }
+
+/* ═══ 01: "Add kit" on its own line under the bullets, left-aligned with them ═══ */
+.fm-subs { justify-content: flex-start !important; }
+.fm-add { flex-basis: 100%; margin-top: 4px; }
+@media (min-width: 769px) { .fm-subs { flex: 0 0 56%; max-width: 56%; } }   /* every row's bullets start on the same line */
 </style>
 </head>
 <body>
