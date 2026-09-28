@@ -1369,6 +1369,12 @@ html { background: var(--screen); }
 /* ═══ HERO type ~25% smaller: opening headline and the closing "Your set. Our sound." (desktop + phones) ═══ */
 .hero-h1 { font-size: clamp(2.3rem, 1.3rem + 4.6vw, 5.2rem); }
 .hero-final h2 { font-size: clamp(2.5rem, 1.5rem + 5vw, 6.2rem); }
+
+/* ═══ 01 desktop: the hover marquee says what a click does ═══ */
+.fm-cta-pill { display: inline-flex; align-items: center; flex-shrink: 0; margin: 0 2vw 0 0; padding: 10px 18px; border-radius: 100px; background: #16130F; color: var(--gold);
+  font: 700 0.95rem/1 var(--f-body); font-style: normal; letter-spacing: 0.01em; white-space: nowrap; }
+.fm-item.added .fm-cta-pill { background: rgba(22,19,15,0.15); color: #16130F; }
+@media (max-width: 768px) { .fm-cta-pill { font-size: 0.72rem; padding: 7px 12px; } }
 </style>
 </head>
 <body>
@@ -2761,7 +2767,7 @@ for (const container of document.querySelectorAll('.sc-prism')) {
     function build() {
       if (loop) { loop.kill(); loop = null; }
       inner.innerHTML = ''; gsap.set(inner, { x: 0 });
-      var part = function (i) { var d = document.createElement('div'); d.className = 'fm-part'; d.innerHTML = '<span>' + name + '</span><div class="fm-img" style="background-image:url(&quot;' + imgs[i % imgs.length] + '&quot;)"></div>'; return d; };
+      var part = function (i) { var d = document.createElement('div'); d.className = 'fm-part'; d.innerHTML = '<span>' + name + '</span><div class="fm-img" style="background-image:url(&quot;' + imgs[i % imgs.length] + '&quot;)"></div><em class="fm-cta-pill">Click to add kit +</em>'; return d; };
       inner.appendChild(part(0));
       var w = inner.firstChild.offsetWidth || 400, n = Math.max(4, Math.ceil(window.innerWidth / w) + 2);
       for (var i = 1; i < n; i++) inner.appendChild(part(i));
@@ -2789,7 +2795,7 @@ for (const container of document.querySelectorAll('.sc-prism')) {
     });
   });
   /* keep each row's "added" state in step with the quote (items can be removed elsewhere) */
-  function mark() { items.forEach(function (item) { var on = item.dataset.items.split('|').every(inQuote); item.classList.toggle('added', on); item.querySelector('.fm-add').textContent = on ? 'Kit in your quote' : 'Add kit'; }); }
+  function mark() { items.forEach(function (item) { var on = item.dataset.items.split('|').every(inQuote); item.classList.toggle('added', on); item.querySelectorAll('.fm-cta-pill').forEach(function (p) { p.textContent = on ? 'Kit in your quote ✓' : 'Click to add kit +'; }); item.querySelector('.fm-add').textContent = on ? 'Kit in your quote' : 'Add kit'; }); }
   var baseSync = syncQuote; syncQuote = function () { baseSync(); mark(); };
   mark();
 })();
